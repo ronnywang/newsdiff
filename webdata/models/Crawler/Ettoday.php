@@ -37,12 +37,17 @@ class Crawler_Ettoday
         }
         foreach ($doc->getElementsByTagName('sectione') as $sectione_dom) {
             if ($sectione_dom->getAttribute('itemprop') == 'articleBody') {
-                $ret->body = trim($sectione_dom->nodeValue);
+                $ret->body = '';
+                foreach ($sectione_dom->childNodes as $node) {
+                    if ($node->nodeType == XML_ELEMENT_NODE and $node->getAttribute('class') == 'test-keyword') {
+                        continue;
+                    }
+                    $ret->body .= Crawler::getTextFromDom($node);
+                }
                 break;
             }
         }
 
         return $ret;
     }
-
 }
