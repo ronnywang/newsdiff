@@ -14,12 +14,18 @@ class NewsRow extends Pix_Table_Row
             $ret = $raw->getInfo();
 
             if ($last_code != $ret->title and $ret->title == $ret->body and strlen($ret->body) < 10) {
-                NewsDiff::insert(array(
-                    'news_id' => $this->id,
-                    'time' => $raw->time,
-                    'column' => 0,
-                    'diff' => $ret->title,
-                ));
+                try {
+                    NewsDiff::insert(array(
+                        'news_id' => $this->id,
+                        'time' => $raw->time,
+                        'column' => 0,
+                        'diff' => $ret->title,
+                    ));
+                } catch (Pix_Table_DuplicateException $e) {
+                    NewsDiff::find(array($this->id, $raw->time, 0))->update(array(
+                        'diff' => $ret->title,
+                    ));
+                }
 
                 $last_code = $ret->title;
                 continue;
@@ -37,6 +43,9 @@ class NewsRow extends Pix_Table_Row
                         'diff' => $text,
                     ));
                 } catch (Pix_Table_DuplicateException $e) {
+                    NewsDiff::find(array($this->id, $raw->time, 0))->update(array(
+                        'diff' => $text,
+                    ));
                 }
             }
 
@@ -52,6 +61,9 @@ class NewsRow extends Pix_Table_Row
                         'diff' => $text,
                     ));
                 } catch (Pix_Table_DuplicateException $e) {
+                    NewsDiff::find(array($this->id, $raw->time, 1))->update(array(
+                        'diff' => $text,
+                    ));
                 }
             }
 
