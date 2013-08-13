@@ -25,6 +25,12 @@ class Crawler_Chinatimes
 
     public static function parse($body)
     {
+        if (preg_match('/抱歉！您所查詢的資料，目前無法找到任何頁面/', $body)) {
+            $ret = new StdClass;
+            $ret->title = '404';
+            $ret->body = '404';
+            return $ret;
+        }
         $doc = new DOMDocument;
         @$doc->loadHTML($body);
         $article_dom = $doc->getElementsByTagName('article')->item(0);
