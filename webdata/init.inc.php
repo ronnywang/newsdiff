@@ -6,6 +6,7 @@ include(__DIR__ . '/stdlibs/pixframework/Pix/Loader.php');
 set_include_path(__DIR__ . '/stdlibs/pixframework/'
     . PATH_SEPARATOR . __DIR__ . '/models'
 );
+require_once(__DIR__ . '/stdlibs/diff_match_patch-php-master/diff_match_patch.php');
 
 Pix_Loader::registerAutoLoad();
 

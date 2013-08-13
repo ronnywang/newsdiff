@@ -4,7 +4,6 @@ class NewsRow extends Pix_Table_Row
 {
     public function generateDiff()
     {
-        require_once(__DIR__ . '/../stdlibs/diff_match_patch-php-master/diff_match_patch.php');
         $diff = new diff_match_patch;
         mb_internal_encoding('UTF-8');
 
@@ -64,6 +63,7 @@ class News extends Pix_Table
         $this->_columns['last_fetch_at'] = array('type' => 'int');
 
         $this->_relations['raws'] = array('rel' => 'has_many', 'type' => 'NewsRaw', 'foreign_key' => 'news_id');
+        $this->_relations['diffs'] = array('rel' => 'has_many', 'type' => 'NewsDiff', 'foreign_key' => 'news_id');
 
         $this->addIndex('url_crc32', array('url_crc32'), 'unique');
     }
