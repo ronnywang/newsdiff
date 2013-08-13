@@ -22,4 +22,29 @@ class Crawler_Chinatimes
         }
 
     }
+
+    public static function parse($body)
+    {
+        $doc = new DOMDocument;
+        @$doc->loadHTML($body);
+        $article_dom = $doc->getElementsByTagName('article')->item(0);
+        $header_dom = $article_dom->getElementsByTagName('header')->item(0);
+        $ret = new StdClass;
+        $ret->title = trim($header_dom->getElementsByTagName('h1')->item(0)->nodeValue);
+        $article_dom = $doc->getElementsByTagName('article')->item(1);
+
+        // 有時候可能會有 div, 有的話就要跳過
+        if ($div_pic_dom = $article_dom->getElementsByTagName('div')->item(0)) {
+            $dom = $div_pic_dom->nextSibling;
+        } else {
+            $dom = $article_dom->childNodes->item(0);
+        }
+        $content = '';
+        do {
+            $content .= $dom->nodeValue. "\n";
+        } while ($dom = $dom->nextSibling);
+
+        $ret->body = trim($content);
+        return $ret;
+    }
 }
