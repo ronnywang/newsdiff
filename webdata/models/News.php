@@ -9,11 +9,12 @@ class News extends Pix_Table
 
         $this->_columns['id'] = array('type' => 'int', 'auto_increment' => true);
         $this->_columns['url'] = array('type' => 'varchar', 'size' => 255);
+        $this->_columns['url_crc32'] = array('type' => 'int');
         $this->_columns['created_at'] = array('type' => 'int');
         $this->_columns['last_fetch_at'] = array('type' => 'int');
 
         $this->_relations['raws'] = array('rel' => 'has_many', 'type' => 'NewsRaw', 'foreign_key' => 'news_id');
 
-        $this->addIndex('url', array('url'), 'unique');
+        $this->addIndex('url_crc32', array('url_crc32'), 'unique');
     }
 }
