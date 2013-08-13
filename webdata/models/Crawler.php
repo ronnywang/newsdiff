@@ -19,7 +19,7 @@ class Crawler
         $content = curl_exec($curl);
         $info = curl_getinfo($curl);
         if (200 !== $info['http_code']) {
-            throw new Exception('not 200');
+            throw new Exception('not 200', $info['http_code']);
         }
         curl_close($curl);
         return $content;
@@ -40,7 +40,13 @@ class Crawler
             ));
             $news->update(array('last_fetch_at' => time()));
         } catch (Exception $e) {
-            error_log($news->url);
+            NewsRaw::insert(array(
+                'news_id' => $news->id,
+                'time' => time(),
+                'raw' => $e->getCode(),
+            ));
+            $news->update(array('last_fetch_at' => time()));
+            error_log($e->getCode() . ' ' . $news->url);
         }
     }
 
