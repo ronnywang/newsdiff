@@ -51,9 +51,19 @@ class Crawler_Libertytimes
 
     public static function parse($body)
     {
+        if (preg_match("/<script>alert('無這則新聞');location='index.php';<\/script>/", $body)) {
+            $ret = new StdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
+        if (!$doc->getElementById('newsti')){
+            error_log($body);
+            throw new Exception('newsti not found');
+        }
         $ret->title = trim($doc->getElementById('newsti')->childNodes->item(0)->nodeValue);
 
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
