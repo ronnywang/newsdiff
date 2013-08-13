@@ -42,8 +42,8 @@ class Crawler_CNA
                 foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
                     if ($child_div_dom->getAttribute('class') == 'box_2') {
                         $ret->body = '';
-                        foreach ($child_div_dom->childNodes as $childNode) {
-                            if ($childNodes->nodeValue == '※你可能還想看：') {
+                        foreach ($child_div_dom->getElementsByTagName('p')->item(0)->childNodes as $childNode) {
+                            if (trim($childNode->nodeValue) == '※你可能還想看：') {
                                 break;
                             }
                             $ret->body .= Crawler::getTextFromDom($childNode);
