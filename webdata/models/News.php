@@ -9,10 +9,19 @@ class NewsRow extends Pix_Table_Row
 
         $old_title = '';
         $old_body = '';
+        $last_code = '';
         foreach (NewsRaw::search(array('news_id' => $this->id))->order('time ASC') as $raw) {
             $ret = $raw->getInfo();
 
-            if ($ret->title == '0' and $ret->body == '0') {
+            if ($last_code != $ret->title and $ret->title == $ret->body and strlen($ret->body) < 10) {
+                NewsDiff::insert(array(
+                    'news_id' => $this->id,
+                    'time' => $raw->time,
+                    'column' => 0,
+                    'diff' => $ret->title,
+                ));
+
+                $last_code = $ret->title;
                 continue;
             }
 
