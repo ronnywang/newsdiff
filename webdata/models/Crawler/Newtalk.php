@@ -24,4 +24,22 @@ class Crawler_Newtalk
         }
 
     }
+
+    public static function parse($body)
+    {
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        @$doc->loadHTML($body);
+        $ret = new StdClass;
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'cont_main_tit news_cont_area_tit') {
+                $ret->title = $div_dom->getElementsByTagName('label')->item(0)->nodeValue;
+            }
+            if ($div_dom->getAttribute('class') == 'news_ctxt_area_word') {
+                $ret->body = trim(Crawler::getTextFromDom($div_dom));
+            }
+        }
+
+        return $ret;
+    }
+
 }
