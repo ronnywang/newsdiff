@@ -61,4 +61,47 @@ class Crawler
             self::fetchRaw($news);
         }
     }
+
+    public function getTextFromDom($node)
+    {
+        $ret = '';
+        if ($node->nodeType == XML_TEXT_NODE) {
+            $ret .= $node->nodeValue;
+        } elseif ($node->nodeType == XML_COMMENT_NODE) {
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'br') {
+            $ret .= "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'h2') {
+            $ret .= $node->nodeValue . "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'img') {
+            $ret .= $node->getAttribute('src') . "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'p') {
+            foreach ($node->childNodes as $child_node) {
+                $ret .= self::getTextFromDom($child_node);
+            }
+            $ret = trim($ret) . "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'div') {
+            foreach ($node->childNodes as $child_node) {
+                $ret .= self::getTextFromDom($child_node);
+            }
+            $ret = trim($ret) . "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and in_array(strtolower($node->nodeName), array('span', 'strong', 'font', 'em', 'b', 'u', 'cite'))) {
+            foreach ($node->childNodes as $child_node) {
+                $ret .= self::getTextFromDom($child_node);
+            }
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'a') {
+            $ret .= '<a href="' . $node->getAttribute('href') . '">';
+            foreach ($node->childNodes as $child_node) {
+                $ret .= self::getTextFromDom($child_node);
+            }
+            $ret = trim($ret) . '</a>';
+
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'figure') {
+            $ret .= $node->getElementsByTagName('img')->item(0)->getAttribute('src') . "\n";
+        } elseif (in_array(strtolower($node->nodeName), array('iframe', 'hr', 'script', 'audio', 'object'))) {
+            return '';
+        } else {
+            throw new Exception('unknown tag: ' . $node->nodeName);
+        }
+        return $ret;
+    }
 }
