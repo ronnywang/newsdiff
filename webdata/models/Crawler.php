@@ -77,7 +77,7 @@ class Crawler
                 $ret .= self::getTextFromDom($child_node);
             }
             $ret = trim($ret) . "\n";
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and in_array(strtolower($node->nodeName), array('table', 'td', 'span', 'strong', 'font', 'em', 'b', 'u', 'cite', 'h1', 'h2', 'h3', 'h4', 'h5'))) {
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and in_array(strtolower($node->nodeName), array('table', 'td', 'span', 'strong', 'font', 'em', 'b', 'u', 'cite', 'h1', 'h2', 'h3', 'h4', 'h5', 'wbr'))) {
             foreach ($node->childNodes as $child_node) {
                 $ret .= self::getTextFromDom($child_node);
             }
