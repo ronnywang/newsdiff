@@ -80,6 +80,19 @@ class Crawler_Libertytimes
             }
         }
 
+        if (!$ret->title) {
+            $ret->title = $ret->body = '';
+            // http://www.libertytimes.com.tw/2013/new/aug/13/today-o13.htm
+            foreach ($doc->getElementById('newsContent')->childNodes as $node) {
+                if ($node->nodeName == 'span' and $node->getAttribute('class') == 'insubject1') {
+                    $ret->title = $node->nodeValue;
+                }
+                if ($node->nodeName == 'table') {
+                    $ret->body = trim(Crawler::getTextFromDom($node));
+                }
+            }
+        }
+
         return $ret;
     }
 }
