@@ -5,3 +5,4 @@ Pix_Table::$_save_memory = true;
 Crawler_Nownews::crawl();
 Crawler_Appledaily::crawl();
 Crawler_Chinatimes::crawl();
+Crawler_Newtalk::crawl();
