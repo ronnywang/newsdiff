@@ -15,6 +15,7 @@ if (file_exists(__DIR__ . '/config.php')) {
 }
 // TODO: 之後要搭配 geoip
 date_default_timezone_set('Asia/Taipei');
+mb_internal_encoding("UTF-8");
 
 if (!getenv('DATABASE_URL')) {
     die('need DATABASE_URL');
