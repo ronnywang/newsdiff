@@ -11,6 +11,11 @@ class KeyValue extends Pix_Table
         $this->_columns['value'] = array('type' => 'text');
     }
 
+    public static function get($key)
+    {
+        return KeyValue::find(strval($key))->value;
+    }
+
     public static function set($key, $value)
     {
         try {
