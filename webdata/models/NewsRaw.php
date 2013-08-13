@@ -9,18 +9,27 @@ class NewRawRow extends Pix_Table_Row
         if (NewsInfo::find(array($this->news_id, $this->time))) {
             return;
         }
+
+        $ret = $this->getInfo();
+
+        NewsInfo::insert(array(
+            'news_id' => $this->news_id,
+            'time' => $this->time,
+            'title' => $ret->title,
+            'body' => $ret->body,
+        ));
+    }
+
+    public function getInfo()
+    {
         $news = News::find($this->news_id);
         $url = $news->url;
         $host = parse_url($url, PHP_URL_HOST);
 
         if (strlen($this->raw) < 10) {
-            NewsInfo::insert(array(
-                'news_id' => $this->news_id,
-                'time' => $this->time,
-                'title' => $this->raw,
-                'body' => $this->raw,
-            ));
-            return;
+            $ret = new StdClass;
+            $ret->title = $ret->body = $this->raw;
+            return $ret;
         }
 
         switch ($host) {
@@ -64,12 +73,7 @@ class NewRawRow extends Pix_Table_Row
             throw new Exception('找不到內容:' . $url . ' ' . $this->time);
         }
 
-        NewsInfo::insert(array(
-            'news_id' => $this->news_id,
-            'time' => $this->time,
-            'title' => $ret->title,
-            'body' => $ret->body,
-        ));
+        return $ret;
     }
 }
 
