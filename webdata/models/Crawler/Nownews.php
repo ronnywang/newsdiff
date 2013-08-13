@@ -12,6 +12,7 @@ class Crawler_Nownews
             try {
                 News::insert(array(
                     'url' => $link,
+                    'url_crc32' => crc32($link),
                     'created_at' => time(),
                     'last_fetch_at' => 0,
                 ));
