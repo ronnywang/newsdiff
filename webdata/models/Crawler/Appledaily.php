@@ -53,17 +53,32 @@ class Crawler_Appledaily
             }
         }
         foreach ($body_dom->childNodes as $node) {
-            if ($node->nodeType == XML_TEXT_NODE) {
-                $ret->body .= $node->nodeValue;
-            } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'br') {
-                $ret->body .= "\n";
-            } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'h2') {
-                $ret->body .= $node->nodeValue . "\n";
-            } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'p') {
-                $ret->body .= $node->nodeValue . "\n";
-            }
+            $ret->body .= self::getTextFromDom($node);
         }
         $ret->body = trim($ret->body);
         return $ret;
     }
+
+    public function getTextFromDom($node)
+    {
+        $ret = '';
+        if ($node->nodeType == XML_TEXT_NODE) {
+            $ret .= $node->nodeValue;
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'br') {
+            $ret .= "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'h2') {
+            $ret .= $node->nodeValue . "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'p') {
+            $ret .= $node->nodeValue . "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'div') {
+            foreach ($node->childNodes as $child_node) {
+                $ret .= self::getTextFromDom($child_node);
+            }
+            $ret .= "\n";
+        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'figure') {
+            $ret .= $node->getElementsByTagName('img')->item(0)->getAttribute('src') . "\n";
+        }
+        return $ret;
+    }
+
 }
