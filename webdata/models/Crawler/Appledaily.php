@@ -30,4 +30,40 @@ class Crawler_Appledaily
         }
 
     }
+
+    public static function parse($body)
+    {
+        $body = str_replace('<meta charset="utf-8" />', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        @$doc->loadHTML($body);
+        $ret = new StdClass;
+        $ret->title = trim($doc->getElementById('h1')->nodeValue);
+        $ret->body = '';
+        if ($doc->getElementById('summary')) {
+            // 新聞
+            $body_dom = $doc->getElementById('summary');
+        } else {
+            // 廣編特輯
+            $body_dom = null;
+            foreach ($doc->getElementById('maincontent')->getElementsByTagName('article')->item(0)->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'articulum') {
+                    $body_dom = $div_dom;
+                    break;
+                }
+            }
+        }
+        foreach ($body_dom->childNodes as $node) {
+            if ($node->nodeType == XML_TEXT_NODE) {
+                $ret->body .= $node->nodeValue;
+            } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'br') {
+                $ret->body .= "\n";
+            } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'h2') {
+                $ret->body .= $node->nodeValue . "\n";
+            } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'p') {
+                $ret->body .= $node->nodeValue . "\n";
+            }
+        }
+        $ret->body = trim($ret->body);
+        return $ret;
+    }
 }
