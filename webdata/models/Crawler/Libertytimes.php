@@ -47,6 +47,39 @@ class Crawler_Libertytimes
             } catch (Pix_Table_DuplicateException $e) {
             }
         }
+    }
 
+    public static function parse($body)
+    {
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        @$doc->loadHTML($body);
+        $ret = new StdClass;
+        $ret->title = trim($doc->getElementById('newsti')->childNodes->item(0)->nodeValue);
+
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'news_content') {
+                $ret->body = trim(Crawler::getTextFromDom($div_dom));
+            }
+        }
+
+        return $ret;
+    }
+
+    public static function parse2($body)
+    {
+        $body = str_replace('<meta http-equiv="Content-Type" content="text/html; charset=big5" />', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        @$doc->loadHTML($body);
+        $ret = new StdClass;
+        $ret->title = trim($doc->getElementById('newtitle')->nodeValue);
+
+        foreach ($doc->getElementById('newsContent')->childNodes as $node) {
+            if ($node->nodeName == 'span' and $node->getAttribute('id') != 'newtitle') {
+                $ret->body = trim(Crawler::getTextFromDom($node));
+                break;
+            }
+        }
+
+        return $ret;
     }
 }
