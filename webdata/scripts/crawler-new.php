@@ -8,3 +8,4 @@ Crawler_Chinatimes::crawl();
 Crawler_Newtalk::crawl();
 Crawler_Libertytimes::crawl();
 Crawler_CNA::crawl();
+Crawler_Ettoday::crawl();
