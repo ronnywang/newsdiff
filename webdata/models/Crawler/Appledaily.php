@@ -39,46 +39,17 @@ class Crawler_Appledaily
         $ret = new StdClass;
         $ret->title = trim($doc->getElementById('h1')->nodeValue);
         $ret->body = '';
-        if ($doc->getElementById('summary')) {
-            // 新聞
-            $body_dom = $doc->getElementById('summary');
-        } else {
-            // 廣編特輯
-            $body_dom = null;
-            foreach ($doc->getElementById('maincontent')->getElementsByTagName('article')->item(0)->getElementsByTagName('div') as $div_dom) {
-                if ($div_dom->getAttribute('class') == 'articulum') {
-                    $body_dom = $div_dom;
-                    break;
-                }
+
+        // 廣編特輯
+        $body_dom = null;
+        foreach ($doc->getElementById('maincontent')->getElementsByTagName('article')->item(0)->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'articulum') {
+                $ret->body = trim(Crawler::getTextFromDom($div_dom));
+                break;
             }
         }
-        foreach ($body_dom->childNodes as $node) {
-            $ret->body .= self::getTextFromDom($node);
-        }
-        $ret->body = trim($ret->body);
         return $ret;
     }
 
-    public function getTextFromDom($node)
-    {
-        $ret = '';
-        if ($node->nodeType == XML_TEXT_NODE) {
-            $ret .= $node->nodeValue;
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'br') {
-            $ret .= "\n";
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'h2') {
-            $ret .= $node->nodeValue . "\n";
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'p') {
-            $ret .= $node->nodeValue . "\n";
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'div') {
-            foreach ($node->childNodes as $child_node) {
-                $ret .= self::getTextFromDom($child_node);
-            }
-            $ret .= "\n";
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'figure') {
-            $ret .= $node->getElementsByTagName('img')->item(0)->getAttribute('src') . "\n";
-        }
-        return $ret;
-    }
 
 }
