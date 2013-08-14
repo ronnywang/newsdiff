@@ -101,10 +101,6 @@ class Crawler
                 $ret .= self::getTextFromDom($child_node);
             }
             $ret = trim($ret) . "\n";
-        } elseif ($node->nodeType == XML_ELEMENT_NODE and in_array(strtolower($node->nodeName), array('table', 'td', 'span', 'strong', 'font', 'em', 'b', 'big', 'small', 'u', 'cite', 'h1', 'h2', 'h3', 'h4', 'h5', 'wbr'))) {
-            foreach ($node->childNodes as $child_node) {
-                $ret .= self::getTextFromDom($child_node);
-            }
         } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'a') {
             $ret .= '<a href="' . $node->getAttribute('href') . '">';
             foreach ($node->childNodes as $child_node) {
@@ -117,7 +113,11 @@ class Crawler
         } elseif (in_array(strtolower($node->nodeName), array('iframe', 'hr', 'script', 'audio', 'object', 'embed'))) {
             return '';
         } else {
-            throw new Exception('unknown tag: ' . $node->nodeName);
+            // array('table', 'td', 'span', 'strong', 'font', 'em', 'b', 'big', 'small', 'u', 'cite', 'h1', 'h2', 'h3', 'h4', 'h5', 'wbr'))) {
+            // 其他 tag 都視為 inline tag
+            foreach ($node->childNodes as $child_node) {
+                $ret .= self::getTextFromDom($child_node);
+            }
         }
         return $ret;
     }
