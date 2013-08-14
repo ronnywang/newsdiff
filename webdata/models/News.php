@@ -90,6 +90,8 @@ class News extends Pix_Table
         $this->_columns['id'] = array('type' => 'int', 'auto_increment' => true);
         $this->_columns['url'] = array('type' => 'varchar', 'size' => 255);
         $this->_columns['url_crc32'] = array('type' => 'int');
+        // 新聞來源
+        $this->_columns['source'] = array('type' => 'tinyint');
         $this->_columns['created_at'] = array('type' => 'int');
         $this->_columns['last_fetch_at'] = array('type' => 'int');
         $this->_columns['diff_count'] = array('type' => 'int');
@@ -98,5 +100,25 @@ class News extends Pix_Table
         $this->_relations['diffs'] = array('rel' => 'has_many', 'type' => 'NewsDiff', 'foreign_key' => 'news_id', 'delete' => true);
 
         $this->addIndex('url_crc32', array('url_crc32'), 'unique');
+    }
+
+    public function addNews($url, $source)
+    {
+        $url_crc32 = crc32($url);
+        if (News::find_by_url_crc32($url_crc32)) {
+            return;
+        }
+
+        try {
+            News::insert(array(
+                'url' => $url,
+                'url_crc32' => $url_crc32,
+                'source' => $source,
+                'created_at' => time(),
+                'last_fetch_at' => 0,
+                'diff_count' => 0,
+            ));
+        } catch (Pix_Table_DuplicateException $e) {
+        }
     }
 }
