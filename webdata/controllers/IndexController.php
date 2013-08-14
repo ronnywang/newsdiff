@@ -4,7 +4,7 @@ class IndexController extends Pix_Controller
 {
     public function indexAction()
     {
-        $this->view->news_array = News::search(1)->order('diff_count DESC')->limit(30);
+        $this->view->news_array = News::search("diff_count > 2")->order('diff_count DESC')->limit(30);
     }
 
     public function logAction()
@@ -25,7 +25,7 @@ class IndexController extends Pix_Controller
             return $this->redirect('/');
         }
 
-        $this->view->news_array = News::search(array('source' => intval($source_id)))->order('diff_count DESC')->limit(30);
+        $this->view->news_array = News::search("diff_count > 2")->search(array('source' => intval($source_id)))->order('diff_count DESC')->limit(30);
         return $this->redraw('/index/index.phtml');
     }
 }
