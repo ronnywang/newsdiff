@@ -4,9 +4,15 @@ class Crawler
 {
     protected static $_last_fetch = null;
 
-    public static function getBody($url)
+    public static function standardURL($url)
     {
         $url = preg_replace_callback('/[^\x00-\xff]*/u', function($m) { return urlencode($m[0]); }, $url);
+        return $url;
+    }
+
+    public static function getBody($url)
+    {
+        $url = self::standardURL($url);
         // 0.5 秒只抓一個網頁，以免太快被擋
         while (!is_null(self::$_last_fetch) and (microtime(true) - self::$_last_fetch) < 0.5) {
             usleep(1000);
