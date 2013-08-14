@@ -17,16 +17,8 @@ class Crawler_Appledaily
 
         preg_match_all('#/(appledaily|realtimenews)/article/[^/]*/\d+/[^"]+#', $content, $matches);
         foreach ($matches[0] as $link) {
-            try {
-                $url = Crawler::standardURL('http://www.appledaily.com.tw' . $link);
-                News::insert(array(
-                    'url' => $url,
-                    'url_crc32' => crc32($url),
-                    'created_at' => time(),
-                    'last_fetch_at' => 0,
-                ));
-            } catch (Pix_Table_DuplicateException $e) {
-            }
+            $url = Crawler::standardURL('http://www.appledaily.com.tw' . $link);
+            News::addNews($url, 1);
         }
 
     }
