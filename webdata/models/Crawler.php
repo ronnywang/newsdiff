@@ -22,6 +22,7 @@ class Crawler
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 20);
         $content = curl_exec($curl);
         $info = curl_getinfo($curl);
         if (200 !== $info['http_code']) {
@@ -60,8 +61,13 @@ class Crawler
     {
         $now = time();
         $fetching_news = array();
+        $count = 0;
         foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600") as $news) {
             $fetching_news[$news->source][] = $news;
+            $count ++;
+        }
+        if ($count) {
+            error_log("fetching $count news...");
         }
 
         $last_source = null;
