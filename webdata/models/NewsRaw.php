@@ -2,24 +2,6 @@
 
 class NewRawRow extends Pix_Table_Row
 {
-    public function updateInfo()
-    {
-        $this->update(array('converted_at' => time()));
-
-        if (NewsInfo::find(array($this->news_id, $this->time))) {
-            return;
-        }
-
-        $ret = $this->getInfo();
-
-        NewsInfo::insert(array(
-            'news_id' => $this->news_id,
-            'time' => $this->time,
-            'title' => $ret->title,
-            'body' => $ret->body,
-        ));
-    }
-
     public function getInfo()
     {
         $news = News::find($this->news_id);
