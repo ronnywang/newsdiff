@@ -30,6 +30,11 @@ class Crawler_Appledaily
             $ret->title = $ret->body = 404;
             return $ret;
         }
+        if (strpos($body, '很抱歉，您所嘗試連結的頁面出現錯誤或不存在，請稍後再試，謝謝！') !== false) {
+            $ret = new StdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
         $body = str_replace('<meta charset="utf-8" />', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
