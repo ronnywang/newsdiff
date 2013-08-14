@@ -95,7 +95,7 @@ class Crawler
         } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'br') {
             $ret .= "\n";
         } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'img') {
-            $ret .= $node->getAttribute('src') . "\n";
+            $ret .= trim($node->getAttribute('src')) . "\n";
         } elseif ($node->nodeType == XML_ELEMENT_NODE and in_array(strtolower($node->nodeName), array('p', 'div', 'tr'))) {
             foreach ($node->childNodes as $child_node) {
                 $ret .= self::getTextFromDom($child_node);

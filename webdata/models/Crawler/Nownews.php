@@ -60,6 +60,28 @@ class Crawler_Nownews
                 }
             }
         }
+
+        if ((!$ret->title or !$ret->body) and $div_dom = $doc->getElementById('report_file_story')) {
+            $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+            foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
+                if ($child_div_dom->getAttribute('class') == 'story_content') {
+                    $ret->body = '';
+                    foreach ($child_div_dom->childNodes as $childNode) {
+                        if ($childNode->nodeType == XML_ELEMENT_NODE and $childNode->getAttribute('class') == 'operate_0') {
+                            continue;
+                        }
+                        $ret->body .= Crawler::getTextFromDom($childNode);
+                    }
+                    $ret->body = trim($ret->body);
+                }
+            }
+        }
+
+        $ret->body = preg_replace_callback('#http://[0-9]-ps.googleusercontent.com/[a-z]/([^" \n]*).pagespeed.[a-z]*\.[\-_A-Za-z0-9.]*\n#', function($m) {
+            $url = str_replace('www.nownews.com/static.nownews.com', 'static.nownews.com', $m[1]);
+            return 'http://' . $url . "\n";
+
+        }, $ret->body);
         return $ret;
     }
 }
