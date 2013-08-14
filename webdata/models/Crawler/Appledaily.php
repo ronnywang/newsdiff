@@ -25,6 +25,11 @@ class Crawler_Appledaily
 
     public static function parse($body)
     {
+        if ('<script>alert("該則即時新聞不存在 !");location.href="/";</script>' == trim($body)) {
+            $ret = new StdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
         $body = str_replace('<meta charset="utf-8" />', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
