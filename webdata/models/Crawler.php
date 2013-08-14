@@ -58,12 +58,8 @@ class Crawler
 
     public static function updateAllRaw()
     {
-        foreach (News::search(array('last_fetch_at' => 0)) as $news) {
-            self::fetchRaw($news);
-        }
-
         $now = time();
-        foreach (News::search("last_fetch_at > $now - 86400 AND last_fetch_at < $now - 3600") as $news) {
+        foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600") as $news) {
             self::fetchRaw($news);
         }
     }
