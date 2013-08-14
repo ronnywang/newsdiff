@@ -28,6 +28,11 @@ _gaq.push(['_trackPageview']);
             <li>
             <a href="/">首頁</a>
             </li>
+            <?php foreach (News::getSources() as $id => $name) { ?>
+            <li>
+            <a href="/index/source/<?= $id ?>"><?= $this->escape($name) ?></a>
+            </li>
+            <?php } ?>
         </ul>
     </div>
 </div>

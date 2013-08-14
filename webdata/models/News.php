@@ -121,4 +121,17 @@ class News extends Pix_Table
         } catch (Pix_Table_DuplicateException $e) {
         }
     }
+
+    public static function getSources()
+    {
+        return array(
+            1 => '蘋果',
+            2 => '中時',
+            3 => '中央社',
+            4 => '東森',
+            5 => '自由',
+            6 => '新頭殼',
+            7 => 'NowNews',
+        );
+    }
 }
