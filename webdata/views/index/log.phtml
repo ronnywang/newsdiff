@@ -1,0 +1,9 @@
+<?php
+$diff_match_patch = new diff_match_patch;
+?>
+<?= $this->partial('/common/header.phtml', $this) ?>
+<?php $ret = $this->newsraw->getInfo() ?>
+time: <?= date('c', $this->newsraw->time) ?><br>
+Title: <?= $this->escape($ret->title) ?><br>
+Body: <?= nl2br($this->escape($ret->body)) ?>
+<?= $this->partial('/common/footer.phtml', $this) ?>
