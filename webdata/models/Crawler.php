@@ -35,6 +35,7 @@ class Crawler
     public static function fetchRaw($news, $wait_time = 0)
     {
         try {
+            KeyValue::set('crawling', $news->url);
             $content = self::getBody($news->url, $wait_time);
             if (preg_match('/content="text\/html; charset=big5/', $content)) {
                 $content = iconv('big5', 'utf-8', $content);
