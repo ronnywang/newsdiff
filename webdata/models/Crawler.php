@@ -31,10 +31,10 @@ class Crawler
         return $content;
     }
 
-    public static function fetchRaw($news)
+    public static function fetchRaw($news, $wait_time = 0)
     {
         try {
-            $content = self::getBody($news->url);
+            $content = self::getBody($news->url, $wait_time);
             if (preg_match('/content="text\/html; charset=big5/', $content)) {
                 $content = iconv('big5', 'utf-8', $content);
             }
@@ -59,8 +59,23 @@ class Crawler
     public static function updateAllRaw()
     {
         $now = time();
+        $fetching_news = array();
         foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600") as $news) {
-            self::fetchRaw($news);
+            $fetching_news[$news->source][] = $news;
+        }
+
+        $last_source = null;
+        // 每個 source 輪流抓一次, 比較分散，這樣子也可以不用 sleep
+        while (count($fetching_news)) {
+            foreach (array_keys($fetching_news) as $source) {
+                // 跟上一個同來源才要睡 0.5 秒
+                self::fetchRaw(array_pop($fetching_news[$source]), $last_source == $source ? 0.5 : 0);
+
+                if (count($fetching_news[$source]) == 0) {
+                    unset($fetching_news[$source]);
+                }
+                $last_source = $source;
+            }
         }
     }
 
