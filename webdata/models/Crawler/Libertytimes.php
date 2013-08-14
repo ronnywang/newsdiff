@@ -43,7 +43,7 @@ class Crawler_Libertytimes
 
     public static function parse($body)
     {
-        if (preg_match("/<script>alert('無這則新聞');location='index.php';<\/script>/", $body)) {
+        if ("<script>alert('無這則新聞');location='index.php';</script>" == trim($body)) {
             $ret = new StdClass;
             $ret->title = $ret->body = 404;
             return $ret;
