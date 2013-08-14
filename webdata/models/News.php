@@ -132,6 +132,7 @@ class News extends Pix_Table
             5 => '自由',
             6 => '新頭殼',
             7 => 'NowNews',
+            8 => '聯合',
         );
     }
 }

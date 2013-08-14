@@ -9,3 +9,4 @@ Crawler_Newtalk::crawl();
 Crawler_Libertytimes::crawl();
 Crawler_CNA::crawl();
 Crawler_Ettoday::crawl();
+Crawler_UDN::crawl();
