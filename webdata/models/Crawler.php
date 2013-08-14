@@ -10,7 +10,7 @@ class Crawler
         return $url;
     }
 
-    public static function getBody($url, $wait = 0.5)
+    public static function getBody($url, $wait = 0.5, $throw_exception = true)
     {
         $url = self::standardURL($url);
         // 0.5 秒只抓一個網頁，以免太快被擋
@@ -26,7 +26,12 @@ class Crawler
         $content = curl_exec($curl);
         $info = curl_getinfo($curl);
         if (200 !== $info['http_code']) {
-            throw new Exception('not 200', $info['http_code']);
+            if ($throw_exception) {
+                throw new Exception('not 200', $info['http_code']);
+            } else {
+                error_log('not 200: ' . $url);
+                return '';
+            }
         }
         curl_close($curl);
         return $content;

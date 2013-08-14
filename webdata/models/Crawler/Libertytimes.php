@@ -12,10 +12,10 @@ class Crawler_Libertytimes
         $content = '';
         foreach ($categories as $category) {
             $url = 'http://iservice.libertytimes.com.tw/liveNews/list.php?type=' . urlencode($category);
-            $content .= Crawler::getBody($url);
+            $content .= Crawler::getBody($url, 0.5, false);
         }
         $url = 'http://iservice.libertytimes.com.tw/liveNews/?Slots=LiveMore';
-        $content .= Crawler::getBody($url);
+        $content .= Crawler::getBody($url, 0.5, false);
 
         preg_match_all('#news\.php?[^"]*#', $content, $matches);
         foreach ($matches[0] as $link) {
@@ -24,7 +24,7 @@ class Crawler_Libertytimes
         }
 
         $base = 'http://www.libertytimes.com.tw/' . date('Y') . '/new/' . strtolower(date('M')) . '/' . date('d') . '/';
-        $content = Crawler::getBody($base . 'menu2.js');
+        $content = Crawler::getBody($base . 'menu2.js', 0.5, false);
 
         preg_match_all('#today-.*\.htm#', $content, $matches);
         foreach ($matches[0] as $link) {
