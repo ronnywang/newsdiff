@@ -31,7 +31,7 @@ class Crawler_Ettoday
                 $ret->body = '';
                 foreach ($sectione_dom->childNodes as $node) {
                     if ($node->nodeType == XML_ELEMENT_NODE and $node->getAttribute('class') == 'test-keyword') {
-                        continue;
+                        break;
                     }
                     $ret->body .= Crawler::getTextFromDom($node);
                 }
