@@ -1,6 +1,3 @@
-<?php
-$diff_match_patch = new diff_match_patch;
-?>
 <?= $this->partial('/common/header.phtml', $this) ?>
 <?php foreach ($this->news_array as $news) { ?>
 <h1><?= $news->id ?>.<a href="<?= $this->escape($news->url) ?>" target="_blank" rel="nofollow"><?= $this->escape(urldecode($news->url)) ?></a>(<?= $news->diff_count ?>)</h1>
@@ -14,15 +11,12 @@ $diff_match_patch = new diff_match_patch;
     <?php foreach ($news->diffs as $diff) { ?>
     <tr>
         <td><a href="/index/log/<?= $news->id ?>/<?= $diff->time ?>"><?= date('c', $diff->time) ?></a></td>
-        <td><?= $diff->column ? '內容' : '標題' ?></td>
+        <td><?= $diff->column ? '內容' : '標題' ?>修改</td>
         <?php if (strlen($diff->diff) < 5) { ?>
         <td><?= $diff->diff ?></td>
         <?php } else { ?>
-        <?php $patches = $diff_match_patch->patch_fromText($diff->diff) ?>
-        <?php list($new_value) = $diff_match_patch->patch_apply($patches, $old_values[$diff->column]); ?>
-        <?php $diffs = $diff_match_patch->diff_main($old_values[$diff->column], $new_value); ?>
-        <td><?= $diff_match_patch->diff_prettyHtml($diffs) ?></td>
-        <?php $old_values[$diff->column] = $new_value; ?>
+        <?php $raw = NewsRaw::find(array($diff->news_id, $diff->time)) ; ?>
+        <td><?= $raw->getInfo()->title ?></td>
         <?php } ?>
     </tr>
     <?php } ?>
