@@ -10,6 +10,7 @@ class Crawler_Nownews
         preg_match_all('#http://www\.nownews\.com\/\d\d\d\d/\d\d/\d\d/\d+-\d+\.htm#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
+                $link = Crawler::standardURL($link);
                 News::insert(array(
                     'url' => $link,
                     'url_crc32' => crc32($link),

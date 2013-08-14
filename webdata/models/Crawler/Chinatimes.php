@@ -10,7 +10,7 @@ class Crawler_Chinatimes
         preg_match_all('#/(newspapers|realtimenews)/[^"\#<]*-\d+-\d+#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
-                $url = 'http://www.chinatimes.com' . $link;
+                $url = Crawler::standardURL('http://www.chinatimes.com' . $link);
                 News::insert(array(
                     'url' => $url,
                     'url_crc32' => crc32($url),

@@ -11,7 +11,7 @@ class Crawler_CNA
         preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
-                $url = 'http://www.cna.com.tw/' . $link;
+                $url = Crawler::standardURL('http://www.cna.com.tw' . $link);
                 News::insert(array(
                     'url' => $url,
                     'url_crc32' => crc32($url),

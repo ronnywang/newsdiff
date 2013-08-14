@@ -13,6 +13,7 @@ class Crawler_Newtalk
         preg_match_all('#http://newtalk.tw\/news/\d+/\d+/\d+/\d+\.html#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
+                $link = Crawler::standardURL($link);
                 News::insert(array(
                     'url' => $link,
                     'url_crc32' => crc32($link),

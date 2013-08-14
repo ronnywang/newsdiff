@@ -18,7 +18,7 @@ class Crawler_Appledaily
         preg_match_all('#/(appledaily|realtimenews)/article/[^/]*/\d+/[^"]+#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
-                $url = 'http://www.appledaily.com.tw' . $link;
+                $url = Crawler::standardURL('http://www.appledaily.com.tw' . $link);
                 News::insert(array(
                     'url' => $url,
                     'url_crc32' => crc32($url),

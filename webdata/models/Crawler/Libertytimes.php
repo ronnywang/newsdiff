@@ -20,7 +20,7 @@ class Crawler_Libertytimes
         preg_match_all('#news\.php?[^"]*#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
-                $url = 'http://iservice.libertytimes.com.tw/liveNews/' . $link;
+                $url = Crawler::standardURL('http://iservice.libertytimes.com.tw/liveNews/' . $link);
                 News::insert(array(
                     'url' => $url,
                     'url_crc32' => crc32($url),

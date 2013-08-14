@@ -11,7 +11,7 @@ class Crawler_Ettoday
         preg_match_all('#/news/\d+/\d+\.htm#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
-                $url = 'http://www.ettoday.net' . $link;
+                $url = Crawler::standardURL('http://www.ettoday.net' . $link);
                 News::insert(array(
                     'url' => $url,
                     'url_crc32' => crc32($url),
