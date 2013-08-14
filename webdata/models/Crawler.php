@@ -10,11 +10,11 @@ class Crawler
         return $url;
     }
 
-    public static function getBody($url)
+    public static function getBody($url, $wait = 0.5)
     {
         $url = self::standardURL($url);
         // 0.5 秒只抓一個網頁，以免太快被擋
-        while (!is_null(self::$_last_fetch) and (microtime(true) - self::$_last_fetch) < 0.5) {
+        while (!is_null(self::$_last_fetch) and (microtime(true) - self::$_last_fetch) < $wait) {
             usleep(1000);
         }
 
