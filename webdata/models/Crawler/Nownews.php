@@ -28,7 +28,14 @@ class Crawler_Nownews
         }
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('itemprop') == 'articleBody') {
-                $ret->body = trim($div_dom->nodeValue);
+                $ret->body = '';
+                foreach ($div_dom->childNodes as $childNode) {
+                    if ($childNode->nodeType == XML_ELEMENT_NODE and $childNode->nodeName == 'p' and $childNode->getAttribute('class') == 'bzkeyword') {
+                        break;
+                    }
+                    $ret->body .= Crawler::getTextFromDom($childNode);
+                }
+                $ret->body = trim($ret->body);
                 break;
             }
         }
