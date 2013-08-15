@@ -3,19 +3,102 @@ $first_raw = $this->news->getFirstRaw();
 $info = $first_raw->getInfo();
 ?>
 <?= $this->partial('/common/header.phtml', $this) ?>
+<style>
+del {
+        text-decoration: line-through;
+        color: #b30000;
+        background: #fadad7;
+}
+ins {
+        background: #eaf2c2;
+        color: #406619;
+        text-decoration: none;
+}
+</style>
+<script src="/static/jsdiff-master/diff.js"></script>
 <h2>網址: <?= $this->escape(urldecode($this->news->url)) ?></h2>
 第一次抓取時間: <?= date('c', $this->news->created_at) ?><br>
 最早內容(<?= date('c', $first_raw->time) ?>)<br>
-標題：<?= $this->escape($info->title) ?><br>
+標題：<span class="title"><?= $this->escape($info->title) ?></span><br>
 內容：<br>
-<?= nl2br($this->escape($info->body)) ?>
+<pre class="body"><?= $this->escape($info->body) ?></pre>
 <?php foreach ($this->news->diffs as $news_diff) { ?>
+<?php if ($last_news_diff->time == $news_diff->time) { continue; } ?>
 <hr>
 <a name="<?= $news_diff->time ?>"></a>
 修改時間: <?= date('c', $news_diff->time) ?><br>
 <?php $info = $news_diff->raw->getInfo(); ?>
-標題：<?= $this->escape($info->title) ?><br>
+標題：<span class="title"><?= $this->escape($info->title) ?></span><br>
 內容：<br>
-<?= nl2br($this->escape($info->body)) ?>
+<pre class="body"><?= $this->escape($info->body) ?></pre>
+<?php $last_news_diff = $news_diff ?>
 <?php } ?>
+<script>
+
+function changed(a, b) {
+    var diff = JsDiff['diffChars'](a, b);
+    var fragment = document.createDocumentFragment();
+    for (var i=0; i < diff.length; i++) {
+
+        if (diff[i].added && diff[i + 1] && diff[i + 1].removed) {
+            var swap = diff[i];
+            diff[i] = diff[i + 1];
+            diff[i + 1] = swap;
+        }
+
+        var node;
+        if (diff[i].removed) {
+            node = document.createElement('del');
+            node.appendChild(document.createTextNode(diff[i].value));
+        } else if (diff[i].added) {
+            node = document.createElement('ins');
+            node.appendChild(document.createTextNode(diff[i].value));
+        } else {
+            node = document.createTextNode(diff[i].value);
+        }
+        fragment.appendChild(node);
+    }
+
+    return fragment;
+}
+
+var count_diff = function(){
+    var last_body = null;
+    $('.body').each(function(){
+        var $self = $(this);
+        var current_body = $self.text();
+        $self.data('content', current_body);
+        if (null !== last_body) {
+            $self.html(changed(last_body, current_body));
+        }
+        last_body = current_body;
+    });
+    var last_title = null;
+    $('.title').each(function(){
+        var $self = $(this);
+        var current_title = $self.text();
+        $self.data('content', current_title);
+        if (null !== last_title) {
+            $self.html(changed(last_title, current_title));
+        }
+        last_title = current_title;
+    });
+    show_diff = true;
+};
+
+var show_diff;
+count_diff();
+
+$('.title, .body').click(function(){
+    if (show_diff) {
+        $('.title, .body').each(function(){
+            $(this).text($(this).data('content'));
+        });
+        show_diff = false;
+    } else {
+        count_diff();
+    }
+});
+
+</script>
 <?= $this->partial('/common/footer.phtml', $this) ?>
