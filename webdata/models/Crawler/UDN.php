@@ -38,6 +38,13 @@ class Crawler_UDN
                 $ret->body = '重新導向至: ' . $matches[1];
             }
         }
+
+        if (!$ret->title and !$ret->body) {
+            if (preg_match('#<meta http-equiv="refresh" content="0;URL=([^"]*)">#', $body, $matches)) {
+                $ret->title = trim($doc->getElementsByTagName('title')->item(0)->nodeValue);
+                $ret->body = '重新導向至: ' . $matches[1];
+            }
+        }
         return $ret;
     }
 }
