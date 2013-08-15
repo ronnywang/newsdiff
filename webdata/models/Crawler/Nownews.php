@@ -77,9 +77,12 @@ class Crawler_Nownews
             }
         }
 
-        $ret->body = preg_replace_callback('#http://[0-9]-ps.googleusercontent.com/[a-z]/([^" \n]*).pagespeed.[a-z]*\.[\-_A-Za-z0-9.]*\n#', function($m) {
-            $url = str_replace('www.nownews.com/static.nownews.com', 'static.nownews.com', $m[1]);
-            $url = str_replace('www.nownews.com/www.cnii.com.cn', 'www.cnii.com.cn', $url);
+        $ret->body = preg_replace_callback('#http://[0-9]-ps.googleusercontent.com/([xh])/([^" \n]*).pagespeed.[a-z]*\.[\-_A-Za-z0-9.]*\n#', function($m) {
+            if ($m[1] == 'x') {
+                $url = str_replace('www.nownews.com/', '', $m[2]);
+            } else {
+                $url = $m[2];
+            }
             return 'http://' . $url . "\n";
 
         }, $ret->body);
