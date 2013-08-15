@@ -30,6 +30,11 @@ class Crawler_Appledaily
             $ret->title = $ret->body = 404;
             return $ret;
         }
+        if (strpos($body, '<script>alert("查無此新聞 !");location.href="/index"</script>') !== false) {
+            $ret = new StdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
         if (strpos($body, '很抱歉，您所嘗試連結的頁面出現錯誤或不存在，請稍後再試，謝謝！') !== false) {
             $ret = new StdClass;
             $ret->title = $ret->body = 404;
@@ -42,12 +47,14 @@ class Crawler_Appledaily
         $ret->title = trim($doc->getElementById('h1')->nodeValue);
         $ret->body = '';
 
-        // 廣編特輯
-        $body_dom = null;
-        foreach ($doc->getElementById('maincontent')->getElementsByTagName('article')->item(0)->getElementsByTagName('div') as $div_dom) {
-            if ($div_dom->getAttribute('class') == 'articulum') {
-                $ret->body = trim(Crawler::getTextFromDom($div_dom));
-                break;
+        if ($doc->getElementById('maincontent') and $article_dom = $doc->getElementById('maincontent')->getElementsByTagName('article')->item(0)) {
+            // 廣編特輯
+            $body_dom = null;
+            foreach ($article_dom->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'articulum') {
+                    $ret->body = trim(Crawler::getTextFromDom($div_dom));
+                    break;
+                }
             }
         }
         return $ret;
