@@ -1,9 +1,21 @@
 <?php
-$diff_match_patch = new diff_match_patch;
+$first_raw = $this->news->getFirstRaw();
+$info = $first_raw->getInfo();
 ?>
 <?= $this->partial('/common/header.phtml', $this) ?>
-<?php $ret = $this->newsraw->getInfo() ?>
-time: <?= date('c', $this->newsraw->time) ?><br>
-Title: <?= $this->escape($ret->title) ?><br>
-Body: <?= nl2br($this->escape($ret->body)) ?>
+<h2>網址: <?= $this->escape(urldecode($this->news->url)) ?></h2>
+第一次抓取時間: <?= date('c', $this->news->created_at) ?><br>
+最早內容(<?= date('c', $first_raw->time) ?>)<br>
+標題：<?= $this->escape($info->title) ?><br>
+內容：<br>
+<?= nl2br($this->escape($info->body)) ?>
+<?php foreach ($this->news->diffs as $news_diff) { ?>
+<hr>
+<a name="<?= $news_diff->time ?>"></a>
+修改時間: <?= date('c', $news_diff->time) ?><br>
+<?php $info = $news_diff->raw->getInfo(); ?>
+標題：<?= $this->escape($info->title) ?><br>
+內容：<br>
+<?= nl2br($this->escape($info->body)) ?>
+<?php } ?>
 <?= $this->partial('/common/footer.phtml', $this) ?>

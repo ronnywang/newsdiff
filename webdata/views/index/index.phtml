@@ -1,23 +1,29 @@
+<?php
+$sources = News::getSources();
+?>
 <?= $this->partial('/common/header.phtml', $this) ?>
 <?php foreach ($this->news_array as $news) { ?>
-<h1><?= $news->id ?>.<a href="<?= $this->escape($news->url) ?>" target="_blank" rel="nofollow"><?= $this->escape(urldecode($news->url)) ?></a>(<?= $news->diff_count ?>)</h1>
+<?php $first_raw = $news->getFirstRaw(); ?>
+<h1>[<?= $this->escape($sources[$news->source]) ?>]<a href="/index/log/<?= $news->id ?>" target="_blank" rel="nofollow"><?= $this->escape($first_raw->getInfo()->title) ?></a></h1>
+<h4><?= $this->escape(urldecode($news->url)) ?></h4>
 <table class="table">
     <tr>
         <td>時間</td>
-        <td>欄位</td>
-        <td>變化</td>
+        <td>動作</td>
+        <td>標題</td>
+    </tr>
+    <tr>
+        <td><a href="/index/log/<?= $news->id ?>"><?= date('c', $news->created_at) ?></a></td>
+        <td>第一次抓到新聞</td>
+        <td><?= $this->Escape($first_raw->getInfo()->title) ?></td>
     </tr>
     <?php $old_values = array(); ?>
     <?php foreach ($news->diffs as $diff) { ?>
     <tr>
-        <td><a href="/index/log/<?= $news->id ?>/<?= $diff->time ?>"><?= date('c', $diff->time) ?></a></td>
+        <td><a href="/index/log/<?= $news->id ?>#<?= $diff->time ?>"><?= date('c', $diff->time) ?></a></td>
         <td><?= $diff->column ? '內容' : '標題' ?>修改</td>
-        <?php if (strlen($diff->diff) < 5) { ?>
-        <td><?= $diff->diff ?></td>
-        <?php } else { ?>
         <?php $raw = NewsRaw::find(array($diff->news_id, $diff->time)) ; ?>
-        <td><?= $raw->getInfo()->title ?></td>
-        <?php } ?>
+        <td><?= $this->escape($raw->getInfo()->title) ?></td>
     </tr>
     <?php } ?>
 </table>
