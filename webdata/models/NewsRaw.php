@@ -47,11 +47,16 @@ class NewRawRow extends Pix_Table_Row
             $ret = Crawler_CNA::parse($this->raw);
             break;
 
+        case 'udn.com':
+            $ret = Crawler_UDN::parse($this->raw);
+            break;
+
         default:
             throw new Exception('unknown host: ' . $url . ' ' . $this->time);
         }
 
         if (!$ret->title or !$ret->body) {
+            var_dump($ret);
             throw new Exception('找不到內容:' . $url . ' ' . $this->time);
         }
 
