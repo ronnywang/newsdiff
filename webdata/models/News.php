@@ -5,12 +5,12 @@ class NewsRow extends Pix_Table_Row
     public function generateDiff()
     {
         $this->diffs->delete();
-        $diff = new diff_match_patch;
         mb_internal_encoding('UTF-8');
 
-        $old_title = '';
-        $old_body = '';
+        $old_title = null;
+        $old_body = null;
         $last_code = '';
+        $last_changed_at = 0;
 
         foreach (NewsRaw::search(array('news_id' => $this->id))->order('time ASC') as $raw) {
             $ret = $raw->getInfo();
@@ -36,46 +36,51 @@ class NewsRow extends Pix_Table_Row
                 continue;
             }
 
-            $diffs = $diff->diff_main($old_title, $ret->title);
-            $patches = $diff->patch_make($diffs);
-            $text = $diff->patch_toText($patches);
-            if ($text) {
+            $changed = false;
+
+            if (!is_null($old_title) and $old_title != $ret->title) {
+                $changed = true;
                 try {
                     NewsDiff::insert(array(
                         'news_id' => $this->id,
                         'time' => $raw->time,
                         'column' => 0,
-                        'diff' => $text,
+                        'diff' => '',
                     ));
                 } catch (Pix_Table_DuplicateException $e) {
                     NewsDiff::find(array($this->id, $raw->time, 0))->update(array(
-                        'diff' => $text,
+                        'diff' => '',
                     ));
                 }
             }
 
-            $diffs = $diff->diff_main($old_body, $ret->body);
-            $patches = $diff->patch_make($diffs);
-            $text = $diff->patch_toText($patches);
-            if ($text) {
+            if (!is_null($old_body) and $old_body != $ret->body) {
+                $changed = true;
                 try {
                     NewsDiff::insert(array(
                         'news_id' => $this->id,
                         'time' => $raw->time,
                         'column' => 1,
-                        'diff' => $text,
+                        'diff' => '',
                     ));
                 } catch (Pix_Table_DuplicateException $e) {
                     NewsDiff::find(array($this->id, $raw->time, 1))->update(array(
-                        'diff' => $text,
+                        'diff' => '',
                     ));
                 }
             }
 
             $old_body = $ret->body;
             $old_title = $ret->title;
+
+            if ($changed) {
+                $last_changed_at = $raw->time;
+            }
         }
-        $this->update(arraY('diff_count' => count($this->diffs)));
+        $this->update(arraY(
+            'diff_count' => count($this->diffs),
+            'last_changed_at' => $last_changed_at,
+        ));
     }
 }
 
