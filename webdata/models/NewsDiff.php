@@ -12,5 +12,7 @@ class NewsDiff extends Pix_Table
         // 0 title, 1 body
         $this->_columns['column'] = array('type' => 'tinyint');
         $this->_columns['diff'] = array('type' => 'text');
+
+        $this->_relations['raw'] = array('rel' => 'has_one', 'type' => 'NewsRaw', 'foreign_key' => array('news_id', 'time'));
     }
 }
