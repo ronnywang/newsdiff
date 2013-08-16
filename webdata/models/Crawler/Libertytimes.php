@@ -30,12 +30,7 @@ class Crawler_Libertytimes
         foreach ($matches[0] as $link) {
             try {
                 $url = $base . $link;
-                News::insert(array(
-                    'url' => $url,
-                    'url_crc32' => crc32($url),
-                    'created_at' => time(),
-                    'last_fetch_at' => 0,
-                ));
+                News::addNews($url, 5);
             } catch (Pix_Table_DuplicateException $e) {
             }
         }
