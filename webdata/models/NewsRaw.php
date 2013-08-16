@@ -56,8 +56,8 @@ class NewRawRow extends Pix_Table_Row
         }
 
         if (!$ret->title or !$ret->body) {
-            var_dump($ret);
-            throw new Exception('找不到內容:' . $url . ' ' . $this->time);
+            $ret->title = $ret->body = '無法判斷的內容';
+            error_log('找不到內容:' . $url . ' ' . $this->time);
         }
 
         return $ret;
