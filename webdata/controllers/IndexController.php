@@ -35,10 +35,20 @@ class IndexController extends Pix_Controller
             return $this->redirect('/index/log/' . $news->id);
         }
 
+        // 處理 http://foo.com/news/2013/1/23/我是中文標題-123456 這種網址
         $terms = explode('/', $_GET['q']);
         $last_term = array_pop($terms);
         array_push($terms, urlencode($last_term));
         if ($news = News::find_by_url_crc32(crc32(implode('/', $terms)))) {
+            return $this->redirect('/index/log/' . $news->id);
+        }
+
+        // 處理 http://foo.com/news/2013/1/23/news.php?category=中文分類&id=12345
+        $url = $_GET['q'];
+        $url = preg_replace_callback('/=([^&]*)/', function($m){
+            return '=' . urlencode($m[1]);
+        }, $url);
+        if ($news = News::find_by_url_crc32(crc32($url))) {
             return $this->redirect('/index/log/' . $news->id);
         }
 
