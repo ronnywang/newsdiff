@@ -7,17 +7,34 @@ class NewsRow extends Pix_Table_Row
         return NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->first();
     }
 
-    public function generateDiff()
+    public function generateDiff($reset = true)
     {
-        $this->diffs->delete();
-        mb_internal_encoding('UTF-8');
+        if ($reset) {
+            $this->diffs->delete();
+            $this->infos->delete();
+        }
 
-        $old_title = null;
-        $old_body = null;
         $last_code = '';
+
+        // 先取得最新一筆 info
+        if (!$last_info = $this->infos->order('time DESC')->first()) {
+            // 沒有最新一筆就先把最舊的塞進去
+            $raw = NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->first();
+            $ret = $raw->getInfo();
+            $last_info = NewsInfo::insert(array(
+                'news_id' => $this->id,
+                'time' => $raw->time,
+                'title' => $ret->title,
+                'body' => $ret->body,
+            ));
+            if ($ret->title == $ret->body and strlen($ret->body) < 10) {
+                $last_code = $ret->title;
+            }
+        }
+
         $last_changed_at = 0;
 
-        foreach (NewsRaw::search(array('news_id' => $this->id))->order('time ASC') as $raw) {
+        foreach (NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->after(array('time' => $this->last_diff_at)) as $raw) {
             $ret = $raw->getInfo();
 
             if ($ret->title == $ret->body and strlen($ret->body) < 10) {
@@ -37,13 +54,20 @@ class NewsRow extends Pix_Table_Row
                     ));
                 }
 
+                NewsInfo::insert(array(
+                    'news_id' => $this->id,
+                    'time' => $raw->time,
+                    'title' => $ret->title,
+                    'body' => $ret->title,
+                ));
+
                 $last_code = $ret->title;
                 continue;
             }
 
             $changed = false;
 
-            if (!is_null($old_title) and $old_title != $ret->title) {
+            if (!$last_info and $last_info->title!= $ret->title) {
                 $changed = true;
                 try {
                     NewsDiff::insert(array(
@@ -59,7 +83,7 @@ class NewsRow extends Pix_Table_Row
                 }
             }
 
-            if (!is_null($old_body) and $old_body != $ret->body) {
+            if (!is_null($last_info) and $last_info->body != $ret->body) {
                 $changed = true;
                 try {
                     NewsDiff::insert(array(
@@ -75,16 +99,23 @@ class NewsRow extends Pix_Table_Row
                 }
             }
 
-            $old_body = $ret->body;
-            $old_title = $ret->title;
 
             if ($changed) {
                 $last_changed_at = $raw->time;
+                $info = NewsInfo::insert(array(
+                    'news_id' => $this->id,
+                    'time' => $raw->time,
+                    'title' => $ret->title,
+                    'body' => $ret->body,
+                ));
+                $last_info = $info;
             }
         }
+
         $this->update(arraY(
             'diff_count' => count($this->diffs),
             'last_changed_at' => $last_changed_at,
+            'last_diff_at' => $raw->time,
         ));
     }
 }
@@ -110,6 +141,7 @@ class News extends Pix_Table
 
         $this->_relations['raws'] = array('rel' => 'has_many', 'type' => 'NewsRaw', 'foreign_key' => 'news_id', 'delete' => true);
         $this->_relations['diffs'] = array('rel' => 'has_many', 'type' => 'NewsDiff', 'foreign_key' => 'news_id', 'delete' => true);
+        $this->_relations['infos'] = array('rel' => 'has_many', 'type' => 'NewsInfo', 'foreign_key' => 'news_id', 'delete' => true);
 
         $this->addIndex('url_crc32', array('url_crc32'), 'unique');
     }
