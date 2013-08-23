@@ -1,6 +1,5 @@
 <?php
-$first_raw = $this->news->getFirstRaw();
-$info = $first_raw->getInfo();
+$first_info = $this->news->infos->order('time ASC')->first();
 ?>
 <?= $this->partial('/common/header.phtml', $this) ?>
 <style>
@@ -18,20 +17,18 @@ ins {
 <script src="/static/jsdiff-master/diff.js"></script>
 <h2>網址: <?= $this->escape(urldecode($this->news->url)) ?></h2>
 第一次抓取時間: <?= date('c', $this->news->created_at) ?><br>
-最早內容(<?= date('c', $first_raw->time) ?>)<br>
-標題：<span class="title"><?= $this->escape($info->title) ?></span><br>
+最早內容(<?= date('c', $first_info->time) ?>)<br>
+標題：<span class="title"><?= $this->escape($first_info->title) ?></span><br>
 內容：<br>
-<pre class="body"><?= $this->escape($info->body) ?></pre>
-<?php foreach ($this->news->diffs as $news_diff) { ?>
-<?php if ($last_news_diff->time == $news_diff->time) { continue; } ?>
+<pre class="body"><?= $this->escape($first_info->body) ?></pre>
+<?php foreach ($this->news->infos->order('time ASC') as $info) { ?>
+<?php if ($info->time == $first_info->time) { continue; } ?>
 <hr>
-<a name="<?= $news_diff->time ?>"></a>
-修改時間: <?= date('c', $news_diff->time) ?><br>
-<?php $info = $news_diff->raw->getInfo(); ?>
+<a name="<?= $info->time ?>"></a>
+修改時間: <?= date('c', $info->time) ?><br>
 標題：<span class="title"><?= $this->escape($info->title) ?></span><br>
 內容：<br>
 <pre class="body"><?= $this->escape($info->body) ?></pre>
-<?php $last_news_diff = $news_diff ?>
 <?php } ?>
 <script>
 
