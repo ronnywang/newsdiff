@@ -39,6 +39,8 @@ class Crawler
 
     public static function fetchRaw($news, $wait_time = 0)
     {
+        $now = time();
+
         try {
             KeyValue::set('crawling', $news->url);
             $content = self::getBody($news->url, $wait_time);
@@ -48,17 +50,17 @@ class Crawler
 
             NewsRaw::insert(array(
                 'news_id' => $news->id,
-                'time' => time(),
+                'time' => $now,
                 'raw' => $content,
             ));
-            $news->update(array('last_fetch_at' => time()));
+            $news->update(array('last_fetch_at' => $now));
         } catch (Exception $e) {
             NewsRaw::insert(array(
                 'news_id' => $news->id,
-                'time' => time(),
+                'time' => $now,
                 'raw' => $e->getCode(),
             ));
-            $news->update(array('last_fetch_at' => time()));
+            $news->update(array('last_fetch_at' => $now));
             error_log($e->getCode() . ' ' . $news->url);
         }
     }
