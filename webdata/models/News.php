@@ -106,6 +106,7 @@ class News extends Pix_Table
         $this->_columns['last_fetch_at'] = array('type' => 'int');
         $this->_columns['diff_count'] = array('type' => 'int');
         $this->_columns['last_changed_at'] = array('type' => 'int');
+        $this->_columns['last_diff_at'] = array('type' => 'int');
 
         $this->_relations['raws'] = array('rel' => 'has_many', 'type' => 'NewsRaw', 'foreign_key' => 'news_id', 'delete' => true);
         $this->_relations['diffs'] = array('rel' => 'has_many', 'type' => 'NewsDiff', 'foreign_key' => 'news_id', 'delete' => true);
