@@ -32,6 +32,7 @@ class NewsRow extends Pix_Table_Row
             }
         }
 
+        //error_log($this->id . ' ' .$this->url . ' ' . $this->last_fetch_at . ' ' .$this->last_diff_at . ' ' . count($this->diffs) . ' ' . count($this->infos));
         $last_changed_at = 0;
 
         foreach (NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->after(array('time' => $this->last_diff_at)) as $raw) {
@@ -54,12 +55,22 @@ class NewsRow extends Pix_Table_Row
                     ));
                 }
 
-                NewsInfo::insert(array(
-                    'news_id' => $this->id,
-                    'time' => $raw->time,
-                    'title' => $ret->title,
-                    'body' => $ret->title,
-                ));
+                try {
+                    NewsInfo::insert(array(
+                        'news_id' => $this->id,
+                        'time' => $raw->time,
+                        'title' => $ret->title,
+                        'body' => $ret->body,
+                    ));
+                } catch (Pix_Table_DuplicateException $e) {
+                    NewsInfo::search(array(
+                        'news_id' => $this->id,
+                        'time' => $raw->time,
+                    ))->update(array(
+                        'title' => $ret->title,
+                        'body' => $ret->body,
+                    ));
+                }
 
                 $last_code = $ret->title;
                 continue;
@@ -83,7 +94,7 @@ class NewsRow extends Pix_Table_Row
                 }
             }
 
-            if (!is_null($last_info) and $last_info->body != $ret->body) {
+            if (!$last_info and $last_info->body != $ret->body) {
                 $changed = true;
                 try {
                     NewsDiff::insert(array(
@@ -102,12 +113,24 @@ class NewsRow extends Pix_Table_Row
 
             if ($changed) {
                 $last_changed_at = $raw->time;
-                $info = NewsInfo::insert(array(
-                    'news_id' => $this->id,
-                    'time' => $raw->time,
-                    'title' => $ret->title,
-                    'body' => $ret->body,
-                ));
+                try {
+                    $info = NewsInfo::insert(array(
+                        'news_id' => $this->id,
+                        'time' => $raw->time,
+                        'title' => $ret->title,
+                        'body' => $ret->body,
+                    ));
+                } catch (Pix_Table_DuplicateException $e) {
+                    $info = NewsInfo::search(array(
+                        'news_id' => $this->id,
+                        'time' => $raw->time,
+                    ))->first();
+
+                    $info->update(array(
+                        'title' => $ret->title,
+                        'body' => $ret->body,
+                    ));
+                }
                 $last_info = $info;
             }
         }
@@ -115,8 +138,13 @@ class NewsRow extends Pix_Table_Row
         $this->update(arraY(
             'diff_count' => count($this->diffs),
             'last_changed_at' => $last_changed_at,
-            'last_diff_at' => $raw->time,
         ));
+
+        if ($raw) {
+            $this->update(array(
+                'last_diff_at' => $raw->time,
+            ));
+        }
     }
 }
 
