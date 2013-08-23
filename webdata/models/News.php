@@ -10,7 +10,6 @@ class NewsRow extends Pix_Table_Row
     public function generateDiff($reset = true)
     {
         if ($reset) {
-            $this->diffs->delete();
             $this->infos->delete();
         }
 
@@ -32,7 +31,7 @@ class NewsRow extends Pix_Table_Row
             }
         }
 
-        //error_log($this->id . ' ' .$this->url . ' ' . $this->last_fetch_at . ' ' .$this->last_diff_at . ' ' . count($this->diffs) . ' ' . count($this->infos));
+        //error_log($this->id . ' ' .$this->url . ' ' . $this->last_fetch_at . ' ' .$this->last_diff_at . ' ' . ' ' . count($this->infos));
         $last_changed_at = 0;
 
         foreach (NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->after(array('time' => $this->last_diff_at)) as $raw) {
@@ -41,18 +40,6 @@ class NewsRow extends Pix_Table_Row
             if ($ret->title == $ret->body and strlen($ret->body) < 10) {
                 if ($last_code == $ret->title) {
                     continue;
-                }
-                try {
-                    NewsDiff::insert(array(
-                        'news_id' => $this->id,
-                        'time' => $raw->time,
-                        'column' => 0,
-                        'diff' => $ret->title,
-                    ));
-                } catch (Pix_Table_DuplicateException $e) {
-                    NewsDiff::find(array($this->id, $raw->time, 0))->update(array(
-                        'diff' => $ret->title,
-                    ));
                 }
 
                 try {
@@ -78,36 +65,12 @@ class NewsRow extends Pix_Table_Row
 
             $changed = false;
 
-            if (!$last_info and $last_info->title!= $ret->title) {
+            if (!$last_info and $last_info->title != $ret->title) {
                 $changed = true;
-                try {
-                    NewsDiff::insert(array(
-                        'news_id' => $this->id,
-                        'time' => $raw->time,
-                        'column' => 0,
-                        'diff' => '',
-                    ));
-                } catch (Pix_Table_DuplicateException $e) {
-                    NewsDiff::find(array($this->id, $raw->time, 0))->update(array(
-                        'diff' => '',
-                    ));
-                }
             }
 
             if (!$last_info and $last_info->body != $ret->body) {
                 $changed = true;
-                try {
-                    NewsDiff::insert(array(
-                        'news_id' => $this->id,
-                        'time' => $raw->time,
-                        'column' => 1,
-                        'diff' => '',
-                    ));
-                } catch (Pix_Table_DuplicateException $e) {
-                    NewsDiff::find(array($this->id, $raw->time, 1))->update(array(
-                        'diff' => '',
-                    ));
-                }
             }
 
 
@@ -136,7 +99,6 @@ class NewsRow extends Pix_Table_Row
         }
 
         $this->update(arraY(
-            'diff_count' => count($this->diffs),
             'last_changed_at' => $last_changed_at,
         ));
 
@@ -168,7 +130,6 @@ class News extends Pix_Table
         $this->_columns['last_diff_at'] = array('type' => 'int');
 
         $this->_relations['raws'] = array('rel' => 'has_many', 'type' => 'NewsRaw', 'foreign_key' => 'news_id', 'delete' => true);
-        $this->_relations['diffs'] = array('rel' => 'has_many', 'type' => 'NewsDiff', 'foreign_key' => 'news_id', 'delete' => true);
         $this->_relations['infos'] = array('rel' => 'has_many', 'type' => 'NewsInfo', 'foreign_key' => 'news_id', 'delete' => true);
 
         $this->addIndex('url_crc32', array('url_crc32'), 'unique');
