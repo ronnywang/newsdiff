@@ -125,7 +125,6 @@ class News extends Pix_Table
         $this->_columns['source'] = array('type' => 'tinyint');
         $this->_columns['created_at'] = array('type' => 'int');
         $this->_columns['last_fetch_at'] = array('type' => 'int');
-        $this->_columns['diff_count'] = array('type' => 'int');
         $this->_columns['last_changed_at'] = array('type' => 'int');
         $this->_columns['last_diff_at'] = array('type' => 'int');
 
