@@ -148,7 +148,6 @@ class News extends Pix_Table
                 'source' => $source,
                 'created_at' => time(),
                 'last_fetch_at' => 0,
-                'diff_count' => 0,
             ));
         } catch (Pix_Table_DuplicateException $e) {
         }
