@@ -41,28 +41,32 @@ class Crawler
     {
         $now = time();
 
-        try {
-            KeyValue::set('crawling', $news->url);
-            $content = self::getBody($news->url, $wait_time);
-            if (preg_match('/content="text\/html; charset=big5/', $content)) {
-                $content = iconv('big5', 'utf-8', $content);
-            }
+        KeyValue::set('crawling', $news->url);
+        $content = self::getBody($news->url, $wait_time);
+        if (preg_match('/content="text\/html; charset=big5/', $content)) {
+            $content = iconv('big5', 'utf-8', $content);
+        }
 
+        $last_info = $news->infos->order('`time` DESC')->first();
+        $ret = NewsRaw::getInfo($content, $news->url);
+        if (!$last_info or $ret->title != $last_info->title or $ret->body != $last_info->body) {
             NewsRaw::insert(array(
                 'news_id' => $news->id,
                 'time' => $now,
                 'raw' => $content,
             ));
-            $news->update(array('last_fetch_at' => $now));
-        } catch (Exception $e) {
-            NewsRaw::insert(array(
+            NewsInfo::insert(array(
                 'news_id' => $news->id,
                 'time' => $now,
-                'raw' => $e->getCode(),
+                'title' => $ret->title,
+                'body' => $ret->body,
             ));
-            $news->update(array('last_fetch_at' => $now));
-            error_log($e->getCode() . ' ' . $news->url);
+            if ($last_info) {
+                $news->update(array('last_changed_at' => $now));
+            }
         }
+
+        $news->update(array('last_fetch_at' => $now));
     }
 
     public static function updateAllRaw()
