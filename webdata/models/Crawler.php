@@ -42,7 +42,11 @@ class Crawler
         $now = time();
 
         KeyValue::set('crawling', $news->url);
-        $content = self::getBody($news->url, $wait_time);
+        try {
+            $content = self::getBody($news->url, $wait_time);
+        } catch (Exception $e) {
+            $content = $e->getCode();
+        }
         if (preg_match('/content="text\/html; charset=big5/', $content)) {
             $content = iconv('big5', 'utf-8', $content);
         }
