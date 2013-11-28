@@ -24,6 +24,15 @@ class NewsRaw extends Pix_Table
         $this->_columns['raw'] = array('type' => 'text');
     }
 
+    public static function insertNew($data)
+    {
+        NewsRaw::insert($data);
+        $table_name = "news_raw_" . date('Ym', $data['time']);
+        $table = NewsRaw::getTable();
+        $db = NewsRaw::getDb();
+        $db->query("INSERT INTO {$table_name} SET `news_id` = {$data['news_id']}, `time` = {$data['time']}, `raw` = " . $db->quoteWithColumn($table, $data['raw'], 'raw'));
+    }
+
     public static function getInfo($raw, $url)
     {
         $host = parse_url($url, PHP_URL_HOST);

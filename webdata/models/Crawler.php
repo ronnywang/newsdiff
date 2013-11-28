@@ -54,7 +54,7 @@ class Crawler
         $last_info = $news->infos->order('`time` DESC')->first();
         $ret = NewsRaw::getInfo($content, $news->url);
         if (!$last_info or $ret->title != $last_info->title or $ret->body != $last_info->body) {
-            NewsRaw::insert(array(
+            NewsRaw::insertNew(array(
                 'news_id' => $news->id,
                 'time' => $now,
                 'raw' => $content,
