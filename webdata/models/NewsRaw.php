@@ -26,7 +26,6 @@ class NewsRaw extends Pix_Table
 
     public static function insertNew($data)
     {
-        NewsRaw::insert($data);
         $table_name = "news_raw_" . date('Ym', $data['time']);
         $table = NewsRaw::getTable();
         $db = NewsRaw::getDb();
