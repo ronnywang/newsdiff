@@ -22,6 +22,7 @@ class Crawler
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
         curl_setopt($curl, CURLOPT_TIMEOUT, 20);
         $content = curl_exec($curl);
         $info = curl_getinfo($curl);
