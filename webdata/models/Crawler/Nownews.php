@@ -7,7 +7,7 @@ class Crawler_Nownews
         $content = Crawler::getBody('http://www.nownews.com');
         $content .= Crawler::getBody('http://feeds.feedburner.com/nownews/realtime');
 
-        preg_match_all('#http://www\.nownews\.com\/\d\d\d\d/\d\d/\d\d/\d+-\d+\.htm#', $content, $matches);
+        preg_match_all('#http://www\.nownews\.com\/n/\d\d\d\d/\d\d/\d\d/\d+#', $content, $matches);
         foreach ($matches[0] as $link) {
             $link = Crawler::standardURL($link);
             News::addNews($link, 7);
