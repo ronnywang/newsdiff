@@ -46,9 +46,15 @@ class News extends Pix_Table
         }
 
         try {
+            $ret = URLNormalizer::query($url);
+            if (!$ret) {
+                throw new Exception("URLNormalizer 失敗: {$url}");
+            }
             News::insert(array(
                 'url' => $url,
                 'url_crc32' => $url_crc32,
+                'normalized_id' => $ret->normalized_id,
+                'normalized_crc32' => crc32($ret->normalized_id),
                 'source' => $source,
                 'created_at' => time(),
                 'last_fetch_at' => 0,
