@@ -19,6 +19,8 @@ class News extends Pix_Table
         $this->_columns['id'] = array('type' => 'int', 'auto_increment' => true);
         $this->_columns['url'] = array('type' => 'varchar', 'size' => 255);
         $this->_columns['url_crc32'] = array('type' => 'int');
+        $this->_columns['normalized_id'] = array('type' => 'varchar', 'size' => 64);
+        $this->_columns['normalized_crc32'] = array('type' => 'int', 'unsigned' => true);
         // 新聞來源
         $this->_columns['source'] = array('type' => 'tinyint');
         $this->_columns['created_at'] = array('type' => 'int');
