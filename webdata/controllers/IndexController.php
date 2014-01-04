@@ -31,7 +31,7 @@ class IndexController extends Pix_Controller
 
     public function searchAction()
     {
-        if ($news = News::find_by_url_crc32(crc32($_GET['q']))) {
+        if ($news = News::findByURL($_GET['q'])) {
             return $this->redirect('/index/log/' . $news->id);
         }
 
@@ -39,7 +39,7 @@ class IndexController extends Pix_Controller
         $terms = explode('/', $_GET['q']);
         $last_term = array_pop($terms);
         array_push($terms, urlencode($last_term));
-        if ($news = News::find_by_url_crc32(crc32(implode('/', $terms)))) {
+        if ($news = News::findByURL(implode('/', $terms))) {
             return $this->redirect('/index/log/' . $news->id);
         }
 
@@ -48,7 +48,7 @@ class IndexController extends Pix_Controller
         $url = preg_replace_callback('/=([^&]*)/', function($m){
             return '=' . urlencode($m[1]);
         }, $url);
-        if ($news = News::find_by_url_crc32(crc32($url))) {
+        if ($news = News::findByURL($url)) {
             return $this->redirect('/index/log/' . $news->id);
         }
 

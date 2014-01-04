@@ -33,6 +33,11 @@ class News extends Pix_Table
         $this->addIndex('url_crc32', array('url_crc32'), 'unique');
     }
 
+    public function findByURL($url)
+    {
+        return News::find(crc32($url));
+    }
+
     public function addNews($url, $source)
     {
         $url_crc32 = crc32($url);

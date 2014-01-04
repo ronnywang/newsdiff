@@ -6,7 +6,7 @@ class ApiController extends Pix_Controller
     {
         $url = $_GET['url'];
 
-        if (!$news = News::find_by_url_crc32(crc32($url))) {
+        if (!$news = News::findByURL($url)) {
             return $this->json(array('error' => true, 'message' => '找不到這則新聞'));
         }
 
