@@ -30,7 +30,6 @@ class News extends Pix_Table
 
         $this->_relations['infos'] = array('rel' => 'has_many', 'type' => 'NewsInfo', 'foreign_key' => 'news_id', 'delete' => true);
 
-        $this->addIndex('url_crc32', array('url_crc32'), 'unique');
     }
 
     public function findByURL($url)
@@ -57,7 +56,6 @@ class News extends Pix_Table
         try {
             News::insert(array(
                 'url' => $url,
-                'url_crc32' => $url_crc32,
                 'normalized_id' => $ret->normalized_id,
                 'normalized_crc32' => crc32($ret->normalized_id),
                 'source' => $source,
