@@ -35,21 +35,26 @@ class News extends Pix_Table
 
     public function findByURL($url)
     {
-        return News::find(crc32($url));
+        $ret = URLNormalizer::query($url);
+        if (!$ret) {
+            return;
+        }
+        return News::find_by_normalized_crc32(crc32($ret->normalized_id));
     }
 
     public function addNews($url, $source)
     {
-        $url_crc32 = crc32($url);
-        if (News::find_by_url_crc32($url_crc32)) {
+        $ret = URLNormalizer::query($url);
+        if (!$ret) {
+            error_log("URLNormalizer 失敗: {$url}");
+            return;
+        }
+
+        if (News::find_by_normalized_crc32(crc32($ret->normalized_id))) {
             return;
         }
 
         try {
-            $ret = URLNormalizer::query($url);
-            if (!$ret) {
-                throw new Exception("URLNormalizer 失敗: {$url}");
-            }
             News::insert(array(
                 'url' => $url,
                 'url_crc32' => $url_crc32,
