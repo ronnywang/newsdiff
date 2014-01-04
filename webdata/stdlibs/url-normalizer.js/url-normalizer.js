@@ -120,13 +120,16 @@
       var pathname_parts = url_parts['pathname'].split('/');
       if ('n' == pathname_parts[1]) {
         ret.normalized_url = 'http://www.nownews.com/n/' + pathname_parts[2] + '/' + pathname_parts[3] + '/' + pathname_parts[4] + '/' + pathname_parts[5];
-        ret.normalized_id = 'www.noewnews.com/' + pathname_parts[5];
+        ret.normalized_id = 'www.nownews.com/' + pathname_parts[5];
         return ret;
       }
 
-      if (pathname_parts[1].match('^[0-9]+$')) {
-        // 捨棄掉舊網址，因為舊網址必需要去戳才知道新的 ID 是什麼
-        break;
+      var matches = url_parts['pathname'].match('^/[0-9]*/[0-9]*/[0-9]*/[0-9]*-([0-9]*)\.htm$');
+      if (null !== matches) {
+        // 無法轉換成新網址
+        ret.normalized_url = 'http://www.nownews.com' + url_parts['pathname'];
+        ret.normalized_id = 'www.nownews.com/old/' + matches[1];
+        return ret;
       }
       break;
 
