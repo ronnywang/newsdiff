@@ -30,7 +30,11 @@ class Crawler_CNA
 
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('class') == 'news_content') {
-                $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+                if ($div_dom->getElementsByTagName('h1')->item(0)) {
+                    $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+                } else {
+                    $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
+                }
                 foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
                     if ($child_div_dom->getAttribute('class') == 'box_2') {
                         $ret->body = '';
