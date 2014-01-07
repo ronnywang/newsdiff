@@ -7,7 +7,7 @@ class Crawler_Chinatimes
         $content = Crawler::getBody('http://www.chinatimes.com');
         $content .= Crawler::getBody('http://www.chinatimes.com/rss/focus.xml');
 
-        preg_match_all('#/(newspapers|realtimenews)/[^"\#<]*-\d+-\d+#', $content, $matches);
+        preg_match_all('#/(newspapers|realtimenews)/([^"\#<]*-)?\d+-\d+#', $content, $matches);
         foreach ($matches[0] as $link) {
             $url = Crawler::standardURL('http://www.chinatimes.com' . $link);
             News::addNews($url, 2);
