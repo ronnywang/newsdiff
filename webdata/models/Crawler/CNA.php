@@ -50,6 +50,7 @@ class Crawler_CNA
                 break;
             }
         }
+        $ret->body = trim($ret->body);
 
         return $ret;
     }
