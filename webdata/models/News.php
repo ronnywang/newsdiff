@@ -6,6 +6,55 @@ class NewsRow extends Pix_Table_Row
     {
         return NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->first();
     }
+
+    public function regenerateInfo()
+    {
+        //$this->infos->delete();
+        $start_month = mktime(0, 0, 0, date('m', $this->created_at), 1, date('Y', $this->created_at));
+        $end_month = mktime(0, 0, 0, date('m', $this->last_fetch_at), 1, date('Y', $this->last_fetch_at));
+
+        $last_changed_at = 0;
+
+        $diff_infos = array();
+
+        for ($time = $start_month; $time <= $end_month; $time = strtotime('+1 month', $time)) {
+            $table_name = 'news_raw_' . date('Ym', $time);
+            $table = NewsRaw::getTable();
+            $db = NewsRaw::getDb();
+            $res = $db->query("SELECT * FROM {$table_name} WHERE `news_id` = {$this->id} ORDER BY `time` ASC");
+            while ($row = $res->fetch_object()) {
+                $ret = NewsRaw::getInfo($row->raw, $this->url);
+                if (count($diff_infos) and $diff_infos[0]['title'] == $diff_infos[0]['body'] and in_array($diff_infos[0]['title'], array(0, 404))) {
+                    array_shift($diff_infos);
+                }
+
+                if (!count($diff_infos) or $ret->title != $diff_infos[0]['title'] or $ret->body != $diff_infos[0]['body']) {
+                    if (count($diff_infos)) {
+                        $last_changed_at = $row->time;
+                    }
+
+                    array_unshift($diff_infos, array(
+                        'news_id' => $this->id,
+                        'time' => $row->time,
+                        'title' => $ret->title,
+                        'body' => $ret->body,
+                    ));
+                }
+            }
+        }
+
+        if (!count($diff_infos)) {
+            // 沒有任何資料表示 NewsRaw 可能已經被砍了，那就不要做事了
+            error_log('too old');
+            return;
+        }
+
+        $this->infos->delete();
+        foreach ($diff_infos as $diff_info) {
+            NewsInfo::insert($diff_info);
+        }
+        $this->update(array('last_changed_at' => $last_changed_at));
+    }
 }
 
 class News extends Pix_Table
