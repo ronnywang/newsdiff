@@ -57,18 +57,18 @@ class IndexController extends Pix_Controller
 
     public function healthAction()
     {
-        header('Content-Type: plain/text');
+        header('Content-Type: text/plain');
 
         $ret = array();
         foreach (News::getSources() as $id => $name) {
             $time = News::search(array('source' => $id))->max('last_fetch_at')->last_fetch_at;
-            if ($time < time() - 3600) {
-                $ret[] = "{$name}({$id}) 超過一小時沒有更新到新聞";
+            if ($time < time() - 15 * 60) {
+                $ret[] = "{$name}({$id}) 超過 15 分鐘沒有更新到新聞";
                 continue;
             }
             $time = News::search(array('source' => $id))->max('created_at')->created_at;
-            if ($time < time() - 3600) {
-                $ret[] = "{$name}({$id}) 超過一小時沒有抓到新的新聞";
+            if ($time < time() - 15 * 60) {
+                $ret[] = "{$name}({$id}) 超過 15 分鐘沒有抓到新的新聞";
                 continue;
             }
 
