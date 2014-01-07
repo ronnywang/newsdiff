@@ -14,6 +14,10 @@ class Crawler_Appledaily
         $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/finance');
         $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/property');
         $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/forum');
+        for ($i = 1; $i < 10; $i ++) {
+            $content .= Crawler::getBody('http://www.appledaily.com.tw/realtimenews/index/page/' . $i);
+        }
+
 
         preg_match_all('#/(appledaily|realtimenews)/article/[^/]*/\d+/[^"]+#', $content, $matches);
         foreach ($matches[0] as $link) {
