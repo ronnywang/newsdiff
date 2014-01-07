@@ -66,6 +66,11 @@ class Crawler
                 'time' => $now,
                 'raw' => $content,
             ));
+
+            if (404 == $last_info->title) {
+                // 如果上一次是 404 這一次卻不是，直接 regenerateInfo() 最快..
+                return $news->regenerateInfo();
+            }
             NewsInfo::insert(array(
                 'news_id' => $news->id,
                 'time' => $now,
