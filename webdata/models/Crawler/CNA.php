@@ -7,6 +7,9 @@ class Crawler_CNA
         // http://www.cna.com.tw/News/aCN/201308130087-1.aspx
         // http://www.cna.com.tw/Topic/Popular/3907-1/201308130021-1.aspx
         $content = Crawler::getBody('http://www.cna.com.tw/');
+        for ($i = 1; $i < 10; $i ++) {
+            $content .= Crawler::getBody('http://www.cna.com.tw/list/aall-' . $i . '.aspx');
+        }
 
         preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#i', $content, $matches);
         foreach ($matches[0] as $link) {
