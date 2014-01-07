@@ -89,7 +89,7 @@ class Crawler_Nownews
 
         }, $ret->body);
 
-        $ret->body = preg_replace_callback('#http://s.nownews.com/media_crop/[0-9]*/hash/[0-9]*/[0-9a-f]*/x[0-9a-f]*\.jpg#', function($m){
+        $ret->body = preg_replace_callback('#http://s.nownews.com/media_crop/[0-9]*/hash/[0-9a-f]*/[0-9a-f]*/x[0-9a-f]*\.jpg#', function($m){
             return str_replace('/x', '/', $m[0]);
         }, $ret->body);
         return $ret;
