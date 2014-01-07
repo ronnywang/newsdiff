@@ -54,4 +54,26 @@ class IndexController extends Pix_Controller
 
         return $this->alert('not found', '/');
     }
+
+    public function healthAction()
+    {
+        header('Content-Type: plain/text');
+
+        $ret = array();
+        foreach (News::getSources() as $id => $name) {
+            $time = News::search(array('source' => $id))->max('last_fetch_at')->last_fetch_at;
+            if ($time < time() - 3600) {
+                $ret[] = "{$name}({$id}) 超過一小時沒有更新到新聞";
+                continue;
+            }
+            $time = News::search(array('source' => $id))->max('created_at')->created_at;
+            if ($time < time() - 3600) {
+                $ret[] = "{$name}({$id}) 超過一小時沒有抓到新的新聞";
+                continue;
+            }
+
+        }
+        echo implode("\n", $ret);
+        exit;
+    }
 }
