@@ -8,7 +8,7 @@ class Crawler_CNA
         // http://www.cna.com.tw/Topic/Popular/3907-1/201308130021-1.aspx
         $content = Crawler::getBody('http://www.cna.com.tw/');
 
-        preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#', $content, $matches);
+        preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#i', $content, $matches);
         foreach ($matches[0] as $link) {
             $url = Crawler::standardURL('http://www.cna.com.tw' . $link);
             News::addNews($url, 3);
