@@ -11,6 +11,9 @@ class Crawler_Chinatimes
         $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2603'); // 旺報
         $content = Crawler::getBody('http://www.chinatimes.com/newspapers/ctw'); // 時周精選
         $content .= Crawler::getBody('http://www.chinatimes.com/rss/focus.xml');
+        for ($i = 1; $i < 10; $i ++) {
+            $content .= Crawler::getBody('http://www.chinatimes.com/realtimenews/?page=' . $i);
+        }
 
         preg_match_all('#/(newspapers|realtimenews)/([^"\#<]*-)?\d+-\d+["<]?#', $content, $matches);
         foreach (array_unique($matches[0]) as $link) {
