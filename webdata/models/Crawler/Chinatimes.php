@@ -5,14 +5,18 @@ class Crawler_Chinatimes
     public static function crawl()
     {
         $content = Crawler::getBody('http://www.chinatimes.com');
+        $content = Crawler::getBody('http://www.chinatimes.com/newspapers/'); // 日報精選
+        $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2601'); // 中國時報
+        $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2602'); // 工商時報
+        $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2603'); // 旺報
+        $content = Crawler::getBody('http://www.chinatimes.com/newspapers/ctw'); // 時周精選
         $content .= Crawler::getBody('http://www.chinatimes.com/rss/focus.xml');
 
-        preg_match_all('#/(newspapers|realtimenews)/([^"\#<]*-)?\d+-\d+#', $content, $matches);
-        foreach ($matches[0] as $link) {
-            $url = Crawler::standardURL('http://www.chinatimes.com' . $link);
+        preg_match_all('#/(newspapers|realtimenews)/([^"\#<]*-)?\d+-\d+["<]?#', $content, $matches);
+        foreach (array_unique($matches[0]) as $link) {
+            $url = Crawler::standardURL('http://www.chinatimes.com' . rtrim($link, '"<'));
             News::addNews($url, 2);
         }
-
     }
 
     public static function parse($body)
