@@ -18,6 +18,8 @@ class Crawler_Nownews
     {
         $body = str_replace('<meta http-equiv="Content-Type" content="text/html; charset=big5"/>', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
         $doc = new DOMDocument('1.0', 'UTF-8');
+        // 移除掉關鍵字的部份
+        $body = preg_replace('#<p class="bzkeyword">.*?</p>#s', '', $body);
         @$doc->loadHTML($body);
         $ret = new StdClass;
         foreach ($doc->getElementsByTagName('h1') as $h1_dom) {
