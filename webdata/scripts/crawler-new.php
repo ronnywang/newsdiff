@@ -10,3 +10,4 @@ Crawler_Libertytimes::crawl();
 Crawler_CNA::crawl();
 Crawler_Ettoday::crawl();
 Crawler_UDN::crawl();
+Crawler_TVBS::crawl();
