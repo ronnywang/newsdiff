@@ -24,7 +24,7 @@ class NewsRow extends Pix_Table_Row
             $res = $db->query("SELECT * FROM {$table_name} WHERE `news_id` = {$this->id} ORDER BY `time` ASC");
             while ($row = $res->fetch_object()) {
                 $ret = NewsRaw::getInfo($row->raw, $this->url);
-                if (count($diff_infos) and $diff_infos[0]['title'] == $diff_infos[0]['body'] and in_array($diff_infos[0]['title'], array('', 0, 404))) {
+                if (count($diff_infos) and $diff_infos[0]['title'] == $diff_infos[0]['body'] and in_array($diff_infos[0]['title'], array('', 0, 404, '無法判斷的內容'))) {
                     array_shift($diff_infos);
                 }
 
