@@ -93,6 +93,11 @@ class News extends Pix_Table
             return;
         }
 
+        $source_update = json_decode(KeyValue::get('source_update'));
+        $source_update = is_object($source_update) ? $source_update : new StdClass;
+        $source_update->{$source} = time();
+        KeyValue::set('source_update', json_encode($source_update));
+
         if (News::find_by_normalized_crc32(crc32($ret->normalized_id))) {
             return;
         }
