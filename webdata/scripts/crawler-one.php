@@ -12,3 +12,5 @@ Pix_Table::$_save_memory = true;
 Crawler::updateAllRaw();
 
 KeyValue::set('crawlering', 0);
+// 清掉網址
+KeyValue::set('crawling', '');
