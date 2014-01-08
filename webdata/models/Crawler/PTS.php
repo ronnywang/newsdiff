@@ -25,7 +25,7 @@ class Crawler_PTS
                 $ret->title = preg_replace('#-公視新聞網$#', '', $meta_dom->getAttribute('content'));
             }
             if ('og:description' == $meta_dom->getAttribute('property')) {
-                $ret->body = $meta_dom->getAttribute('content');
+                $ret->body = trim($meta_dom->getAttribute('content'));
             }
         }
 
