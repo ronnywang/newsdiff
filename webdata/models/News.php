@@ -29,10 +29,6 @@ class NewsRow extends Pix_Table_Row
                 }
 
                 if (!count($diff_infos) or $ret->title != $diff_infos[0]['title'] or $ret->body != $diff_infos[0]['body']) {
-                    if (count($diff_infos)) {
-                        $last_changed_at = $row->time;
-                    }
-
                     array_unshift($diff_infos, array(
                         'news_id' => $this->id,
                         'time' => $row->time,
@@ -53,7 +49,7 @@ class NewsRow extends Pix_Table_Row
         foreach ($diff_infos as $diff_info) {
             NewsInfo::insert($diff_info);
         }
-        $this->update(array('last_changed_at' => $last_changed_at));
+        $this->update(array('last_changed_at' => count($diff_infos) > 1 ? $diff_infos[0]['time'] : 0));
     }
 }
 
