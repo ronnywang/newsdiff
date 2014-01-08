@@ -79,7 +79,7 @@ class Crawler_Nownews
             }
         }
 
-        $ret->body = preg_replace_callback('#http://[0-9]-ps.googleusercontent.com/([xh])/([^" \n]*).pagespeed.[a-z]*\.[\-_A-Za-z0-9.]*\n#', function($m) {
+        $ret->body = preg_replace_callback('#http://[0-9]-ps.googleusercontent.com/([xh])/([^" \n]*).pagespeed.[a-z]*\.[\-_A-Za-z0-9.]*\n?#', function($m) {
             if ($m[1] == 'x') {
                 $url = str_replace('www.nownews.com/', '', $m[2]);
             } else {
@@ -89,9 +89,11 @@ class Crawler_Nownews
 
         }, $ret->body);
 
-        $ret->body = preg_replace_callback('#http://s.nownews.com/media_crop/[0-9]*/hash/[0-9a-f]*/[0-9a-f]*/x[0-9a-f]*\.jpg#i', function($m){
-            return str_replace('/x', '/', $m[0]);
+        $ret->body = preg_replace_callback('#/[^/]*x[_0-9a-z]*\.jpg#i', function($m){
+            return preg_replace('#/[^/]*x#', '/', $m[0]);
         }, $ret->body);
+
+        $ret->body = trim($ret->body);
         return $ret;
     }
 }
