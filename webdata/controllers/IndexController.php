@@ -60,14 +60,27 @@ class IndexController extends Pix_Controller
         header('Content-Type: text/plain');
 
         $ret = array();
+        $source_update = json_decode(KeyValue::get('source_update'));
+        $source_insert = json_decode(KeyValue::get('source_insert'));
+
         foreach (News::getSources() as $id => $name) {
-            $time = News::search(array('source' => $id))->max('last_fetch_at')->last_fetch_at;
-            if ($time < time() - 15 * 60) {
-                $ret[] = "{$name}({$id}) 超過 15 分鐘沒有更新到新聞";
+            if ($source_update->{$id} < time() - 15 * 60) {
+                $ret[] = "{$name}({$id}) 超過 15 分鐘沒有抓到新聞";
+                continue;
+            }
+
+            if ($source_insert->{$id} < time() - 86400) {
+                $ret[] = "{$name}({$id}) 超過一天沒有抓到新的新聞";
                 continue;
             }
         }
         echo implode("\n", $ret);
+
+        $now = time();
+        $count = count(News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600"));
+        if ($count > 1000) {
+            echo "\n目前累積要更新新聞數有 {$count} 則";
+        }
         exit;
     }
 }
