@@ -79,7 +79,9 @@ class IndexController extends Pix_Controller
         $now = time();
         $count = count(News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600"));
         if ($count > 1000) {
-            echo "\n目前累積要更新新聞數有 {$count} 則";
+            $new_count = count(News::search("created_at > $now - 86400 AND last_fetch_at = 0"));
+            echo "\n目前累積要更新新聞數有 {$count} 則(新資料: {$new_count} 筆)\n";
+            echo "正在抓: " . KeyValue::get('Crawling');
         }
         exit;
     }
