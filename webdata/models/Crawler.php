@@ -67,7 +67,7 @@ class Crawler
                 'raw' => $content,
             ));
 
-            if (404 == $last_info->title) {
+            if (in_array($last_info->title, array(0, 404, '')) {
                 // 如果上一次是 404 這一次卻不是，直接 regenerateInfo() 最快..
                 return $news->regenerateInfo();
             }
