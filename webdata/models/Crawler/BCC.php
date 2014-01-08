@@ -16,6 +16,12 @@ class Crawler_BCC
     public static function parse($body)
     {
         $ret = new StdClass;
+        if (preg_match('#目前無相關新聞$#', trim($body))) {
+            $ret = new StdClass;
+            $ret->title = 404;
+            $ret->body = 404;
+            return $ret;
+        }
         if (!preg_match('#<meta property="og:title" content="([^"]*)" />#', $body, $matches)) {
             return null;
         }
