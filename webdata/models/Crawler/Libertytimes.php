@@ -23,7 +23,7 @@ class Crawler_Libertytimes
             News::addNews($url, 5);
         }
 
-        $base = 'http://www.libertytimes.com.tw/' . date('Y') . '/new/' . strtolower(date('M')) . '/' . date('d') . '/';
+        $base = 'http://www.libertytimes.com.tw/' . date('Y') . '/new/' . strtolower(date('M')) . '/' . intval(date('d')) . '/';
         $content = Crawler::getBody($base . 'menu2.js', 0.5, false);
 
         preg_match_all('#today-.*\.htm#', $content, $matches);
