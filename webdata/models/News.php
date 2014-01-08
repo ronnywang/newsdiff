@@ -41,7 +41,7 @@ class NewsRow extends Pix_Table_Row
 
         if (!count($diff_infos)) {
             // 沒有任何資料表示 NewsRaw 可能已經被砍了，那就不要做事了
-            error_log('too old');
+            error_log('too old: ' . $this->id);
             return;
         }
 
