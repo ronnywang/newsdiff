@@ -9,7 +9,6 @@ class Crawler_PTS
         $links = array_unique($matches[0]);
         foreach ($links as $link) {
             $link = 'http://news.pts.org.tw/' . $link;
-            error_log($link);
             News::addNews($link, 11);
         }
     }
