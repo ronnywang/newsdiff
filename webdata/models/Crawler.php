@@ -60,6 +60,7 @@ class Crawler
 
         $last_info = $news->infos->order('`time` DESC')->first();
         $ret = NewsRaw::getInfo($content, $news->url);
+        $news->update(array('last_fetch_at' => $now));
         if (!$last_info or $ret->title != $last_info->title or $ret->body != $last_info->body) {
             NewsRaw::insertNew(array(
                 'news_id' => $news->id,
@@ -81,8 +82,6 @@ class Crawler
                 $news->update(array('last_changed_at' => $now));
             }
         }
-
-        $news->update(array('last_fetch_at' => $now));
     }
 
     public static function updateAllRaw()
