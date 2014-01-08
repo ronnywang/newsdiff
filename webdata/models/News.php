@@ -70,7 +70,6 @@ class News extends Pix_Table
         $this->_columns['created_at'] = array('type' => 'int');
         $this->_columns['last_fetch_at'] = array('type' => 'int');
         $this->_columns['last_changed_at'] = array('type' => 'int');
-        $this->_columns['last_diff_at'] = array('type' => 'int');
 
         $this->_relations['infos'] = array('rel' => 'has_many', 'type' => 'NewsInfo', 'foreign_key' => 'news_id', 'delete' => true);
 
