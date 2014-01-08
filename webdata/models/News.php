@@ -123,6 +123,7 @@ class News extends Pix_Table
             8 => '聯合',
             9 => 'TVBS',
             10 => '中廣新聞網',
+            11 => '公視新聞網',
         );
     }
 }

@@ -12,3 +12,4 @@ Crawler_Ettoday::crawl();
 Crawler_UDN::crawl();
 Crawler_TVBS::crawl();
 Crawler_BCC::crawl();
+Crawler_PTS::cralw();

@@ -21,3 +21,4 @@ www.chinatimes.com,'^/(newspapers|realtimenews)/(.*-)?([0-9]*)-([0-9]*)',http://
 www.appledaily.com.tw,'^/(realtimenews|appledaily)/article/[^/]*/([0-9]*)/([0-9]*)',http://www.appledaily.com.tw/{$1}/article/local/{$2}/{$3},www.appledaily.com.tw/{$1}/{$2}/{$3}
 news.tvbs.com.tw,'^/entry/([0-9]*)',http://news.twbs.com.tw/entry/{$1},news.tvbs.com.tw/{$1}
 www.bcc.com.tw,'^/news_view\.asp$',http://www.bcc.com.tw/news_view.asp?nid={$nid},www.bcc.com.tw/news/{$nid}
+news.pts.org.tw,'^/detail.php$',http://news.pts.org.tw/detail.php?NEENO={$NEENO},news.pts.org.tw/{$NEENO}
