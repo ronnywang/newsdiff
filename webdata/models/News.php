@@ -102,6 +102,11 @@ class News extends Pix_Table
             return;
         }
 
+        $source_insert = json_decode(KeyValue::get('source_insert'));
+        $source_insert = is_object($source_insert) ? $source_insert : new StdClass;
+        $source_insert->{$source} = time();
+        KeyValue::set('source_insert', json_encode($source_insert));
+
         try {
             News::insert(array(
                 'url' => $url,
