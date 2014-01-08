@@ -15,6 +15,8 @@ class Crawler_TVBS
     public static function parse($body)
     {
         $doc = new DOMDocument('1.0', 'UTF-8');
+        $body = str_replace('<meta charest="utf-8">', '<meta charest="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
+
         @$doc->loadHTML($body);
         $ret = new StdClass;
         if (!$article_dom = $doc->getElementsByTagName('article')->item(0)) {
