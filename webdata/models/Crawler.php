@@ -106,7 +106,7 @@ class Crawler
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-            curl_setopt($curl, CURLOPT_TIMEOUT, 20);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 
             curl_multi_add_handle($mh, $curl);
             $handles[$id] = $curl;
