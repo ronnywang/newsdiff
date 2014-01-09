@@ -119,6 +119,11 @@ class Crawler
         } while ($mrc == CURLM_CALL_MULTI_PERFORM);
 
         while ($active and $mrc == CURLM_OK) {
+            $delta = microtime(true) - $start;
+            if ($delta > 300) { // 最多五分鐘
+                error_log("updateContent too long... skip");
+                return;
+            }
             if (curl_multi_select($mh) != -1) {
                 do {
                     $mrc = curl_multi_exec($mh, $active);
