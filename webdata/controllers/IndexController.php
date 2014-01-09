@@ -64,8 +64,9 @@ class IndexController extends Pix_Controller
         $source_insert = json_decode(KeyValue::get('source_insert'));
 
         foreach (News::getSources() as $id => $name) {
-            if ($source_update->{$id} < time() - 15 * 60) {
-                $ret[] = "{$name}({$id}) 超過 15 分鐘沒有抓到新聞";
+            if (date('H') > 8 and $source_update->{$id} < time() - 25 * 60) {
+                // 早上八點以後才會確認這個
+                $ret[] = "{$name}({$id}) 超過 25 分鐘沒有抓到新聞";
                 continue;
             }
 
