@@ -11,7 +11,7 @@ class Crawler_Ettoday
         preg_match_all('#/news/\d+/\d+\.htm#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[0] as $link) {
-            $update = 0;
+            $update ++;
             $url = Crawler::standardURL('http://www.ettoday.net' . $link);
             $insert += News::addNews($url, 4);
             if ($insert_limit <= $insert) {
