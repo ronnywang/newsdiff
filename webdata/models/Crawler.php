@@ -120,7 +120,7 @@ class Crawler
 
         while ($active and $mrc == CURLM_OK) {
             $delta = microtime(true) - $start;
-            if ($delta > 300) { // 最多五分鐘
+            if ($delta > 180) { // 最多三分鐘
                 error_log("updateContent too long... skip");
                 return;
             }
