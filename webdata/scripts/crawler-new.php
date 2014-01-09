@@ -15,6 +15,7 @@ $crawlers = array(
     9 => 'Crawler_TVBS',
     10 => 'Crawler_BCC',
     11 => 'Crawler_PTS',
+    12 => 'Crawler_TTV',
 );
 
 $source_update = json_decode(KeyValue::get('source_update')) ?: new StdClass;

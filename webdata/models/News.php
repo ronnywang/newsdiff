@@ -126,6 +126,7 @@ class News extends Pix_Table
             9 => 'TVBS',
             10 => '中廣新聞網',
             11 => '公視新聞網',
+            12 => '台視',
         );
     }
 }

@@ -91,6 +91,10 @@ class NewsRaw extends Pix_Table
             $ret = Crawler_PTS::parse($raw);
             break;
 
+        case 'www.ttv.com.tw':
+            $ret = Crawler_TTV::parse($raw);
+            break;
+
         default:
             throw new Exception('unknown host: ' . $url);
         }
