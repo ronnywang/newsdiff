@@ -25,3 +25,4 @@ news.pts.org.tw,'^/detail.php$',http://news.pts.org.tw/detail.php?NEENO={$NEENO}
 www.ttv.com.tw,'^/[0-9]*/[0-9]*/[0-9]*/([0-9]*[A-Z0-9])\.htm$',http://www.ttv.com.tw{$0},www.ttv.com.tw/news/{$1}
 news.cts.com.tw,'^/([a-z]*)/[a-z]*/[0-9]*/([0-9]*)\.html$',http://news.cts.com.tw{$0},news.cts.com.tw/{$1}/{$2}
 news.ftv.com.tw,'^/NewsContent\.aspx$',http://news.ftv.com.tw/NewsContent.aspx?sno={$sno},news.ftv.com.tw/{$sno}
+www.setnews.net,'^/News\.aspx$',http://www.setnews.net/News.aspx?NewsID={$NewsID},www.setnews.net/news/{$NewsID}
