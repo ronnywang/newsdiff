@@ -38,7 +38,9 @@ class Crawler_Chinatimes
         }
         $doc = new DOMDocument;
         @$doc->loadHTML($body);
-        $article_dom = $doc->getElementsByTagName('article')->item(0);
+        if (!$article_dom = $doc->getElementsByTagName('article')->item(0)) {
+            return null;
+        }
         $header_dom = $article_dom->getElementsByTagName('header')->item(0);
         $ret = new StdClass;
         $ret->title = trim($header_dom->getElementsByTagName('h1')->item(0)->nodeValue);
