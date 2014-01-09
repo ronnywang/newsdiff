@@ -88,7 +88,8 @@ class Crawler
         $start = microtime(true);
         $fetching_news = array();
         $count = 0;
-        foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600") as $news) {
+        $update_limit = 300;
+        foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->order('last_fetch_at ASC')->limit($update_limit) as $news) {
             $fetching_news[] = $news;
             $count ++;
         }
