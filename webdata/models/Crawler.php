@@ -8,6 +8,42 @@ class Crawler
         return $url;
     }
 
+    protected static $_last_fetch = null;
+
+    public static function getBody($url, $wait = 0.5, $throw_exception = true, $retry = 3)
+    {
+        $url = self::standardURL($url);
+        // 0.5 秒只抓一個網頁，以免太快被擋
+        while (!is_null(self::$_last_fetch) and (microtime(true) - self::$_last_fetch) < $wait) {
+            usleep(1000);
+        }
+
+        self::$_last_fetch = microtime(true);
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 20);
+        $content = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        curl_close($curl);
+
+        if (200 !== $info['http_code']) {
+            if ($retry > 0) {
+                // 重試三次
+                return self::getBody($url, $wait, $throw_exception, $retry - 1);
+            }
+
+            if ($throw_exception) {
+                throw new Exception('not 200', $info['http_code']);
+            } else {
+                error_log('not 200: ' . $url);
+                return '';
+            }
+        }
+        return $content;
+    }
+
     public static function updateContent($news, $content)
     {
         $now = time();
