@@ -2,15 +2,21 @@
 
 class Crawler_PTS
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('http://news.pts.org.tw/top_news.php');
         preg_match_all('#detail\.php\?NEENO=[0-9]*#', $content, $matches);
         $links = array_unique($matches[0]);
+        $insert = $update = 0;
         foreach ($links as $link) {
+            $update ++;
             $link = 'http://news.pts.org.tw/' . $link;
-            News::addNews($link, 11);
+            $insert += News::addNews($link, 11);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
+        return array($update, $insert);
     }
 
     public static function parse($body)

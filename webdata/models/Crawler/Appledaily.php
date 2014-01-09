@@ -2,7 +2,7 @@
 
 class Crawler_Appledaily
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('http://www.appledaily.com.tw');
         $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/todayapple');
@@ -20,11 +20,17 @@ class Crawler_Appledaily
 
 
         preg_match_all('#/(appledaily|realtimenews)/article/[^/]*/\d+/[^"]+#', $content, $matches);
+        $insert = $update = 0;
         foreach ($matches[0] as $link) {
             $url = Crawler::standardURL('http://www.appledaily.com.tw' . $link);
-            News::addNews($url, 1);
+            $update ++;
+            $insert += News::addNews($url, 1);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
 
+        return array($update, $insert);
     }
 
     public static function parse($body)

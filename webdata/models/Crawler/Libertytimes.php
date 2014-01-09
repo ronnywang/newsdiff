@@ -2,7 +2,7 @@
 
 class Crawler_Libertytimes
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         // http://www.libertytimes.com.tw/2013/new/aug/13/today-t3.htm
         // http://iservice.libertytimes.com.tw/liveNews/news.php?no=852779&type=%E7%A4%BE%E6%9C%83
@@ -18,9 +18,14 @@ class Crawler_Libertytimes
         $content .= Crawler::getBody($url, 0.5, false);
 
         preg_match_all('#news\.php?[^"]*#', $content, $matches);
+        $insert = $update = 0;
         foreach ($matches[0] as $link) {
+            $update = 0;
             $url = Crawler::standardURL('http://iservice.libertytimes.com.tw/liveNews/' . $link);
-            News::addNews($url, 5);
+            $insert += News::addNews($url, 5);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
 
         $base = 'http://www.libertytimes.com.tw/' . date('Y') . '/new/' . strtolower(date('M')) . '/' . intval(date('d')) . '/';
@@ -29,11 +34,16 @@ class Crawler_Libertytimes
         preg_match_all('#today-.*\.htm#', $content, $matches);
         foreach ($matches[0] as $link) {
             try {
+                $update ++;
                 $url = $base . $link;
-                News::addNews($url, 5);
+                $insert += News::addNews($url, 5);
+                if ($insert_limit <= $insert) {
+                    break;
+                }
             } catch (Pix_Table_DuplicateException $e) {
             }
         }
+        return array($update, $insert);
     }
 
     public static function parse($body)

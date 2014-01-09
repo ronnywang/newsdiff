@@ -90,22 +90,12 @@ class News extends Pix_Table
         $ret = URLNormalizer::query($url);
         if (!$ret) {
             error_log("URLNormalizer 失敗: {$url}");
-            return;
+            return 0;
         }
-
-        $source_update = json_decode(KeyValue::get('source_update'));
-        $source_update = is_object($source_update) ? $source_update : new StdClass;
-        $source_update->{$source} = time();
-        KeyValue::set('source_update', json_encode($source_update));
 
         if (News::find_by_normalized_crc32(crc32($ret->normalized_id))) {
-            return;
+            return 0;
         }
-
-        $source_insert = json_decode(KeyValue::get('source_insert'));
-        $source_insert = is_object($source_insert) ? $source_insert : new StdClass;
-        $source_insert->{$source} = time();
-        KeyValue::set('source_insert', json_encode($source_insert));
 
         try {
             News::insert(array(
@@ -118,6 +108,8 @@ class News extends Pix_Table
             ));
         } catch (Pix_Table_DuplicateException $e) {
         }
+
+        return 1;
     }
 
     public static function getSources()

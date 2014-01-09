@@ -2,15 +2,21 @@
 
 class Crawler_BCC
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('http://www.bcc.com.tw/news_list.asp?type=總覽');
         preg_match_all('#news_view\.asp\?nid=[0-9]*#', $content, $matches);
         $links = array_unique($matches[0]);
+        $insert = $update = 0;
         foreach ($links as $link) {
+            $update ++;
             $link = 'http://www.bcc.com.tw/' . $link;
-            News::addNews($link, 10);
+            $insert += News::addNews($link, 10);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
+        return array($update, $insert);
     }
 
     public static function parse($body)

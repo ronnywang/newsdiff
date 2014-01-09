@@ -2,17 +2,22 @@
 
 class Crawler_Nownews
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('http://www.nownews.com');
         $content .= Crawler::getBody('http://feeds.feedburner.com/nownews/realtime');
 
         preg_match_all('#http://www\.nownews\.com\/n/\d\d\d\d/\d\d/\d\d/\d+#', $content, $matches);
+        $insert = $update = 0;
         foreach ($matches[0] as $link) {
             $link = Crawler::standardURL($link);
-            News::addNews($link, 7);
+            $update ++;
+            $insert += News::addNews($link, 7);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
-
+        return array($update, $insert);
     }
     public static function parse($body)
     {

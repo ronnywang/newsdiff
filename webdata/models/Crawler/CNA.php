@@ -2,7 +2,7 @@
 
 class Crawler_CNA
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         // http://www.cna.com.tw/News/aCN/201308130087-1.aspx
         // http://www.cna.com.tw/Topic/Popular/3907-1/201308130021-1.aspx
@@ -12,10 +12,16 @@ class Crawler_CNA
         }
 
         preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#i', $content, $matches);
+        $insert = $update = 0;
         foreach ($matches[0] as $link) {
+            $update ++;
             $url = Crawler::standardURL('http://www.cna.com.tw' . $link);
-            News::addNews($url, 3);
+            $insert += News::addNews($url, 3);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
+        return array($update, $insert);
 
     }
 

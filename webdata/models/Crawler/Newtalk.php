@@ -2,7 +2,7 @@
 
 class Crawler_Newtalk
 {
-    public static function crawl()
+    public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('http://newtalk.tw');
         $content .= Crawler::getBody('http://newtalk.tw/rss_news.php');
@@ -11,11 +11,16 @@ class Crawler_Newtalk
         }
 
         preg_match_all('#http://newtalk.tw\/news/\d+/\d+/\d+/\d+\.html#', $content, $matches);
+        $insert = $update = 0;
         foreach ($matches[0] as $link) {
+            $update ++;
             $link = Crawler::standardURL($link);
-            News::addNews($link, 6);
+            $insert += News::addNews($link, 6);
+            if ($insert_limit <= $insert) {
+                break;
+            }
         }
-
+        return array($update, $insert);
     }
 
     public static function parse($body)
