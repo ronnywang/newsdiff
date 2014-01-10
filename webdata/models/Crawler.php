@@ -94,9 +94,10 @@ class Crawler
             $fetching_news[] = $news;
             $count ++;
         }
-        if ($count) {
-            error_log("fetching $count news...");
+        if (!$count) {
+            return;
         }
+        error_log("fetching $count news...");
 
         $handles = array();
         $mh = curl_multi_init();
