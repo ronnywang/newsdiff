@@ -112,6 +112,7 @@ class NewsRaw extends Pix_Table
         }
 
         if (!$ret->title or !$ret->body) {
+            $ret = new StdClass;
             $ret->title = $ret->body = '無法判斷的內容';
             error_log('找不到內容:' . $url);
         }
