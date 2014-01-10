@@ -27,9 +27,14 @@ class Crawler_UDN
         $body = str_replace('<meta content="text/html; charset=big5" http-equiv="Content-Type">', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
         $body = str_replace('<meta http-equiv="Content-Type" content="text/html; charset=big5">', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
 
+        $ret = new StdClass;
+        if (false !== strpos($body, '<img src="/NEWS/404.gif')) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
-        $ret = new StdClass;
         $ret->title = trim($doc->getElementById('story_title')->nodeValue);
         if ($doc->getElementById('story')) {
             $ret->body = trim($doc->getElementById('story_author')->nodeValue . "\n"
