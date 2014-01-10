@@ -103,6 +103,11 @@ class Crawler
         curl_multi_setopt($mh, CURLMOPT_PIPELINING, true);
         curl_multi_setopt($mh, CURLMOPT_MAXCONNECTS, 10);
 
+        // 以下這些來源如果 multi thread 抓很容易失敗，因此改成單一 thread 來抓
+        $alone_sources = array(
+            10, // BCC 中廣新聞
+        );
+        $alone_handles = array();
         foreach ($fetching_news as $id => $news) {
             $curl = curl_init(self::standardURL($news->url));
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -111,7 +116,11 @@ class Crawler
             curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
             curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 
-            curl_multi_add_handle($mh, $curl);
+            if (in_array($news->source, $alone_sources)) {
+                $alone_handles[] = $curl;
+            } else {
+                curl_multi_add_handle($mh, $curl);
+            }
             $handles[$id] = $curl;
         }
 
@@ -138,10 +147,14 @@ class Crawler
         KeyValue::set('crawling', "curl_multi_getcontent : {$count}");
 
         $status_count = array();
-        foreach ($handles as $index => $curl) {
-            $content = curl_multi_getcontent($curl);
+        foreach ($fetching_news as $index => $news) {
+            $curl = $handles[$index];
+            if (in_array($news->source, $alone_sources)) {
+                $content = curl_exec($curl);
+            } else {
+                $content = curl_multi_getcontent($curl);
+            }
             $info = curl_getinfo($curl);
-            $news = $fetching_news[$index];
 
             if ($info['http_code'] != 200) {
                 if ($skip) {
