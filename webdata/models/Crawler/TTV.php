@@ -26,6 +26,10 @@ class Crawler_TTV
         $doc = new DOMDocument('1.0', 'UTF-8');
         $body = str_replace('text/html; charset=big5', 'text/html; charset=utf-8', $body);
 
+        if (FALSE !== strpos($body, '<title>錯誤代碼：404</title>')) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
         @$doc->loadHTML($body);
         if (!$click_safeguard_dom = $doc->getElementById('iCliCK_SafeGuard')) {
             return null;
