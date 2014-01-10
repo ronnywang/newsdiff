@@ -107,6 +107,7 @@ class Crawler
         // 以下這些來源如果 multi thread 抓很容易失敗，因此改成單一 thread 來抓
         $alone_sources = array(
             10, // BCC 中廣新聞
+            14, // 民視新聞
         );
         $alone_handles = array();
         foreach ($fetching_news as $id => $news) {
