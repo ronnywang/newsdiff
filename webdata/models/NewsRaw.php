@@ -117,6 +117,10 @@ class NewsRaw extends Pix_Table
             error_log('找不到內容:' . $url);
         }
 
+        // XXX: 濾掉 4byte Unicode，現在用的 MySQL 版本寫入 4byte unicode 會失敗
+        $ret->title = preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $ret->title);
+        $ret->body = preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $ret->body);
+
         return $ret;
     }
 }
