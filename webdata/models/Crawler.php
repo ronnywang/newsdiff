@@ -120,11 +120,13 @@ class Crawler
             $mrc = curl_multi_exec($mh, $active);
         } while ($mrc == CURLM_CALL_MULTI_PERFORM);
 
+        $skip = false;
         while ($active and $mrc == CURLM_OK) {
             $delta = microtime(true) - $start;
-            if ($delta > 180) { // 最多三分鐘
+            if ($delta > 60) { // 最多三分鐘
                 error_log("updateContent too long... skip");
-                return;
+                $skip = true;
+                break;
             }
             if (curl_multi_select($mh) != -1) {
                 do {
@@ -142,6 +144,10 @@ class Crawler
             $news = $fetching_news[$index];
 
             if ($info['http_code'] != 200) {
+                if ($skip) {
+                    $status_count[$news->source . '-' . intval($info['http_code'])] ++;
+                    continue;
+                }
                 if ($news->error_count > 3) {
                     error_log("{$news->url} {$info['http_code']}");
                     self::updateContent($news, $info['http_code']);
