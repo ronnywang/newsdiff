@@ -33,6 +33,11 @@ class Crawler_UDN
             return $ret;
         }
 
+        if (false !== strpos($body, 'window.location.href="http://udn.com/NEWS/404.shtml"')) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret->title = trim($doc->getElementById('story_title')->nodeValue);
