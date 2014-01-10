@@ -24,6 +24,10 @@ class Crawler_CTS
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
+        if (false !== strpos($body, '很抱歉，您所輸入的網址已過期或不存在，目前無法提供瀏覽 ')) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
         if (!$title_dom = $doc->getElementsByTagName('h1')->item(0)) {
             return null;
         }
