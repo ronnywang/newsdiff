@@ -164,7 +164,9 @@ class Crawler
                     continue;
                 }
                 if ($news->error_count > 3) {
-                    error_log("{$news->url} {$info['http_code']}");
+                    if (!in_array($info['http_code'], array(404))) { // 404 不用 log
+                        error_log("{$news->url} {$info['http_code']}");
+                    }
                     self::updateContent($news, $info['http_code']);
                     continue;
                 }
