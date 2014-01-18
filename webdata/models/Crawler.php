@@ -83,6 +83,19 @@ class Crawler
         }
     }
 
+    protected static $_valid_cache = array();
+    public static function validSource($source_id)
+    {
+        if (!array_key_exists($source_id, self::$_valid_cache)) {
+            self::$_valid_cache[$source_id] = KeyValue::get('stop-source-' . $source_id);
+        }
+        $t = self::$_valid_cache[$source_id];
+        if ($t > time()) {
+            return false;
+        }
+        return true;
+    }
+
     public static function updateAllRaw()
     {
         $now = time();
@@ -90,8 +103,14 @@ class Crawler
         $fetching_news = array();
         $count = 0;
         $update_limit = 300;
-        foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->order('last_fetch_at ASC')->limit($update_limit) as $news) {
+        foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->order('last_fetch_at ASC')->limit($update_limit * 2) as $news) {
+            if (!self::validSource($news->source)) {
+                continue;
+            }
             $fetching_news[] = $news;
+            if (count($fetching_news) >= 300) {
+                break;
+            }
             $count ++;
         }
         if (!$count) {
@@ -178,6 +197,13 @@ class Crawler
         }
         $spent = microtime(true) - $start;
         error_log('finish: ' . json_encode($status_count) . ', spent: ' . $spent);
+        foreach ($status_count as $source_code => $count) {
+            list($source, $code) = explode('-', $source_code);
+            if ($code == 0 and $count > 100) { // 如果有超過 100 個失敗， 10 分鐘內不要抓這個來源
+                KeyValue::set('stop-source-' . $source, time() + 600);
+                error_log("skip source {$source} 10 minute");
+            }
+        }
     }
 
     public function getTextFromDom($node)
