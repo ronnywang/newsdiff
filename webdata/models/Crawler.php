@@ -136,7 +136,7 @@ class Crawler
             curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
             curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
             curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 2);
+            curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
 
             if (in_array($news->source, $alone_sources)) {
                 $alone_handles[] = $curl;
