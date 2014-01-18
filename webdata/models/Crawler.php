@@ -177,7 +177,7 @@ class Crawler
             self::updateContent($news, $content);
         }
         $spent = microtime(true) - $start;
-        error_log('finish: ' . json_encode($status_count) . 'spent: ' . $spent);
+        error_log('finish: ' . json_encode($status_count) . ', spent: ' . $spent);
     }
 
     public function getTextFromDom($node)
