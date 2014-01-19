@@ -45,6 +45,14 @@ class Crawler_Chinatimes
         $header_dom = $article_dom->getElementsByTagName('header')->item(0);
         $ret = new StdClass;
         $ret->title = trim($header_dom->getElementsByTagName('h1')->item(0)->nodeValue);
+
+        $content = '';
+        foreach ($article_dom->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'reporter') {
+                $content .= preg_replace('/[\r\n ]+/', ' ', Crawler::getTextFromDom($div_dom)) . "\n";
+                break;
+            }
+        }
         $article_dom = $doc->getElementsByTagName('article')->item(1);
 
         // 有時候可能會有 div, 有的話就要跳過
@@ -53,7 +61,6 @@ class Crawler_Chinatimes
         } else {
             $dom = $article_dom->childNodes->item(0);
         }
-        $content = '';
         do {
             $content .= $dom->nodeValue. "\n";
         } while ($dom = $dom->nextSibling);
