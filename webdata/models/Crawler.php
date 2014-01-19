@@ -103,8 +103,21 @@ class Crawler
         $fetching_news = array();
         $count = 0;
         $update_limit = 300;
+        $invalid_count = 0; // 每次最多找 50 筆
+        // 以下這些來源如果 multi thread 抓很容易失敗，因此改成單一 thread 來抓
+        $alone_sources = array(
+            10 => true, // BCC 中廣新聞
+            14 => true, // 民視新聞
+        );
         foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->order('last_fetch_at ASC') as $news) {
             if (!self::validSource($news->source)) {
+                if ($invalid_count >= 50) {
+                    continue;
+                }
+                $alone_sources[$news->source] = true;
+                $fetching_news[] = $news;
+                $invalid_count ++;
+                $count ++;
                 continue;
             }
             $fetching_news[] = $news;
@@ -123,11 +136,6 @@ class Crawler
         curl_multi_setopt($mh, CURLMOPT_PIPELINING, true);
         curl_multi_setopt($mh, CURLMOPT_MAXCONNECTS, 10);
 
-        // 以下這些來源如果 multi thread 抓很容易失敗，因此改成單一 thread 來抓
-        $alone_sources = array(
-            10, // BCC 中廣新聞
-            14, // 民視新聞
-        );
         $alone_handles = array();
         foreach ($fetching_news as $id => $news) {
             $curl = curl_init(self::standardURL($news->url));
@@ -138,7 +146,7 @@ class Crawler
             curl_setopt($curl, CURLOPT_TIMEOUT, 10);
             curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
 
-            if (in_array($news->source, $alone_sources)) {
+            if (array_key_exists($news->source, $alone_sources)) {
                 $alone_handles[] = $curl;
             } else {
                 curl_multi_add_handle($mh, $curl);
@@ -171,7 +179,7 @@ class Crawler
         $status_count = array();
         foreach ($fetching_news as $index => $news) {
             $curl = $handles[$index];
-            if (in_array($news->source, $alone_sources)) {
+            if (array_key_exists($news->source, $alone_sources)) {
                 $content = curl_exec($curl);
             } else {
                 $content = curl_multi_getcontent($curl);
