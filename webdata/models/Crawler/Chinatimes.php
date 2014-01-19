@@ -9,6 +9,7 @@ class Crawler_Chinatimes
         $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2601'); // 中國時報
         $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2602'); // 工商時報
         $content = Crawler::getBody('http://www.chinatimes.com/newspapers/2603'); // 旺報
+        $content = Crawler::getBody('http://www.chinatimes.com/newspapers/260109'); // 時論廣場
         $content = Crawler::getBody('http://www.chinatimes.com/newspapers/ctw'); // 時周精選
         $content .= Crawler::getBody('http://www.chinatimes.com/rss/focus.xml');
         for ($i = 1; $i < 10; $i ++) {
