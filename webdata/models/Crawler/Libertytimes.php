@@ -54,6 +54,12 @@ class Crawler_Libertytimes
             return $ret;
         }
 
+        if (strpos('<div class="newsbox"><ul><li>無這則新聞</li></ul></div>', $body)) {
+            $ret = new StdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
