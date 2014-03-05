@@ -30,7 +30,12 @@ foreach ($crawlers as $id => $class) {
     if ($max_insert - $insert_count <= 0) {
         break;
     }
-    list($update, $insert) = call_user_func(array($class, 'crawl'), $max_insert - $insert_count);
+    try {
+        list($update, $insert) = call_user_func(array($class, 'crawl'), $max_insert - $insert_count);
+    } catch (Exception $e) {
+        error_log("$class failed: " . $e->getMessage());
+        continue;
+    }
     if ($update) {
         $source_update->{$id} = time();
     }
