@@ -48,6 +48,12 @@ class Crawler_Libertytimes
 
     public static function parse($body)
     {
+        if (strpos($body, '<div class="newsbox"><ul><li>網址錯誤</li></ul></div>')) {
+            $ret = new StdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         if ("<script>alert('無這則新聞');location='index.php';</script>" == trim($body)) {
             $ret = new StdClass;
             $ret->title = $ret->body = 404;
