@@ -8,6 +8,20 @@ class Crawler
         return $url;
     }
 
+    public function roundRobinURL($url)
+    {
+        if (!preg_match('#(https?://)([^/]*)(.*)#', $url, $matches)) {
+            return array($url, null);
+        }
+        $host = $matches[2];
+        $records = dns_get_record($host, DNS_A);
+        if (!$records) {
+            return array($url, null);
+        }
+        shuffle($records);
+        return array($matches[1] . $records[0]['ip'] . $matches[3], $host);
+    }
+
     protected static $_last_fetch = null;
 
     public static function getBody($url, $wait = 0.5, $throw_exception = true, $retry = 3)
@@ -138,7 +152,13 @@ class Crawler
 
         $alone_handles = array();
         foreach ($fetching_news as $id => $news) {
-            $curl = curl_init(self::standardURL($news->url));
+            $url = self::standardURL($news->url);
+            list($url, $host) = self::roundRobinURL($url);
+
+            $curl = curl_init($url);
+            if (!is_null($host)) {
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host: ' . $host));
+            }
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
             curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
