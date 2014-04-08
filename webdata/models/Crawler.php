@@ -227,7 +227,6 @@ class Crawler
                 self::updateContent($news, $content);
             } catch (Exception $e) {
                 error_log("處理 {$news->url} 錯誤: " . $e->getMessage());
-                throw $e;
             }
         }
         $spent = microtime(true) - $start;
