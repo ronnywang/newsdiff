@@ -70,7 +70,25 @@ class Crawler_Libertytimes
         @$doc->loadHTML($body);
         $ret = new StdClass;
         if (!$doc->getElementById('newsti')){
-            error_log($body);
+            // 新版
+            if (strpos($body, '無此則新聞') and $doc->getElementsByTagName('title')->item(0)->nodeValue == '自由時報電子報') {
+                $ret = new StdClass;
+                $ret->title = $ret->body = 404;
+                return $ret;
+            }
+
+            if ($doc->getElementById('newstext') and $doc->getElementsByTagName('h1')->length == 1) {
+                $body = '';
+                foreach ($doc->getElementById('newstext')->childNodes as $child_node) {
+                    if ($child_node->nodeName == 'p') {
+                        $body = $body . "\n" . $child_node->nodeValue;
+                    }
+                }
+                $title = $doc->getElementsByTagName('h1')->item(0)->nodeValue;
+                $ret->title = $title;
+                $ret->body = $body;
+                return $ret;
+            }
             throw new Exception('newsti not found');
         }
         $ret->title = trim($doc->getElementById('newsti')->childNodes->item(0)->nodeValue);
