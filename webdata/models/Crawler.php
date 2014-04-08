@@ -223,7 +223,12 @@ class Crawler
                 continue;
             }
             $status_count[$news->source . '-' . intval($info['http_code'])] ++;
-            self::updateContent($news, $content);
+            try {
+                self::updateContent($news, $content);
+            } catch (Exception $e) {
+                error_log("處理 {$news->url} 錯誤: " . $e->getMessage());
+                throw $e;
+            }
         }
         $spent = microtime(true) - $start;
         error_log('finish: ' . json_encode($status_count) . ', spent: ' . $spent);
