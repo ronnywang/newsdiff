@@ -6,41 +6,31 @@ class Crawler_Libertytimes
     {
         // http://www.libertytimes.com.tw/2013/new/aug/13/today-t3.htm
         // http://iservice.libertytimes.com.tw/liveNews/news.php?no=852779&type=%E7%A4%BE%E6%9C%83
+        // http://news.ltn.com.tw/list/BreakingNews 即時新聞
 
         $categories = array('即時新聞', '政治', '社會', '科技', '國際', '財經', '生活', '體育', '影劇', '趣聞');
 
         $content = '';
-        foreach ($categories as $category) {
-            $url = 'http://iservice.libertytimes.com.tw/liveNews/list.php?type=' . urlencode($category);
-            $content .= Crawler::getBody($url, 0.5, false);
-        }
-        $url = 'http://iservice.libertytimes.com.tw/liveNews/?Slots=LiveMore';
+        $url = 'http://news.ltn.com.tw/list/BreakingNews'; // 即時新聞
         $content .= Crawler::getBody($url, 0.5, false);
 
-        preg_match_all('#news\.php?[^"]*#', $content, $matches);
+        $url = 'http://news.ltn.com.tw/newspaper'; // 報紙
+        $content .= Crawler::getBody($url, 0.5, false);
+
+        $categories = array('focus', 'politics', 'society', 'local', 'life', 'opinion', 'world', 'business', 'sports', 'entertainment', 'consumer', 'supplement');
+        foreach ($categories as $category) {
+            $url = 'http://news.ltn.com.tw/section/' . $category;
+            $content .= Crawler::getBody($url, 0.5, false);
+        }
+
+        preg_match_all('#/news/[a-z]*/[a-z]*/[0-9]*#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[0] as $link) {
             $update = 0;
-            $url = Crawler::standardURL('http://iservice.libertytimes.com.tw/liveNews/' . $link);
+            $url = Crawler::standardURL('http://news.ltn.com.tw' . $link);
             $insert += News::addNews($url, 5);
             if ($insert_limit <= $insert) {
                 break;
-            }
-        }
-
-        $base = 'http://www.libertytimes.com.tw/' . date('Y') . '/new/' . strtolower(date('M')) . '/' . intval(date('d')) . '/';
-        $content = Crawler::getBody($base . 'menu2.js', 0.5, false);
-
-        preg_match_all('#today-.*\.htm#', $content, $matches);
-        foreach ($matches[0] as $link) {
-            try {
-                $update ++;
-                $url = $base . $link;
-                $insert += News::addNews($url, 5);
-                if ($insert_limit <= $insert) {
-                    break;
-                }
-            } catch (Pix_Table_DuplicateException $e) {
             }
         }
         return array($update, $insert);
