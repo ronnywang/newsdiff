@@ -112,6 +112,11 @@ class Crawler
 
     public static function updateAllRaw()
     {
+        self::updatePart(1, 1);
+    }
+
+    public static function updatePart($part, $total)
+    {
         $now = time();
         $start = microtime(true);
         $fetching_news = array();
@@ -123,7 +128,12 @@ class Crawler
             10 => true, // BCC 中廣新聞
             14 => true, // 民視新聞
         );
+        $total = intval($total);
+        $part = intval($part);
         foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->order('last_fetch_at ASC') as $news) {
+            if ($total !== 1 and intval($news->source) % $total !== $part) {
+                continue;
+            }
             if (!self::validSource($news->source)) {
                 if ($invalid_count >= 50) {
                     continue;
