@@ -64,6 +64,7 @@ class NewsRaw extends Pix_Table
             break;
 
         case 'iservice.libertytimes.com.tw':
+        case 'news.ltn.com.tw':
             $ret = Crawler_Libertytimes::parse($raw);
             break;
 
