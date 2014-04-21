@@ -21,9 +21,6 @@ $crawlers = array(
 //    15 => 'Crawler_SETNews',
 );
 
-$source_update = json_decode(KeyValue::get('source_update')) ?: new StdClass;
-$source_insert = json_decode(KeyValue::get('source_insert')) ?: new StdClass;
-
 $insert_count = 0;
 $max_insert = 500;
 foreach ($crawlers as $id => $class) {
@@ -37,14 +34,12 @@ foreach ($crawlers as $id => $class) {
         continue;
     }
     if ($update) {
-        $source_update->{$id} = time();
+        KeyValue::set('source_update-' . $id, time());
     }
     if ($insert) {
         $insert_count += $insert;
-        $source_insert->{$id} = time();
+        KeyValue::set('source_insert-' . $id, time());
     }
 }
 
 error_log('Insert_count: ' . $insert_count);
-KeyValue::set('source_update', json_encode($source_update));
-KeyValue::set('source_insert', json_encode($source_insert));
