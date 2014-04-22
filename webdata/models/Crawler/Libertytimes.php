@@ -28,6 +28,7 @@ class Crawler_Libertytimes
         foreach ($matches[0] as $link) {
             $update = 0;
             $url = Crawler::standardURL('http://news.ltn.com.tw' . $link);
+            $update ++;
             $insert += News::addNews($url, 5);
             if ($insert_limit <= $insert) {
                 break;
