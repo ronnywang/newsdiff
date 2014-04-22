@@ -29,11 +29,14 @@ class Crawler_PTS
             if ('og:title' == $meta_dom->getAttribute('property')) {
                 $ret->title = preg_replace('#-公視新聞網$#', '', $meta_dom->getAttribute('content'));
             }
-            if ('og:description' == $meta_dom->getAttribute('property')) {
-                $ret->body = trim($meta_dom->getAttribute('content'));
-            }
         }
 
+        $ret->body = '';
+        foreach ($doc->getElementsByTagName('p') as $p_dom) {
+            if ($p_dom->getAttribute('class') == 'Page') {
+                $ret->body .= Crawler::getTextFromDom($p_dom);
+            }
+        }
         if ($ret->title and $ret->body) {
             return $ret;
         }
