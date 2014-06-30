@@ -17,7 +17,7 @@ class Crawler_Appledaily
             'http://www.appledaily.com.tw/appledaily/article/forum',
         );
         for ($i = 1; $i < 10; $i ++) {
-            $urls[] = 'http://www.appledaily.com.tw/realtimenews/index/page/' . $i;
+            $urls[] = 'http://www.appledaily.com.tw/realtimenews/section/new/' . $i;
         }
 
         $content = '';
