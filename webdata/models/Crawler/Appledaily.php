@@ -4,18 +4,29 @@ class Crawler_Appledaily
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://www.appledaily.com.tw');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/todayapple');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/headline');
-        $content .= Crawler::getBody('http://ent.appledaily.com.tw/');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/international');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/sports');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/supplement');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/finance');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/property');
-        $content .= Crawler::getBody('http://www.appledaily.com.tw/appledaily/article/forum');
+        $urls = array(
+            'http://www.appledaily.com.tw',
+            'http://www.appledaily.com.tw/appledaily/todayapple',
+            'http://www.appledaily.com.tw/appledaily/article/headline',
+            'http://ent.appledaily.com.tw/',
+            'http://www.appledaily.com.tw/appledaily/article/international',
+            'http://www.appledaily.com.tw/appledaily/article/sports',
+            'http://www.appledaily.com.tw/appledaily/article/supplement',
+            'http://www.appledaily.com.tw/appledaily/article/finance',
+            'http://www.appledaily.com.tw/appledaily/article/property',
+            'http://www.appledaily.com.tw/appledaily/article/forum',
+        );
         for ($i = 1; $i < 10; $i ++) {
-            $content .= Crawler::getBody('http://www.appledaily.com.tw/realtimenews/index/page/' . $i);
+            $urls[] = 'http://www.appledaily.com.tw/realtimenews/index/page/' . $i;
+        }
+
+        $content = '';
+        foreach ($urls as $url) {
+            try {
+                $content .= Crawler::getBody($url);
+            } catch (Exception $e) {
+                error_log("Crawler_Appledaily {$url} failed: {$e->getMessage()}");
+            }
         }
 
 
