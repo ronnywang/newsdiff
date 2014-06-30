@@ -33,7 +33,12 @@ class Crawler
         }
 
         self::$_last_fetch = microtime(true);
+        list($url, $host) = self::roundRobinURL($url);
+
         $curl = curl_init($url);
+        if (!is_null($host)) {
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Host: ' . $host));
+        }
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
