@@ -29,3 +29,4 @@ news.ftv.com.tw,'^/NewsContent\.aspx$',http://news.ftv.com.tw/NewsContent.aspx?s
 www.setnews.net,'^/News\.aspx$',http://www.setnews.net/News.aspx?NewsID={$NewsID},www.setnews.net/news/{$NewsID}
 www.youtube.com,'^/watch',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
 www.youtube.com,'^/embed',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
+www.stormmediagroup.com,'^/opencms',http://www.stormmediagroup.com/opencms/news/detail/{$uuid}/?uuid={$uuid},stormmediagroup/{$uuid}
