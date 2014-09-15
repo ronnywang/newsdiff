@@ -21,7 +21,7 @@ class Crawler_Nownews
     }
     public static function parse($body)
     {
-        $body = str_replace('<meta http-equiv="Content-Type" content="text/html; charset=big5"/>', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
+        $body = mb_convert_encoding($body, 'HTML-ENTITIES', "UTF-8");
         $doc = new DOMDocument('1.0', 'UTF-8');
         // 移除掉關鍵字的部份
         $body = preg_replace('#<p class="bzkeyword">.*?</p>#s', '', $body);
