@@ -255,7 +255,7 @@ class Crawler
         }
     }
 
-    public function getTextFromDom($node)
+    public static function getTextFromDom($node)
     {
         $ret = '';
         if ($node->nodeType == XML_TEXT_NODE) {
