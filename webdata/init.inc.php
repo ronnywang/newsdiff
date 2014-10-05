@@ -5,6 +5,7 @@ error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 include(__DIR__ . '/stdlibs/pixframework/Pix/Loader.php');
 set_include_path(__DIR__ . '/stdlibs/pixframework/'
     . PATH_SEPARATOR . __DIR__ . '/models'
+    . PATH_SEPARATOR . __DIR__ . '/stdlibs/Dropbox-master/'
 );
 require_once(__DIR__ . '/stdlibs/diff_match_patch-php-master/diff_match_patch.php');
 
