@@ -62,6 +62,8 @@ class Dumper
         for ($i = 1; $i < 7; $i ++) {
             $date = date('Ymd', strtotime('today') - 86400 * $i);
             $fp = $this->fps[$date];
+            fflush($fp);
+            fclose($fp);
             DropboxLib::putFile("/tmp/newsdump-{$date}.gz", "/OpenData/newsdiff/{$date}.txt.gz");
         }
 
