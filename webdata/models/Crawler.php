@@ -133,7 +133,6 @@ class Crawler
     public static function updatePart($part, $total)
     {
         $now = time();
-        $start = microtime(true);
         $fetching_news = array();
         $count = 0;
         $update_limit = 300;
@@ -169,6 +168,7 @@ class Crawler
             return;
         }
         error_log("fetching $count news...");
+        $start = microtime(true);
 
         $handles = array();
         $mh = curl_multi_init();
