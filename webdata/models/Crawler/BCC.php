@@ -4,8 +4,8 @@ class Crawler_BCC
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://www.bcc.com.tw/news_list.asp?type=總覽');
-        preg_match_all('#news_view\.asp\?nid=[0-9]*#', $content, $matches);
+        $content = Crawler::getBody('http://www.bcc.com.tw/news');
+        preg_match_all('#newsView\.[0-9A-Z-z]*#', $content, $matches);
         $links = array_unique($matches[0]);
         $insert = $update = 0;
         foreach ($links as $link) {
@@ -28,13 +28,19 @@ class Crawler_BCC
             $ret->body = 404;
             return $ret;
         }
-        if (!preg_match('#<meta property="og:title" content="([^"]*)" />#', $body, $matches)) {
-            return null;
-        }
-        $ret->title = $matches[1];
+        $ret->title = null;
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'tt26') {
+                $ret->title = $div_dom->nodeValue;
+                break;
+            }
+        }
+        if (is_null($ret->title)) {
+            return null;
+        }
         if (!$clickBody_start_dom = $doc->getElementById('iclickAdBody_Start')) {
             return null;
         }
@@ -46,6 +52,7 @@ class Crawler_BCC
             }
             $ret->body .= Crawler::getTextFromDom($dom);
         }
+        $ret->body = trim($ret->body);
         return $ret;
     }
 }

@@ -22,6 +22,7 @@ www.chinatimes.com,'^/(newspapers|realtimenews)/(.*-)?([0-9]*)-([0-9]*)',http://
 www.appledaily.com.tw,'^/(realtimenews|appledaily)/article/[^/]*/([0-9]*)/([0-9]*)',http://www.appledaily.com.tw/{$1}/article/local/{$2}/{$3},www.appledaily.com.tw/{$1}/{$2}/{$3}
 news.tvbs.com.tw,'^/entry/([0-9]*)',http://news.twbs.com.tw/entry/{$1},news.tvbs.com.tw/{$1}
 www.bcc.com.tw,'^/news_view\.asp$',http://www.bcc.com.tw/news_view.asp?nid={$nid},www.bcc.com.tw/news/{$nid}
+www.bcc.com.tw,'^/newsView\.([0-9a-zA-Z]*)',http://www.bcc.com.tw/news_view.asp?nid={$1},www.bcc.com.tw/news{$1}
 news.pts.org.tw,'^/detail.php$',http://news.pts.org.tw/detail.php?NEENO={$NEENO},news.pts.org.tw/{$NEENO}
 www.ttv.com.tw,'^/[0-9]*/[0-9]*/[0-9]*/([0-9]*[A-Z0-9])\.htm$',http://www.ttv.com.tw{$0},www.ttv.com.tw/news/{$1}
 news.cts.com.tw,'^/([a-z]*)/[a-z]*/[0-9]*/([0-9]*)\.html$',http://news.cts.com.tw{$0},news.cts.com.tw/{$1}/{$2}
