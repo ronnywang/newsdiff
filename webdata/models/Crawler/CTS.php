@@ -28,11 +28,17 @@ class Crawler_CTS
             $ret->title = $ret->body = 404;
             return $ret;
         }
-        if (!$title_dom = $doc->getElementsByTagName('h1')->item(0)) {
+        $ret->title = null;
+        foreach ($doc->getElementsByTagName('meta') as $meta_dom) {
+            if ('name' == $meta_dom->getAttribute('itemprop')) {
+                $ret->title = $meta_dom->getAttribute('content');
+                break;
+            }
+        }
+        if (is_null($ret->title)) {
             return null;
         }
-        $ret->title = trim($title_dom->nodeValue);
-        $ret->body = Crawler::getTextFromDom($doc->getElementById('ctscontent'));
+        $ret->body = Crawler::getTextFromDom($doc->getElementById('article'));
         return $ret;
     }
 }
