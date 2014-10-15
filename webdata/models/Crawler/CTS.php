@@ -30,13 +30,21 @@ class Crawler_CTS
         }
         $ret->title = null;
         foreach ($doc->getElementsByTagName('meta') as $meta_dom) {
-            if ('name' == $meta_dom->getAttribute('itemprop')) {
+            if ('title' == $meta_dom->getAttribute('name')) {
                 $ret->title = $meta_dom->getAttribute('content');
                 break;
             }
         }
         if (is_null($ret->title)) {
-            return null;
+            if (!$title_dom = $doc->getElementsByTagName('h1')->item(0)) {
+                return null;
+            }
+            if (!$doc->getElementById('ctscontent')) {
+                return null;
+            }
+            $ret->title = trim($title_dom->nodeValue);
+            $ret->body = Crawler::getTextFromDom($doc->getElementById('ctscontent'));
+            return $ret;
         }
         $ret->body = Crawler::getTextFromDom($doc->getElementById('article'));
         return $ret;
