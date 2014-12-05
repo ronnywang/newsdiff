@@ -21,8 +21,8 @@ class NewsRaw extends Pix_Table
 
         $this->_columns['news_id'] = array('type' => 'int');
         $this->_columns['time'] = array('type' => 'int');
-        $this->_columns['header'] = array('type' => 'blob');
-        $this->_columns['raw'] = array('type' => 'longblob');
+        $this->_columns['header'] = array('type' => 'text');
+        $this->_columns['raw'] = array('type' => 'longtext');
     }
 
     public static function insertNew($data)
