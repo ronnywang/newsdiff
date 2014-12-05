@@ -30,7 +30,7 @@ class NewsRaw extends Pix_Table
         $table_name = "news_raw_" . date('Ym', $data['time']);
         $table = NewsRaw::getTable();
         $db = NewsRaw::getDb();
-        $db->query(sprintf("INSERT INTO %s (`news_id`, `time`, `header`, `raw`) VALUES (%d, %d, %s)",
+        $db->query(sprintf("INSERT INTO %s (`news_id`, `time`, `header`, `raw`) VALUES (%d, %d, %s, %s)",
             $table_name,
             $data['news_id'],
             $data['time'],
