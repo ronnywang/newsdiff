@@ -7,6 +7,22 @@ class NewsRow extends Pix_Table_Row
         return NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->first();
     }
 
+    public function getRaws()
+    {
+        $sources = array();
+        foreach ($this->infos as $news_info) {
+            $table_name = "news_raw_" . date('Ym', $news_info->time);
+            $table = NewsRaw::getTable();
+            $db = NewsRaw::getDb();
+            $res = $db->query("SELECT * FROM {$table_name} WHERE news_id = {$news_info->news_id} AND `time` = {$news_info->time}");
+            while ($row = $res->fetch_object()) {
+                $sources[] = $row;
+            }
+        }
+
+        return $sources;
+    }
+
     public function regenerateInfo()
     {
         //$this->infos->delete();
