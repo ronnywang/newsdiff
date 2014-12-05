@@ -1,0 +1,9 @@
+<?= $this->partial('/common/header.phtml', $this) ?>
+<?php foreach ($this->sources as $raw){ ?>
+<hr>
+<a name="<?= $raw->time ?>"></a>
+修改時間: <?= date('c', $raw->time) ?><br>
+內容：<br>
+<pre class="body"><?= $this->escape($raw->raw) ?></pre>
+<?php } ?>
+<?= $this->partial('/common/footer.phtml', $this) ?>
