@@ -44,10 +44,20 @@ class NewsSourcesCfg
     /**
      * get
      * @param mixed[] $cfg 新聞來源定義清單
+     * @return boolean 是否全部 $cfg 所定義的新聞類型都及格
      */
     static function validateAll($cfg)
     {
-        // placeholder
+        foreach ($cfg as $id => $def) {
+            // 檢模新聞來源的 class，必需為實現 Crawler_Common 的類型
+            // 以確保它包含 Crawler::crawl 所需用到的方法
+            if (!is_subclass_of($def['class'], 'Crawler_Common')) {
+                throw new Exception('Parameter "class"  '.$def['class'].
+                    ' (news id='.$id.') is not implementing interface Crawler_Common');
+                return FALSE;
+            }
+        }
+        return TRUE;
     }
 
     /**

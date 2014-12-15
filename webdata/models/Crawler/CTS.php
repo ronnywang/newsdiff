@@ -1,8 +1,8 @@
 <?php
 
-class Crawler_CTS
+class Crawler_CTS implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         $content = Crawler::getBody('http://news.cts.com.tw/real');
         $content .= Crawler::getBody('http://news.cts.com.tw/real/index2.html');
@@ -10,18 +10,14 @@ class Crawler_CTS
         $content .= Crawler::getBody('http://news.cts.com.tw/real/index4.html');
         $content .= Crawler::getBody('http://news.cts.com.tw/real/index5.html');
         $content .= Crawler::getBody('http://news.cts.com.tw/real/index6.html');
+        return $content;
+    }
+
+    public static function findLinksIn($content)
+    {
         preg_match_all('#[a-z]*/[a-z]*/[0-9]*/[0-9]*\.html#', $content, $matches);
-        $links = array_unique($matches[0]);
-        $insert = $update = 0;
-        foreach ($links as $link) {
-            $update ++;
-            $link = 'http://news.cts.com.tw/' . $link;
-            $insert += News::addNews($link, 13);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        array_walk($matches[0], function(&$link) { $link = 'http://news.cts.com.tw/' . $link; });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)

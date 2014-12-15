@@ -1,8 +1,8 @@
 <?php
 
-class Crawler_Chinatimes
+class Crawler_Chinatimes implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         $content = Crawler::getBody('http://www.chinatimes.com');
         $content .= Crawler::getBody('http://www.chinatimes.com/newspapers/'); // 日報精選
@@ -15,18 +15,14 @@ class Crawler_Chinatimes
         for ($i = 1; $i < 10; $i ++) {
             $content .= Crawler::getBody('http://www.chinatimes.com/realtimenews/?page=' . $i);
         }
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/(newspapers|realtimenews)/([^"\#<]*-)?\d+-\d+["<]?#', $content, $matches);
-        $insert = $update = 0;
-        foreach (array_unique($matches[0]) as $link) {
-            $update ++;
-            $url = Crawler::standardURL('http://www.chinatimes.com' . rtrim($link, '"<'));
-            $insert += News::addNews($url, 2);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        array_walk($matches[0], function(&$link) { $link = 'http://www.chinatimes.com' . rtrim($link, '"<'); });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)

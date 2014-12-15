@@ -1,23 +1,19 @@
 <?php
 
-class Crawler_TVBS
+class Crawler_TVBS implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         $content = Crawler::getBody('http://news.tvbs.com.tw/todaynews');
         $content .= Crawler::getBody('http://news.tvbs.com.tw/today_latest_news');
+        return $content;
+    }
+
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/entry/[0-9]*#', $content, $matches);
-        $links = array_unique($matches[0]);
-        $insert = $update = 0;
-        foreach ($links as $link) {
-            $update ++;
-            $link = 'http://news.tvbs.com.tw' . $link;
-            $insert += News::addNews($link, 9);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        array_walk($matches[0], function(&$link) { $link = 'http://news.tvbs.com.tw' . $link; });
+       return array_unique($matches[0]);
     }
 
     public static function parse($body)

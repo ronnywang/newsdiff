@@ -12,7 +12,7 @@ foreach ($crawlers as $id => $class) {
         break;
     }
     try {
-        list($update, $insert) = call_user_func(array($class, 'crawl'), $max_insert - $insert_count);
+        list($update, $insert) = Crawler::crawl($id, $class, $max_insert - $insert_count);
     } catch (Exception $e) {
         error_log("$class failed: " . $e->getMessage());
         continue;

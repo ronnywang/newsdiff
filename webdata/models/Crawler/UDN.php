@@ -1,25 +1,22 @@
 <?php
 
-class Crawler_UDN
+class Crawler_UDN implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
-        $content = Crawler::getBody('http://udn.com/NEWS/hierArrays.js');
-        preg_match_all('#http://udn.com/NEWS/[^\.]*\.js#', $content, $matches);
-        $jslinks = $matches[0];
-        $insert = $update = 0;
-        foreach ($jslinks as $jslink) {
-            $content = Crawler::getBody($jslink);
-            preg_match_all('#http://udn.com/NEWS/[^/"\']*/[^/"\']*/[0-9]*\.shtml#', $content, $matches);
-            foreach ($matches[0] as $link) {
-                $update ++;
-                $insert += News::addNews($link, 8);
-                if ($insert_limit <= $insert) {
-                    break;
-                }
-            }
+        $indexJs = Crawler::getBody('http://udn.com/NEWS/hierArrays.js');
+        preg_match_all('#http://udn.com/NEWS/[^\.]*\.js#', $indexJs, $matches);
+        $content = '';
+        foreach ($matches[0] as $jslink) {
+            $content .= Crawler::getBody($jslink);
         }
-        return array($update, $insert);
+        return $content;
+    }
+
+    public static function findLinksIn($content)
+    {
+        preg_match_all('#http://udn.com/NEWS/[^/"\']*/[^/"\']*/[0-9]*\.shtml#', $content, $matches);
+       return array_unique($matches[0]);
     }
 
     public static function parse($body)

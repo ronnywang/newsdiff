@@ -1,8 +1,8 @@
 <?php
 
-class Crawler_CNA
+class Crawler_CNA implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         // http://www.cna.com.tw/News/aCN/201308130087-1.aspx
         // http://www.cna.com.tw/Topic/Popular/3907-1/201308130021-1.aspx
@@ -10,19 +10,14 @@ class Crawler_CNA
         for ($i = 1; $i < 10; $i ++) {
             $content .= Crawler::getBody('http://www.cna.com.tw/list/aall-' . $i . '.aspx');
         }
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#i', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $update ++;
-            $url = Crawler::standardURL('http://www.cna.com.tw' . $link);
-            $insert += News::addNews($url, 3);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
-
+        array_walk($matches[0], function(&$link) { $link = 'http://www.cna.com.tw' . $link; });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)

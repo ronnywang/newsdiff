@@ -303,4 +303,18 @@ class Crawler
         }
         return $ret;
     }
+
+    public static function crawl($id, $class, $insert_limit) {
+        $content = call_user_func(array($class, 'crawlIndex'));
+        $links = call_user_func(array($class, 'findLinksIn'), $content);
+        $insert = $update = 0;
+        foreach ($links as $link) {
+            $url = Crawler::standardURL($link);
+            $update ++;
+            $insert += News::addNews($url, $id);
+            if ($insert_limit <= $insert) {
+                break;
+            }
+        }
+    }
 }

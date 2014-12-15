@@ -1,8 +1,9 @@
 <?php
 
-class Crawler_Appledaily
+class Crawler_Appledaily implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+
+    public static function crawlIndex()
     {
         $urls = array(
             'http://www.appledaily.com.tw',
@@ -29,19 +30,14 @@ class Crawler_Appledaily
             }
         }
 
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/(appledaily|realtimenews)/article/[^/]*/\d+/[^"]+#', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $url = Crawler::standardURL('http://www.appledaily.com.tw' . $link);
-            $update ++;
-            $insert += News::addNews($url, 1);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-
-        return array($update, $insert);
+        array_walk($matches[0], function(&$link) { $link = 'http://www.appledaily.com.tw'.$link; });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)
@@ -80,6 +76,5 @@ class Crawler_Appledaily
         }
         return $ret;
     }
-
 
 }

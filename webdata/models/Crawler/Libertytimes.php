@@ -1,8 +1,8 @@
 <?php
 
-class Crawler_Libertytimes
+class Crawler_Libertytimes implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         // http://www.libertytimes.com.tw/2013/new/aug/13/today-t3.htm
         // http://iservice.libertytimes.com.tw/liveNews/news.php?no=852779&type=%E7%A4%BE%E6%9C%83
@@ -22,19 +22,14 @@ class Crawler_Libertytimes
             $url = 'http://news.ltn.com.tw/section/' . $category;
             $content .= Crawler::getBody($url, 0.5, false);
         }
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/news/[a-z]*/[a-z]*/[0-9]*#', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $update = 0;
-            $url = Crawler::standardURL('http://news.ltn.com.tw' . $link);
-            $update ++;
-            $insert += News::addNews($url, 5);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        array_walk($matches[0], function(&$link) { $link = 'http://news.ltn.com.tw' .  $link; });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)
@@ -58,7 +53,7 @@ class Crawler_Libertytimes
         }
 
         $doc = new DOMDocument('1.0', 'UTF-8');
-        @$doc->loadHTML($body);
+        @$doc->loadHTML(mb_convert_encoding($body, 'HTML-ENTITIES', 'UTF-8'));
         $ret = new StdClass;
         if (!$doc->getElementById('newsti')){
             // 新版

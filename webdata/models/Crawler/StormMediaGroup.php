@@ -1,8 +1,8 @@
 <?php
 
-class Crawler_StormMediaGroup
+class Crawler_StormMediaGroup implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         $urls = array();
         for ($i=1; $i<=4; $i++) {
@@ -18,18 +18,14 @@ class Crawler_StormMediaGroup
             }
         }
 
-        preg_match_all('#href="(/opencms/news/detail/.*/?uuid=[0-9a-zA-Z\-]*)#', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[1] as $link) {
-            $url = Crawler::standardURL("http://www.stormmediagroup.com{$link}");
-            $update ++;
-            $insert += News::addNews($url, 16);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
+        return $content;
+    }
 
-        return array($update, $insert);
+    public static function findLinksIn($content)
+    {
+        preg_match_all('#href="(/opencms/news/detail/.*/?uuid=[0-9a-zA-Z\-]*)#', $content, $matches);
+        array_walk($matches[1], function(&$link) { $link = 'http://www.stormmediagroup.com' . $link; });
+       return array_unique($matches[1]);
     }
 
     public static function parse($body)
