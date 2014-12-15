@@ -2,44 +2,42 @@
 
 error_reporting(E_ALL ^ E_STRICT ^ E_NOTICE);
 
-include(__DIR__ . '/stdlibs/pixframework/Pix/Loader.php');
+// 設定 include path 及 autoload
+require_once(__DIR__ . '/stdlibs/diff_match_patch-php-master/diff_match_patch.php');
+require_once(__DIR__ . '/stdlibs/pixframework/Pix/Loader.php');
 set_include_path(__DIR__ . '/stdlibs/pixframework/'
     . PATH_SEPARATOR . __DIR__ . '/models'
     . PATH_SEPARATOR . __DIR__ . '/stdlibs/Dropbox-master/'
 );
-require_once(__DIR__ . '/stdlibs/diff_match_patch-php-master/diff_match_patch.php');
-
 Pix_Loader::registerAutoLoad();
 
-if (file_exists(__DIR__ . '/config.php')) {
-    include(__DIR__ . '/config.php');
-}
 // TODO: 之後要搭配 geoip
 date_default_timezone_set('Asia/Taipei');
 mb_internal_encoding("UTF-8");
 
-if (!getenv('DATABASE_URL')) {
-    die('need DATABASE_URL');
-}
-if (!preg_match('#mysql://([^:]*):([^@]*)@([^/]*)/(.*)#', strval(getenv('DATABASE_URL')), $matches)) {
-    die('mysql only');
+// 如有設定檔，使用該檔設定
+if (file_exists(__DIR__ . '/config.php')) {
+    include(__DIR__ . '/config.php');
 }
 
-if (!getenv('DATABASE_URL')) {
-    die('need DATABASE_URL');
+// 在測試模式下，跳過資料庫連結程序
+if (UNITTEST_MODE !== true) {
+    if (!getenv('DATABASE_URL')) {
+        die('need DATABASE_URL');
+    }
+    if (!preg_match('#mysql://([^:]*):([^@]*)@([^/]*)/(.*)#', strval(getenv('DATABASE_URL')), $matches)) {
+        die('mysql only');
+    }
+        
+    $db = new StdClass;
+    $db->host = $matches[3];
+    $db->username = $matches[1];
+    $db->password = $matches[2];
+    $db->dbname = $matches[4];
+    $config = new StdClass;
+    $config->master = $config->slave = $db;
+    Pix_Table::setDefaultDb(new Pix_Table_Db_Adapter_MysqlConf(array($config)));
 }
-if (!preg_match('#mysql://([^:]*):([^@]*)@([^/]*)/(.*)#', strval(getenv('DATABASE_URL')), $matches)) {
-    die('mysql only');
-}
-    
-$db = new StdClass;
-$db->host = $matches[3];
-$db->username = $matches[1];
-$db->password = $matches[2];
-$db->dbname = $matches[4];
-$config = new StdClass;
-$config->master = $config->slave = $db;
-Pix_Table::setDefaultDb(new Pix_Table_Db_Adapter_MysqlConf(array($config)));
 
 // define news sources
 NewsSourcesCfg::setAll(array(
