@@ -11,7 +11,7 @@ class TestCase_Crawler_Appledaily_Parse_523056 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/523056.html');
-        $result = Crawler_Appledaily::parse($content);
+        $result = Crawler_Appledaily::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/523056.json'));
 
         $this->assertEqual(

@@ -11,7 +11,7 @@ class TestCase_Crawler_BCC_Parse_2470299 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/2470299.html');
-        $result = Crawler_BCC::parse($content);
+        $result = Crawler_BCC::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/2470299.json'));
 
         $this->assertEqual(

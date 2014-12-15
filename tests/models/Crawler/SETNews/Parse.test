@@ -11,7 +11,7 @@ class TestCase_Crawler_SETNews_Parse_45500 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/45500.html');
-        $result = Crawler_SETNews::parse($content);
+        $result = Crawler_SETNews::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/45500.json'));
 
         $this->assertEqual(

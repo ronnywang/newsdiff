@@ -11,7 +11,7 @@ class TestCase_Crawler_CTS_Parse_201411111536296 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/201411111536296.html');
-        $result = Crawler_CTS::parse($content);
+        $result = Crawler_CTS::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/201411111536296.json'));
 
         $this->assertEqual(

@@ -11,7 +11,7 @@ class TestCase_Crawler_TTV_Parse_10312120017000I extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/10312120017000I.html');
-        $result = Crawler_TTV::parse($content);
+        $result = Crawler_TTV::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/10312120017000I.json'));
 
         $this->assertEqual(

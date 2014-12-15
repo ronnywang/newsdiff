@@ -11,7 +11,7 @@ class TestCase_Crawler_TVBS_Parse_556732 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/556732.html');
-        $result = Crawler_TVBS::parse($content);
+        $result = Crawler_TVBS::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/556732.json'));
 
         $this->assertEqual(

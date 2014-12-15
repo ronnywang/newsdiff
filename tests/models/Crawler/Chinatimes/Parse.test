@@ -11,7 +11,7 @@ class TestCase_Crawler_Chinatimes_Parse_260115 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/260115.html');
-        $result = Crawler_Chinatimes::parse($content);
+        $result = Crawler_Chinatimes::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/260115.json'));
 
         $this->assertEqual(

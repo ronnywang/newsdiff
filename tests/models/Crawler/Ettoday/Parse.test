@@ -11,7 +11,7 @@ class TestCase_Crawler_Ettoday_Parse_436375 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/436375.html');
-        $result = Crawler_Ettoday::parse($content);
+        $result = Crawler_Ettoday::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/436375.json'));
 
         $this->assertEqual(

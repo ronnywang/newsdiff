@@ -11,7 +11,7 @@ class TestCase_Crawler_Libertytimes_Parse_20130813t3 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/20130813t3.html');
-        $result = Crawler_Libertytimes::parse($content);
+        $result = Crawler_Libertytimes::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/20130813t3.json'));
 
         $this->assertEqual(

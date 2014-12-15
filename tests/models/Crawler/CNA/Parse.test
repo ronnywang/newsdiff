@@ -12,7 +12,7 @@ class TestCase_Crawler_CNA_Parse_201308130021 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/201308130021-1.html');
-        $result = Crawler_CNA::parse($content);
+        $result = Crawler_CNA::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/201308130021-1.json'));
 
         $this->assertEqual(

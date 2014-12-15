@@ -11,7 +11,7 @@ class TestCase_Crawler_StormMediaGroup_Parse_048c71d1 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/048c71d1.html');
-        $result = Crawler_StormMediaGroup::parse($content);
+        $result = Crawler_StormMediaGroup::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/048c71d1.json'));
 
         $this->assertEqual(

@@ -11,7 +11,7 @@ class TestCase_Crawler_FTV_Parse_2014C01L08M1 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/2014C01L08M1.html');
-        $result = Crawler_FTV::parse($content);
+        $result = Crawler_FTV::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/2014C01L08M1.json'));
 
         $this->assertEqual(

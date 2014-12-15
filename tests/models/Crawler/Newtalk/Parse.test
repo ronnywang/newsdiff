@@ -11,7 +11,7 @@ class TestCase_Crawler_Newtalk_Parse_52850 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/52850.html');
-        $result = Crawler_Newtalk::parse($content);
+        $result = Crawler_Newtalk::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/52850.json'));
 
         $this->assertEqual(

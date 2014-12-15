@@ -11,7 +11,7 @@ class TestCase_Crawler_Nownews_Parse_1529819 extends UnitTestCase
     function testParse()
     {
         $content = file_get_contents(__DIR__ . '/data/1529819.html');
-        $result = Crawler_Nownews::parse($content);
+        $result = Crawler_Nownews::parse(Crawler::prepareContent($content));
         $reference = json_decode(file_get_contents(__DIR__ . '/data/1529819.json'));
 
         $this->assertEqual(
