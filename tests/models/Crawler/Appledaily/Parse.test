@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_Appledaily_Parse_523056 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Appledaily::parse (523056.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/523056.html');
+        $result = Crawler_Appledaily::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/523056.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

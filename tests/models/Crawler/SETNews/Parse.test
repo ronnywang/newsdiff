@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_SETNews_Parse_45500 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_SETNews::parse (45500.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/45500.html');
+        $result = Crawler_SETNews::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/45500.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

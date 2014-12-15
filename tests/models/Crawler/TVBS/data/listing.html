@@ -1,0 +1,1561 @@
+
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" xmlns:fb='http://www.facebook.com/2008/fbml' xmlns:og='http://ogp.me/ns#'> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en" xmlns:fb='http://www.facebook.com/2008/fbml' xmlns:og='http://ogp.me/ns#'> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en" xmlns:fb='http://www.facebook.com/2008/fbml' xmlns:og='http://ogp.me/ns#'> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" xmlns:fb='http://www.facebook.com/2008/fbml' xmlns:og='http://ogp.me/ns#'> <!--<![endif]-->
+<head>
+<script type="text/javascript"> var ADtimer = 8000; </script>
+    <meta charest="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="sGxbQswdk-9UO0EpOPO_pXvGn3z_QCh--luJ3_pCBOI" />
+        
+        
+        <title>TVBS新聞_每日新聞</title>
+    
+    <meta name="description" content="">
+    <meta name="keywords" content="TVBS">
+    <meta property="og:title" content="TVBS 新聞">
+                                    <meta property="og:image" content="http://news.tvbs.com.tw/static/img/news/TVBS_NEWS_thumb.jpg">
+                            <meta property="og:type" content="website">
+    <meta property="og:url" content="http://news.tvbs.com.tw/">
+    <meta property="fb:app_id" content="156538777856063">
+    <meta property="og:description" content="">
+
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/jquery.reject.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/news.css?20130611144005">
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="/static/css/basic.css">
+    <script src="/static/js/jquery-1.8.2.min.js"></script>
+    <script src="/static/js/jquery.cookie.min.js"></script>
+    <script src="/static/js/jquery.reject.js"></script>    
+    <script src="/static/js/jquery.zclip.js"></script> <!-- copy link -->
+    <script src="/static/js/jquery.lazyload.js" type="text/javascript"></script> <!-- img lazyload -->
+	
+	<!-- Begin comScore Tag -->
+	<script>
+	  var _comscore = _comscore || [];
+	  _comscore.push({ c1: "2", c2: "18400300" });
+	  (function() {
+		var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+		s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+		el.parentNode.insertBefore(s, el);
+	  })();
+	</script>
+	<noscript>
+	  <img src="http://b.scorecardresearch.com/p?c1=2&c2=18400300&cv=2.0&cj=1" />
+	</noscript>
+	<!-- End comScore Tag -->
+	
+	<!-- GA Tag -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-38808906-9', {'cookieDomain': 'tvbs.com.tw'});
+      ga('create', 'UA-56251838-1', {'name': 'benedyTracker'}, {'cookieDomain': 'tvbs.com.tw'});
+     
+	  ga('require', 'displayfeatures');
+      ga('send', 'pageview');
+    </script>
+	<!-- End GA Tag -->
+	
+    <script type="text/javascript">  
+    //images string start
+    function srcN(srcInt,imgtype){
+    //src int and img type
+    var img = srcInt;
+            //search str indexOf
+            var imgS = img.toString().indexOf(imgtype);  
+            //judge imgS size      
+            if(imgS > 0){
+                //return img.toString().substring(0,imgS)+img.toString().substring(imgS+imgtype.length);
+                return img.toString().substring(0,imgS);
+            }
+            return null;
+        }
+    //images string end 
+    $(document).ready(function(){ 
+        $('body').attr("id","jqLazy");          
+        $('img').addClass("lazy");              
+        //$('.news-categories .notopenpic').attr("data-original", randomImgS);
+        $(function() {
+            $("img.lazy").lazyload({
+                effect : "fadeIn",
+                threshold : 10
+            });
+        });                       
+    })
+    function imgLazy(){
+        var imgNot =  $('img').not('iframe');
+       imgNot.each(function(){       
+            var str = document.getElementById("jqLazy").innerHTML; 
+            var res = str.replace("src","data-original");
+            document.getElementById("jqLazy").innerHTML=res;
+        })               
+   }
+
+    </script>
+</head>
+<body class="TVBS news" style="background-image: url('../static/img/newsbg.jpg');">
+    <header id="header" class="container clearfix">
+            <a href="http://www.tvbs.com.tw"><h1 class="tvbs-logo" style="box-shadow:-4px -3px 7px rgba(20%,20%,40%,0.4);">TVBS</h1></a>
+            <div class="ads header-adbanner">
+                                <div class="entrance_slider ads-bricks">
+                                            <a class="theme-brick-link" bigAd="http://www.kje.com.tw/2015tiwte_booking1.html"  href="http://www.kje.com.tw/2015tiwte_booking1.html" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsTOP_AD','http://www.kje.com.tw/2015tiwte_booking1.html');" target="_blank" style="box-shadow:4px -3px 7px rgba(20%,20%,40%,0.4);"><img class="theme-brick-image active" src="/static/backend_attachment/photo/original/d3b6a45b525474c339f2efa09e823295.jpg" style="" data-slide-duration="5" ></a>
+                                            <a class="theme-brick-link" bigAd="http://youtu.be/J8KLthdnDto"  href="http://youtu.be/J8KLthdnDto" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsTOP_AD','http://youtu.be/J8KLthdnDto');" target="_blank" style="box-shadow:4px -3px 7px rgba(20%,20%,40%,0.4);"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/f04447cad8e3d0189fb599ffc26e3c86.jpg" style="display:none;" data-slide-duration="5" ></a>
+                                            <a class="theme-brick-link" bigAd="http://www.tvbs.com.tw/project/2015_taipei/index.php"  href="http://www.tvbs.com.tw/project/2015_taipei/index.php" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsTOP_AD','http://www.tvbs.com.tw/project/2015_taipei/index.php');" target="_blank" style="box-shadow:4px -3px 7px rgba(20%,20%,40%,0.4);"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/f0b23c879d20cd627aa2c69b5231ed3c.gif" style="display:none;" data-slide-duration="5" ></a>
+                                            <a class="theme-brick-link" bigAd="http://www.tvbs.com.tw/project/2015_taipei/02.html"  href="http://www.tvbs.com.tw/project/2015_taipei/02.html" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsTOP_AD','http://www.tvbs.com.tw/project/2015_taipei/02.html');" target="_blank" style="box-shadow:4px -3px 7px rgba(20%,20%,40%,0.4);"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/cdf3ef7066a7895604c0a27d8d424e04.gif" style="display:none;" data-slide-duration="5" ></a>
+                                            <a class="theme-brick-link" bigAd="http://www1.tvbs.com.tw/project/tvbs_g/program/gcm/vote.aspx"  href="http://www1.tvbs.com.tw/project/tvbs_g/program/gcm/vote.aspx" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsTOP_AD','http://www1.tvbs.com.tw/project/tvbs_g/program/gcm/vote.aspx');" target="_blank" style="box-shadow:4px -3px 7px rgba(20%,20%,40%,0.4);"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/cf92375205081a8112b7e765c5469f06.gif" style="display:none;" data-slide-duration="5" ></a>
+                                        <img src="http://amch.questionmarket.com/adsc/d1091956/7/1091969/adscout.php?ord=000005" style="height:1px; width:1px; border:0px;display:none;" >
+                </div>
+                            
+
+            </div>
+    </header>
+    <style>
+        .desktop{ display: block;}
+        .mobile{ display: none;}
+    </style>
+    <!-- pc start -->
+    <div class="desktop header-navigation" id="header-navigation">
+	<div style="background-image: url('../static/img/newsbg.jpg');">
+        <div class="inner-navigation clearfix" style="box-shadow:-4px -4px 7px rgba(20%,20%,40%,0.4),4px -4px 7px rgba(20%,20%,40%,0.4);">
+            <ul class="nav hyper-links">
+                                            <li class="link-item">
+                                                        <a href="http://www.tvbs.com.tw">TVBS 首頁</a>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item">
+                                                        <a href="http://www.tvbs.com.tw/program/">節目表</a>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item">
+                                                        <a href="http://news.tvbs.com.tw">TVBS 新聞</a>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item">
+                                                        <a href="http://news.tvbs.com.tw/weather">氣象</a>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="#">新聞節目</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://2100.tvbs.com.tw/index">少康戰情室</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://new-taiwan.tvbs.com.tw/index">一步一腳印 發現新台灣</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://health.tvbs.com.tw/index">健康2.0</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://people.tvbs.com.tw/index">TVBS 看板人物</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://finance-news.tvbs.com.tw/index">創富新聞</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://gold-line.tvbs.com.tw/index">地球黃金線</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://focus.tvbs.com.tw/index">Focus全球新聞</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://today-talk.tvbs.com.tw/">麗文正經話</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvbs_n/Hakka6/">來怡客</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvbs_n/taiwanmyhome1/">台灣是我家</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/ad/designtaipei2016/index.html">設計之都</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="#">娛樂</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvbs_g/program/gcm/index.html">全球中文音樂榜上榜</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://tvbsweekly.tvbs.com.tw/star/" target="_blank">TVBS周刊星勢力</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://work.tvbs.com.tw/">上班這黨事</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvbs_g/program/linewalker/index.html">使徒行者</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="http://supertaste.tvbs.com.tw/index">食尚玩家</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://supertaste.tvbs.com.tw/index?&amp;class=taste-show">食尚玩家</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://supertaste.tvbs.com.tw/index?&amp;class=play">食尚玩家 - 就要醬玩</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://supertaste.tvbs.com.tw/index?&amp;class=live">食尚玩家 - 來去住一晚</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="http://woman.tvbs.com.tw/index">女人我最大</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://woman.tvbs.com.tw/index">女人我最大</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://woman.tvbs.com.tw/index?&amp;class=beauty">女人美妝大賞</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www.tvbs.com.tw/project/womanreport/index.php">女人試用報告</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="#">戲劇</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://drama.tvbs.com.tw/index">戲劇中心</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://drama.tvbs.com.tw/drama?&amp;theater=boysitter">俏摩女搶頭婚</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://drama.tvbs.com.tw/drama?&amp;theater=thewaywewere">16個夏天</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://drama.tvbs.com.tw/drama?&amp;theater=RocknRoad">A咖的路</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://drama.tvbs.com.tw/drama?&amp;theater=kissmemom">媽，親一下</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://drama.tvbs.com.tw/drama?&amp;theater=dragon_gate">飛越龍門客棧</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="http://asia.tvbs.com.tw/about_asia.html">TVBS ASIA</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvbs_asia/program/EmpressJin/index.html">帝錦</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/new_project/tvbs_asia/sisters/index.html">姊妹</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://asia.tvbs.com.tw/about_asia.html">關於TVBS ASIA</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="http://weekly.tvbs.com.tw">出版專區</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://weekly.tvbs.com.tw/index?class=tvbs_weekly">TVBS 周刊</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://tvbsweekly.tvbs.com.tw/star/" target="_blank">TVBS周刊星勢力</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://tvbsweekly.tvbs.com.tw/watch" target="_blank">TVBS周刊星時尚</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://weekly.tvbs.com.tw/index?class=supertaste">食尚玩家</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://weekly.tvbs.com.tw/index?class=health">健康2.0</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://weekly.tvbs.com.tw/index?class=woman">女人我最大</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item  trigger-sub-link">
+                                                        <a href="http://www1.tvbs.com.tw/project/tvb8/activity/event/index.html">TVB 8</a>
+                                        <div class="sub-link">
+                                                                    <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvb8/program/allthatisbitterissweet/index.html">大藥坊</a>
+                                                                                            <!-- 特別增加視窗判斷  另開新頁-->
+                                                    <a class="ellipsis" href="http://www1.tvbs.com.tw/project/tvbs_g/program/ghostdragonofcoldmountain/index.html">寒山潛龍</a>
+                                                                </div>
+                                    </li>
+                <li class="white">|</li>
+                                            <li class="link-item">
+                                                        <a href="http://www.tvbs.com.tw/foundation">基金會</a>
+                                    </li>
+                <li class="white">|</li>
+                        </ul>
+   <!--         <ul class="nav sub-lang" style="visibility: hidden;">
+                <li class="subscribe"><a href="#">訂閱電子報</a></li>
+                <li class="line">|</li>
+                <li class="lang"><a class="lang zh-tw" href="#">繁體</a>/<a class="lang zh-cn" href="#">簡體</a></li>
+            </ul>-->
+            <ul class="nav social-icons">
+                <li class="social facebook" id="fblogin"><a class="icon" href="http://forum.tvbs.com.tw/forum.php?redirect=http://news.tvbs.com.tw">臉書</a><a href="http://forum.tvbs.com.tw/forum.php?redirect=http://news.tvbs.com.tw">登入</a></li>
+                <li class="social facebook" id="fblogout" style="display:none;"><a class="icon" href="http://forum.tvbs.com.tw/member.php?mod=logging&action=logout">臉書</a><a href="http://forum.tvbs.com.tw/forum.php?redirect=http://news.tvbs.com.tw">登出</a></li>
+            </ul>
+            <div class="news-search">
+                <input type="text" id="search_keyword" name="q" required="required" placeholder="搜尋..." value="" style"width:200px;">
+                <input type="button" id="google_search" class="btn" value="搜尋">
+            </div>
+        </div>
+	</div>
+    </div>
+    <!-- pc end -->
+    <div class="mobile header-navigation" id="header-navigation">        
+    </div>
+    <div id="main" class="container">
+    <header>
+        
+
+<style type="text/css">
+.pop-box {  
+    z-index: 9999999; /*这个数值要足够大，才能够显示在最上层*/  
+    margin-bottom: 3px;  
+    display: none;  
+    position: absolute;  
+}  
+</style>
+
+<nav class="main-navigation clearfix" style="box-shadow:-4px 0px 7px rgba(20%,20%,40%,0.4),4px 0px 7px rgba(20%,20%,40%,0.4);">
+    <ul class="nav btn-group">
+        <li pcid='disabled' class="homepage btn"><a class="home-icon" href="http://news.tvbs.com.tw">新聞分類</a></li>
+        <li pcid='disabled' class="weather btn"><a href="http://news.tvbs.com.tw/weather">氣象</a></li>
+        <li pcid='11' class=" news political btn"><a href="/news_cate/11">政治</a></li>
+        <li pcid='1' class=" news society btn"><a href="/news_cate/1">社會</a></li>
+        <li pcid='2' class=" news life btn"><a href="/news_cate/2">生活</a></li>
+        <li pcid='7' class=" news finance btn"><a href="/news_cate/7">財經</a></li>
+        <li pcid='6' class=" news china btn"><a href="/news_cate/6">兩岸</a></li>
+        <li pcid='3' class=" news global btn"><a href="/news_cate/3">世界</a></li>
+        <li pcid='12' class=" news technology btn"><a href="/news_cate/12">科技</a></li>
+        <li pcid='5' class=" news entertainment btn"><a href="/news_cate/5">娛樂</a></li>
+        <li pcid='8' class=" news sports btn"><a href="/news_cate/8">體壇</a></li>
+        <li pcid='252' class=" news qanda btn"><a href="/news_cate/252">T&nbsp;博客</a></li>
+        <li pcid='14' class=" news clearifications btn"><a href="/news_cate/14">更正與澄清</a></li>
+        <!-- <li class="anchor btn" style="width: 92px;"><a href="http://www1.tvbs.com.tw/tvbs2011/Anchor/tvbs_Anchor.html">主播專區</a></li> -->
+        <li pcid='disabled' class="anchor btn" style="width: 84px;"><a href="http://home.tvbs.com.tw/anchor">主播專區&nbsp;&nbsp;</a></li>
+        <li pcid='disabled' class="anchor btn" ><a href="http://sports.tvbs.com.tw/uba/">UBA</a></li>
+    </ul>
+</nav>
+
+<div id="catPreviewArea" class="pop-box" style="display:none;"></div>
+
+<script type="text/javascript">
+
+var oColor = "rgb(1, 124, 201)";
+var timer = null;
+function resetLeft(left,h5){
+	var idx = h5.attr('idx');
+	left.attr('nowIdx',idx+'');
+	left.find('.myimg').attr('src',h5.attr('imgsrc'));
+	left.find('.myslogan').text(h5.attr('slogan'));
+	left.find('a').attr('href',h5.attr('link'));
+}
+
+$(function($) {
+
+	
+    $.ajax({
+        url: '/cat_preview.html',
+        type: 'GET',
+		
+        success: function(response) {
+            $('#catPreviewArea').html(response);
+            $('h5[imgsrc]').mouseover(function(){
+	        	var left = $(this).parent().parent().children().eq(0);
+	        	resetLeft(left,$(this));
+	        });  //更改左邊小圖連結
+
+			if($('li[pcid]') == "disabled"){
+				clearTimeout(timer);
+				$('#catPreviewArea').hide();
+                $('ul[cat_preview_data]').hide();
+			}else{
+				$('li[pcid]').hover(function(){
+					//color 
+					clearTimeout(timer);
+					oColor = $(this).css("background-color");
+					$(this).css({ 'background-image': 'linear-gradient(#00d4fe, #017cc9)','background-color':'#017cc9'});	
+					
+					$('#catPreviewArea').hide();
+					$('ul[cat_preview_data]').hide();
+
+					var seq = $(this).attr('pcid');
+					for(var i=0 ; i<19 ; i++){
+						if(seq == $('ul[cat_preview_data]').eq(i).attr('cat_preview_data') ){
+							var nowUL=$('ul[cat_preview_data]').eq(i);
+						}		
+					}				
+					nowUL.show();
+					var left = nowUL.children().eq(0);
+					var firstH5 = nowUL.children().eq(1).children().eq(0);
+					resetLeft(left,firstH5);
+					
+					//計算 li index 位置資訊
+					var li_index = $('li').index($(this))-34;  // 
+					var position  = (li_index+1) *30;
+					
+					//delete window.alert; // true
+					//alert(oColor);
+					
+					// Css 移動
+					$('#catPreviewArea').css({ 'marginLeft' : position+"px"  });
+
+					$('#catPreviewArea').show();
+					//timer
+					timer = setInterval(function(){
+						$('#catPreviewArea').hide();
+						clearTimeout(timer);
+					},5000);
+					
+				},function(){  	
+					if(oColor == "rgb(1, 124, 201)"){
+						$(this).css({ 'background-image': 'linear-gradient(#00d4fe, #017cc9)','background-color':'#017cc9'});
+					}else{
+						$(this).css({ 'background-image': 'linear-gradient(#2138cc, #0f208a)','background-color':'#0f208a'});
+					}
+					$('#catPreviewArea').hover(function(){
+					  clearTimeout(timer);
+					  return;
+					},function(){
+						//$('li[pcid]').css({ 'background-image': 'linear-gradient(#2138cc, #0f208a)','background-color':'#0f208a'});
+						$('#catPreviewArea').hide();
+					}); 
+					return;
+				});  
+			}			
+        },
+        error: function() {
+            $('#catPreviewArea').empty();
+        }
+    });
+});  
+
+</script>
+
+
+
+
+        <div class="header-bar main-container">
+            <marquee behavior="scroll" direction="left" class="jqmarquee" scrollamount="2">
+                <ul class="clearfix inline">
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558294">‧&nbsp;牛肉飆漲！漢堡王牛肉套餐　評估漲4到9元</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558296">‧&nbsp;男吃薑母鴨配酒　食道靜脈破裂吐血</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558298">‧&nbsp;國一生走路擦撞　撂跆拳道哥揮拳霸凌</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558300">‧&nbsp;黑手起薪30K　傳產上千職缺找嘸年輕人</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558305">‧&nbsp;廣告教母莊淑芬任副手？　柯文哲低調不證實</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558308">‧&nbsp;討回公道！埋線減重延婚　中醫師遭起訴</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558312">‧&nbsp;RM見面會門票秒殺！　粉絲搶嘸前排搖滾區</a></li>
+                                    <li style="margin-right:3em;"><a href="http://news.tvbs.com.tw/entry/558003">‧&nbsp;【長達一個月低溫　肌膚進入備戰狀態】</a></li>
+                                    <li style="margin-right:3em;"><a href="http://sports.tvbs.com.tw/uba/index.aspx">‧&nbsp;UBA大專籃球聯賽 TVBS官網線上看！</a></li>
+                                    <li style="margin-right:3em;"><a href="http://www.tvbs.com.tw/project/2015_taipei/index.php">‧&nbsp;快來！2015台北最High新年城！ </a></li>
+                                </ul>
+            </marquee>
+        </div>
+    </header>
+	<div id="main_container" class="categories-news">
+	    <h4 class="category-slogan"><a href="/">TVBS 新聞</a>&nbsp;&gt;&nbsp;每日新聞</h4>
+	    <div class="">
+	    	<table style="width:100%;border:1px solid #ccc;margin-bottom:1.5em;">
+	    		<thead>
+	    			<tr style="border-bottom:1px solid #ccc;">
+	    				<th colspan="8">
+	    					<a href="/todaynews/2014%2F11%2F13/1">上個月</a>&nbsp;&nbsp;
+	    					<span>2014 年 12 月<span>&nbsp;&nbsp;
+	    					<a href="/todaynews/2015%2F01%2F12/1">下個月</a>
+	    				</th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr>
+	    					    					    			<th style="border-right:1px solid #ccc;">
+		    				<a href="/todaynews/2014%2F12%2F10/1">
+		    					    				12/10<br>
+		    						    				星期三
+		    						    			</a>		    			</th>
+	    					    					    			<th style="border-right:1px solid #ccc;">
+		    				<a href="/todaynews/2014%2F12%2F11/1">
+		    					    				12/11<br>
+		    						    				星期四
+		    						    			</a>		    			</th>
+	    					    					    			<th style="border-right:1px solid #ccc;">
+		    				<a href="/todaynews/2014%2F12%2F12/1">
+		    					    				12/12<br>
+		    						    				星期五
+		    						    			</a>		    			</th>
+	    					    					    			<th style="background:#005599;color:#ffffff;">
+		    					    				12/13<br>
+		    						    				星期六
+		    						    					    			</th>
+	    				    					    			<th style="border-right:1px solid #ccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+		    			<th style="border-right:1px solid #ccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+		    			<th style="border-right:1px solid #ccc;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+		    					    		<th style="border-right:1px solid #ccc;">
+			    			<a href="/todaynews">今日最新</a>
+			    		</th>
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    </div>
+        <div class="news-categories-list clearfix">
+        	        	<ul class="news-list">
+            	            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558322"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/brave80912@tvbs.com.tw/201412/20141213172200594.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558322">​​UBA／UBA女籃劉懿文破繭而出　「雙十」加4助攻北市大博愛首勝</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 17:21</span></h5>
+                    <div class="content">
+                        <p>103學年度UBA大專籃賽11日公開女一級預賽，上季第四台北市大博愛校區（北市教大）84：78擊敗台北大學，大驚奇是179公分大四中鋒劉懿文破繭而出，14投中9攻下21分、12籃板「雙十」外帶4助攻，3項都生涯新高，打出個人代表作，搭配隊友...<a href="/entry/558322">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558321"><img src="/static/img/news/news_img_03.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558321">天冷買氣熱！　露營「人形睡袋」銷量增3倍</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 17:21</span></h5>
+                    <div class="content">
+                        <p>這波天冷下雨的天氣，也帶動一些保暖防雨的商品熱賣，像是露營時使用的「人形睡袋」，銷量就暴增兩、三倍，還有具有環保概念的「馬鈴薯雨衣」，也搭上這幾天陰雨天，買氣增加好幾成...<a href="/entry/558321">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558320"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213171741534.jpg" class="news-image  notopenpic"></a>
+                                        <h5 class="slogan"><a href="/entry/558320">政治感覺太遙遠　日年輕人「政治冷感」</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 17:13</span></h5>
+                    <div class="content">
+                        <p>▲(圖：達志影像／美聯社)這個禮拜天，日本就要舉行眾議院大選投開票，不過選前民調卻顯示，這次的投票率有可能改寫史上新低，原來日本的年輕公民，普遍覺得世襲政治離自己太遙遠，加上空洞的選舉口號，和超強寒流來襲，都讓這次的眾議院選舉的投票，難以勾...<a href="/entry/558320">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558319"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/brave80912@tvbs.com.tw/201412/20141213170634532.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558319">​超萌貓界花美男　睡著後…形象一秒崩壞！</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 17:09</span></h5>
+                    <div class="content">
+                        <p>(網路新聞中心／何文君)毛小孩可愛的模樣總是能融化大家的心，當牠們睡著的時候，更是主人心中的小天使！但這隻最近在網路爆紅的貓咪，牠睡著的時候，會讓你對天使的形象徹底失望...<a href="/entry/558319">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558318"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213171037211.jpg" class="news-image  notopenpic"></a>
+                                        <h5 class="slogan"><a href="/entry/558318">泰王室家變！王儲妃被逐　失皇族身份</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 17:06</span></h5>
+                    <div class="content">
+                        <p>▲(圖：達志影像／美聯社)泰國王室鬧家變，平民出身的泰國王妃西拉斯美，喪失所有皇室身份和頭銜，導火線是因為王妃娘家親戚多人涉嫌貪腐，傷害王室形象，泰國王儲乾脆把老婆趕出皇家，來個徹底切割...<a href="/entry/558318">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558317"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/brave80912@tvbs.com.tw/201412/20141213170027462.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558317">​UBA／文化女籃身高平均179.25成UBA之最　開幕戰贏60分</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 17:00</span></h5>
+                    <div class="content">
+                        <p>103學年度UBA大專籃賽公開女一級預賽11日在台科大體育館登場，開幕戰文化對實踐，文化就排出UBA女籃81學年上路（男籃76學年先開打），迄今23個球季來最高的天龍陣，12名登錄球員8人身高180或更高，平均179.25公分，史上單一球隊...<a href="/entry/558317">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558316"><img src="/static/img/news/news_img_02.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558316">兄弟要跑路費　專挑補習班、幼園電話恐嚇</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 16:49</span></h5>
+                    <div class="content">
+                        <p>現在有歹徒專挑補習班、幼兒園這種小朋友多的地方，打電話向業者恐嚇！在高雄這三個月來，就有六間補習班接到威脅電話，對方都表示兄弟要跑路費，開口從30萬到60萬不等，如果不給錢，就要對補習班不利，目前為止，雖然沒有傳出有補習班因此受害，警方猜測...<a href="/entry/558316">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558315"><img src="/static/img/news/news_img_03.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558315">一日船長！民眾玩閒置船　體驗當討海人</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 16:42</span></h5>
+                    <div class="content">
+                        <p>現在體驗風盛行，宜蘭就有閒置漁船開放讓民眾當「一日船長」！之前出海的漁船現在停靠港邊，民眾不僅可以模擬開船，裡頭還可以現場煮菜，品嘗鮮魚湯和古早風味的「船仔飯」，讓民眾體驗討海人在船上的食衣住行...<a href="/entry/558315">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558314"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213164143278.jpg" class="news-image  notopenpic"></a>
+                                        <h5 class="slogan"><a href="/entry/558314">湖人險勝馬刺　Kobe破喬丹紀錄再等等</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 16:34</span></h5>
+                    <div class="content">
+                        <p>▲(圖：達志影像／路透社)今天NBA洛杉磯湖人隊，客場迎戰馬刺隊，雙方鏖戰到延長賽，湖人兩分險勝。可惜湖人一哥Kobe Bryant，單場只拿下22分，要超越籃球之神喬丹的生涯總得分，還要再等等。至於林書豪和楊恩，兩個替補小將立大功，合力攻...<a href="/entry/558314">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558313"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213163915308.jpg" class="news-image  notopenpic"></a>
+                                        <h5 class="slogan"><a href="/entry/558313">強力寒流南下中　名古屋、福岡可能降雪</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 16:13</span></h5>
+                    <div class="content">
+                        <p>▲(圖：達志影像／美聯社)日本又遇到「週末大雪」來襲！日本氣象廳發出警告，因為「強力寒流」南下，這個週末包括日本海沿岸以及西日本的太平洋沿岸，有可能出現積雪的災情，日本第三大城名古屋和九州的福岡，都有機會在禮拜天，降下入冬後的第一場雪...<a href="/entry/558313">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558312"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213152846387.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558312">RM見面會門票秒殺！　粉絲搶嘸前排搖滾區</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 15:25</span></h5>
+                    <div class="content">
+                        <p>韓國超人氣綜藝Running Man，五位主持人將在明年1月到台灣辦見面會，讓粉絲期待瘋狂搶票，見面會門票13日中午12點開賣，有粉絲11日就來排隊，主辦單位也更改遊戲規則，從一個人限購8張改成4張，粉絲分頭進行搶票，只希望能多一份搶到票的...<a href="/entry/558312">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558311"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213151748347.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558311">AKB48團員站台　台中資訊月爆高潮</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 15:15</span></h5>
+                    <div class="content">
+                        <p>2014台中資訊月開跑，剛好碰到展期的第一個週末，雖然天氣寒冷，卻有上千民眾頂著寒風到現場搶便宜，知名相機大廠，還特地邀請日本超人氣女子團體AKB48的前團員片山陽加，來到現場與民眾同樂，而知名筆電大廠也推出電競筆電，一台便宜1萬元...<a href="/entry/558311">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558310"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213151602713.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558310">嘜走！男酒駕肇逃　刑警所長追200公尺逮</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 15:12</span></h5>
+                    <div class="content">
+                        <p>在警察局門口前出車禍，還敢落跑！新北市一名徐姓男子，11日晚間10點多，開車行經竹林路，他為了超車，開到對向車道，卻撞上一名機車騎士，非但沒有下車察看還上演落跑記，當時正要上班的刑警，目睹這一切，馬上追上去，另一名秀朗所所長也馬上開車支援，...<a href="/entry/558310">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558309"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213151103394.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558309">父訪友搭車走失！　家屬做海報、找VCR尋人</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 15:08</span></h5>
+                    <div class="content">
+                        <p>只要再多問幾句，也許余姓男子就不會凍死街頭！家屬說，自從父親中風後，就有失智情況，曾經也搭捷運在淡水和南港迷路，當時，處理的員警都有聯絡家屬，這次男子失蹤後隔天，他們除了報案，還查詢死者的捷運卡搭車紀錄，拿著自製海報，在公車總站附近找人，所...<a href="/entry/558309">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558308"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213152742731.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558308"> 討回公道！埋線減重延婚　中醫師遭起訴</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 15:00</span></h5>
+                    <div class="content">
+                        <p>台中1名準新娘2012年10月計畫到關島結婚，當時她擔心手臂太粗穿婚紗不好看，到中醫診所「穴位埋針」，沒想到兩邊手臂出現30多個膿包，前後動了多次清創引流手術，仍留下清楚疤痕，她不只帶著傷疤拍婚紗、辦海外婚禮，連12月台灣宴客時間都往後延，...<a href="/entry/558308">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558307"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213145929656.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558307"> 砂石車撞路邊民宅　網友「一秒變敞篷」</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 14:56</span></h5>
+                    <div class="content">
+                        <p>桃園前天上午10點多，一輛砂石車撞上路旁民宅，車頭蓋被削去大半邊，幸好無人受傷。整個過程被行經車輛的行車紀錄器，拍了下來，並po上網路，網友說這輛砂石車是一秒變敞篷車...<a href="/entry/558307">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558306"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213145657891.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558306">搶寶快狠準！　3千件流當品2折特賣「搶翻」</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 14:52</span></h5>
+                    <div class="content">
+                        <p>淘寶客都會趁著歲末搶寶物，當鋪年底舉辦流當品特賣，近三千件珠寶、鑽石、翡翠，都比起當鋪價再下殺兩到五折，最低甚至一折就可賣到，一早特賣會場外聚集數百人冒著寒風排隊，排在前面的人，甚至已經在這裡打地鋪一個星期了...<a href="/entry/558306">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558305"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213145010715.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558305">廣告教母莊淑芬任副手？　柯文哲低調不證實</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 14:45</span></h5>
+                    <div class="content">
+                        <p>有台灣廣告教母之稱的莊淑芬，被點名是準台北市長柯文哲的第三位女性副手，尤其他目前任職的奧美集團大中華區副董事長一職，也和柯文哲日前所說的條件，企業界人士這一項，不謀而合，但這項消息柯文哲目前還不願證實...<a href="/entry/558305">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558304"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213170822586.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558304">碰！10公斤碗櫃壓傷陸童　父母閃神釀禍</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 14:40</span></h5>
+                    <div class="content">
+                        <p>照顧家中的幼兒真的要多加留心，大陸一名母親帶2歲男童到餐廳用餐，男童好奇在餐廳跑來跑去，就在父母閃神的那一剎那，男童伸手拉了一旁的碗筷消毒櫃，結果高1.5公尺、重達10公斤的消毒櫃整個倒下，當場把男童壓扁，雖然只受皮外傷，但是難保毎一次都這...<a href="/entry/558304">詳全文</a></p>
+                    </div>
+                </li>
+                            	<li class="clearfix">
+            		                    <a target="_blank" href="/entry/558303"><img src="/static/forum_attachment/img/FILE_DB/newsphoto/ian5301@tvbs.com.tw/201412/20141213144146967.jpg" class="news-image "></a>
+                                        <h5 class="slogan"><a href="/entry/558303">「馬吳王朱」四太陽　吳敦義2016出線呼聲高</a>&nbsp;<span class="dateline">2014 年 12 月 13 日 14:36</span></h5>
+                    <div class="content">
+                        <p>新北市長朱立倫12日表態放棄2016，全力參選黨魁之後，國民黨內未來誰能角逐大位，外界好奇，後馬時期，黨內的四個太陽，除了總統之外，還有吳敦義、王金平、加上朱立倫，就在朱立倫表態棄選2016之後，黨內認為，要能在選戰裡對上蔡英文的人，還是非...<a href="/entry/558303">詳全文</a></p>
+                    </div>
+                </li>
+                            </ul>
+                    </div>
+        <hr>
+        <div class="pagination">
+		    <ul>
+		    			        
+		        <li class="prev disabled">
+		        	<a href="#">&larr; 上一頁</a>
+		        </li>
+		        		        	<li class="active">
+		        		<a href="#">1</a>
+		        	</li>
+		        		        	<li class="">
+		        		<a href="/todaynews/2014%2F12%2F13/2">2</a>
+		        	</li>
+		        		        	<li class="">
+		        		<a href="/todaynews/2014%2F12%2F13/3">3</a>
+		        	</li>
+		        
+		        <li class="next ">
+		        	<a href="/todaynews/2014%2F12%2F13/2">下一頁 &rarr;</a>
+		        </li>
+		        
+		        		    </ul>
+		</div>
+    </div>
+    <aside id="sidebar">
+    <div class="header-bar sidebar" style="text-align:center;">
+        <ul class="nav" id="nav-hw" style="background-color:#EFEFEF;">            
+            <li class="policy">
+                <a href="http://home.tvbs.com.tw/static_page/news_rule/">TVBS 新聞自律規範</a>
+            </li>
+            <li class="line">|</li>
+            <li class="t-break">
+                <a href="mailto:t-bow@tvbs.com.tw" style="color: #990000;">T 爆</a>
+            </li>                    
+            <li class="line">|</li>
+            <li class="forum">
+                <a href="http://discuss.tvbs.com.tw" >線上論壇</a>
+            </li>
+            <li class="line"> </li>
+            <li class="forum">
+                <a href="mailto:clarification@tvbs.com.tw" style="color: #990000;">TVBS 新聞申訴信箱</a>
+            </li>
+            <li class="line">|</li>
+            <li class="poll">
+                <a href="http://home.tvbs.com.tw/poll_center" style="color: #990000;">民調中心 <span id="nav-hw2">POLL</span> <span id="nav-hw2">CENTER</span></a>
+            </li>
+            <!-- <li class="poll">
+                <a href="http://home.tvbs.com.tw/poll_center" style="font-size: 8px; margin-top: 0px">POLL CENTER</a>
+            </li> -->
+        </ul>
+    </div>
+    <br>
+    <div class="ads square-ads">
+        <div class="ad_sidebar ads-bricks">
+                
+        
+            <a style="display:none;" class="theme-brick-slike1" href="http://www.kje.com.tw/2015tiwte_booking1.html" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.kje.com.tw/2015tiwte_booking1.html');" target="_blank">
+            <img style="display:none;" class="theme-brick-image active" src="/static/backend_attachment/photo/original/6fc12a5fd0f577a631a317bddfae9f87.jpg"  data-slide-duration="5"></a>
+
+            
+            <a style="display:none;" class="theme-brick-slike1" href="http://www.easecoxgroup.com/Product/List.aspx?cid=1" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.easecoxgroup.com/Product/List.aspx?cid=1');" target="_blank">
+            <img style="display:none;" class="theme-brick-image active" src="/static/backend_attachment/photo/original/62acd8ca836142d0245e4b1d640888e9.jpg"  data-slide-duration="5"></a>
+
+                     
+        </div>
+    </div>
+    <section class="news today-latest-news clearfix">
+        <h4 class="slogan"><a style="color: black;" onMouseOver="this.style.color='#f90'"
+        onMouseOut="this.style.color='black'" href="/todaynews">本日最新新聞</a></h4>
+        <dl class="news-list" id="ajax_today_latest_news">
+            <dt><img src="/static/img/circle-loading.gif" style="width: 10%;height: 10%;"></dt>
+        </dl>
+        <script type="text/javascript">
+        $(function($) {
+            $.ajax({
+                url: '/today_latest_news',
+                type: 'GET',
+                success: function(response) {
+                    $('#ajax_today_latest_news').html(response);
+                },
+                error: function() {
+                    $('#ajax_today_latest_news').empty();
+                }
+            });
+        });
+        </script>
+        <div class="more">
+            <a class="more-button-font" href="/todaynews">more</a>
+        </div>
+    </section>
+    <section class="news today-latest-news clearfix">
+        <div class="tab_title">
+		    <div class="inner">
+		        <ul class="clearfixx">
+		            <li id='hot_left_tab' class="current"><a onMouseOver="clickHotTab('hot_left_tab');$('#ajax_today_hot_news').show();$('#ajax_weekly_hot_news').hide();" href="javascript:void(0)"><span>本日熱門新聞</span></a></li>
+		            <li id='hot_right_tab' style="float: right;"><a onMouseOver="clickHotTab('hot_right_tab');$('#ajax_weekly_hot_news').show();$('#ajax_today_hot_news').hide();" href="javascript:void(0)"><span>本周熱門新聞</span></a></li>
+		        </ul>
+		    </div>
+		</div>
+        <dl class="news-list" id="ajax_today_hot_news">
+            <dt><img src="/static/img/circle-loading.gif" style="width: 10%;height: 10%;"></dt>
+        </dl>
+        <script type="text/javascript">
+        $(function($) {
+        	$('#ajax_today_hot_news').parent().css('padding-bottom',0);
+            $.ajax({
+                url: '/hot_news.html',
+                type: 'GET',
+                success: function(response) {
+                    $('#ajax_today_hot_news').html(response);
+                },
+                error: function() {
+                    $('#ajax_today_hot_news').empty();
+                }
+            });
+        });
+        </script>
+        <dl class="news-list" id="ajax_weekly_hot_news" style="display:none;">
+            <dt><img src="/static/img/circle-loading.gif" style="width: 10%;height: 10%;"></dt>
+        </dl>
+
+        <script type="text/javascript">
+        $(function($) {
+        	$('#ajax_weekly_hot_news').parent().css('padding-bottom',0);
+            $.ajax({
+                url: '/hot_weekly_news.html',
+                type: 'GET',
+                success: function(response) {
+                    $('#ajax_weekly_hot_news').html(response);
+                },
+                error: function() {
+                    $('#ajax_weekly_hot_news').empty();
+                }
+            });
+        });
+        </script>
+    </section>
+	
+	 <div class="ads square-ads">
+                <div class="ad_sidebar ads-bricks">
+                        <a bigAd2="http://www.arwin.com.tw/product.php?pid_for_show=4360&amp;category_sn=743" href="http://www.arwin.com.tw/product.php?pid_for_show=4360&amp;category_sn=743" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.arwin.com.tw/product.php?pid_for_show=4360&amp;category_sn=743');" target="_blank"><img class="theme-brick-image active" src="/static/backend_attachment/photo/original/a7e9f8ff3fdcf264fdd70f561a633b0e.jpg" data-slide-duration="5"></a>
+        </div>
+            </div>
+	
+	
+	<!--  新增 Tag  End-->
+    <section class="news hot-tags gray-header-box clearfix">
+         <h4 class="slogan">熱門新聞索引</h4>
+         <ul id="tag" class="tags">
+         	<!--         		 -->
+				<script>
+				//	NewsTag( 'http://news.tvbs.com.tw/entry/556732' , '秘魯美食' , '%E7%A7%98%E9%AD%AF%E7%BE%8E%E9%A3%9F' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="http://news.tvbs.com.tw/entry/556732" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E7%A7%98%E9%AD%AF%E7%BE%8E%E9%A3%9F" class="news-hot-tag" target="_blank">秘魯美食</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( 'http://www.kje.com.tw/2015tiwte_booking1.html' , '1/9冬季旅展' , '1%2F9%E5%86%AC%E5%AD%A3%E6%97%85%E5%B1%95' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="http://www.kje.com.tw/2015tiwte_booking1.html" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=1%2F9%E5%86%AC%E5%AD%A3%E6%97%85%E5%B1%95" class="news-hot-tag" target="_blank">1/9冬季旅展</a></li>
+         		-->
+				<!--         	         		         	         		         	         		 -->
+				<script>
+				//	NewsTag( 'http://home.tvbs.com.tw/poll_center' , 'TVBS民調中心' , 'TVBS%E6%B0%91%E8%AA%BF%E4%B8%AD%E5%BF%83' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="http://home.tvbs.com.tw/poll_center" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=TVBS%E6%B0%91%E8%AA%BF%E4%B8%AD%E5%BF%83" class="news-hot-tag" target="_blank">TVBS民調中心</a></li>
+         		-->
+				<!--         	         		         	         		 -->
+				<script>
+				//	NewsTag( '' , '佔中' , '%E4%BD%94%E4%B8%AD' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E4%BD%94%E4%B8%AD" class="news-hot-tag" target="_blank">佔中</a></li>
+         		-->
+				<!--         	         		         	         		 -->
+				<script>
+				//	NewsTag( '' , '香港' , '%E9%A6%99%E6%B8%AF' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%A6%99%E6%B8%AF" class="news-hot-tag" target="_blank">香港</a></li>
+         		-->
+				<!--         	         		         	         		 -->
+				<script>
+				//	NewsTag( '' , 'ISIS' , 'ISIS' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=ISIS" class="news-hot-tag" target="_blank">ISIS</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '殺警' , '%E6%AE%BA%E8%AD%A6' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E6%AE%BA%E8%AD%A6" class="news-hot-tag" target="_blank">殺警</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '信義區' , '%E4%BF%A1%E7%BE%A9%E5%8D%80' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E4%BF%A1%E7%BE%A9%E5%8D%80" class="news-hot-tag" target="_blank">信義區</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '餿水油' , '%E9%A4%BF%E6%B0%B4%E6%B2%B9' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%A4%BF%E6%B0%B4%E6%B2%B9" class="news-hot-tag" target="_blank">餿水油</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '阿基師' , '%E9%98%BF%E5%9F%BA%E5%B8%AB' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%98%BF%E5%9F%BA%E5%B8%AB" class="news-hot-tag" target="_blank">阿基師</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '連勝文' , '%E9%80%A3%E5%8B%9D%E6%96%87' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%80%A3%E5%8B%9D%E6%96%87" class="news-hot-tag" target="_blank">連勝文</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '柯文哲' , '%E6%9F%AF%E6%96%87%E5%93%B2' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E6%9F%AF%E6%96%87%E5%93%B2" class="news-hot-tag" target="_blank">柯文哲</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '氣爆' , '%E6%B0%A3%E7%88%86' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E6%B0%A3%E7%88%86" class="news-hot-tag" target="_blank">氣爆</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '高雄' , '%E9%AB%98%E9%9B%84' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%AB%98%E9%9B%84" class="news-hot-tag" target="_blank">高雄</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '管線' , '%E7%AE%A1%E7%B7%9A' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E7%AE%A1%E7%B7%9A" class="news-hot-tag" target="_blank">管線</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '露西' , '%E9%9C%B2%E8%A5%BF' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%9C%B2%E8%A5%BF" class="news-hot-tag" target="_blank">露西</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '空難' , '%E7%A9%BA%E9%9B%A3' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E7%A9%BA%E9%9B%A3" class="news-hot-tag" target="_blank">空難</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '復興航空' , '%E5%BE%A9%E8%88%88%E8%88%AA%E7%A9%BA' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%BE%A9%E8%88%88%E8%88%AA%E7%A9%BA" class="news-hot-tag" target="_blank">復興航空</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '馬航' , '%E9%A6%AC%E8%88%AA' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%A6%AC%E8%88%AA" class="news-hot-tag" target="_blank">馬航</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '加薩走廊' , '%E5%8A%A0%E8%96%A9%E8%B5%B0%E5%BB%8A' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%8A%A0%E8%96%A9%E8%B5%B0%E5%BB%8A" class="news-hot-tag" target="_blank">加薩走廊</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '特招' , '%E7%89%B9%E6%8B%9B' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E7%89%B9%E6%8B%9B" class="news-hot-tag" target="_blank">特招</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '金城武' , '%E9%87%91%E5%9F%8E%E6%AD%A6' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%87%91%E5%9F%8E%E6%AD%A6" class="news-hot-tag" target="_blank">金城武</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , 'TVBS民調' , 'TVBS%E6%B0%91%E8%AA%BF' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=TVBS%E6%B0%91%E8%AA%BF" class="news-hot-tag" target="_blank">TVBS民調</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '4G' , '4G' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=4G" class="news-hot-tag" target="_blank">4G</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '鄭捷' , '%E9%84%AD%E6%8D%B7' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E9%84%AD%E6%8D%B7" class="news-hot-tag" target="_blank">鄭捷</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '地震' , '%E5%9C%B0%E9%9C%87' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%9C%B0%E9%9C%87" class="news-hot-tag" target="_blank">地震</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '割闌尾' , '%E5%89%B2%E9%97%8C%E5%B0%BE' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%89%B2%E9%97%8C%E5%B0%BE" class="news-hot-tag" target="_blank">割闌尾</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '反核' , '%E5%8F%8D%E6%A0%B8' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%8F%8D%E6%A0%B8" class="news-hot-tag" target="_blank">反核</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '22K' , '22K' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=22K" class="news-hot-tag" target="_blank">22K</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '打房' , '%E6%89%93%E6%88%BF' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E6%89%93%E6%88%BF" class="news-hot-tag" target="_blank">打房</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '反服貿' , '%E5%8F%8D%E6%9C%8D%E8%B2%BF' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%8F%8D%E6%9C%8D%E8%B2%BF" class="news-hot-tag" target="_blank">反服貿</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , '台北市長' , '%E5%8F%B0%E5%8C%97%E5%B8%82%E9%95%B7' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=%E5%8F%B0%E5%8C%97%E5%B8%82%E9%95%B7" class="news-hot-tag" target="_blank">台北市長</a></li>
+         		-->
+				<!--         	         		 -->
+				<script>
+				//	NewsTag( '' , 'M8' , 'M8' ,'20','#B2C226');
+					//NewsTag('aaaa','FFABC','5566',6,'#FF5656');
+				</script>
+				<!--
+				<li><a adurl="" href="http://search.tvbs.com.tw/TVBSSearch/Search?fid=2&keyword=M8" class="news-hot-tag" target="_blank">M8</a></li>
+         		-->
+				<!--         	  -->
+			  <li><a style="color:#111fa7;font-size:15px;" href="http://news.tvbs.com.tw/entry/556732" onclick="ga('send', 'event', '廣告-關鍵字','NEWS_KEYWORD','http://news.tvbs.com.tw/entry/556732');" class="news-hot-tag" target="_blank">秘魯美食</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://www.kje.com.tw/2015tiwte_booking1.html" onclick="ga('send', 'event', '廣告-關鍵字','NEWS_KEYWORD','http://www.kje.com.tw/2015tiwte_booking1.html');" class="news-hot-tag" target="_blank">1/9冬季旅展</a></li>
+<li><a style="color:#ff8000;font-size:15px;" href="http://home.tvbs.com.tw/poll_center" onclick="ga('send', 'event', '廣告-關鍵字','NEWS_KEYWORD','http://home.tvbs.com.tw/poll_center');" class="news-hot-tag" target="_blank">TVBS民調中心</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E4%BD%94%E4%B8%AD" class="news-hot-tag" target="_blank">佔中</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%A6%99%E6%B8%AF" class="news-hot-tag" target="_blank">香港</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=ISIS" class="news-hot-tag" target="_blank">ISIS</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E6%AE%BA%E8%AD%A6" class="news-hot-tag" target="_blank">殺警</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E4%BF%A1%E7%BE%A9%E5%8D%80" class="news-hot-tag" target="_blank">信義區</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%A4%BF%E6%B0%B4%E6%B2%B9" class="news-hot-tag" target="_blank">餿水油</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%98%BF%E5%9F%BA%E5%B8%AB" class="news-hot-tag" target="_blank">阿基師</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%80%A3%E5%8B%9D%E6%96%87" class="news-hot-tag" target="_blank">連勝文</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E6%9F%AF%E6%96%87%E5%93%B2" class="news-hot-tag" target="_blank">柯文哲</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E6%B0%A3%E7%88%86" class="news-hot-tag" target="_blank">氣爆</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%AB%98%E9%9B%84" class="news-hot-tag" target="_blank">高雄</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E7%AE%A1%E7%B7%9A" class="news-hot-tag" target="_blank">管線</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%9C%B2%E8%A5%BF" class="news-hot-tag" target="_blank">露西</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E7%A9%BA%E9%9B%A3" class="news-hot-tag" target="_blank">空難</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%BE%A9%E8%88%88%E8%88%AA%E7%A9%BA" class="news-hot-tag" target="_blank">復興航空</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%A6%AC%E8%88%AA" class="news-hot-tag" target="_blank">馬航</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%8A%A0%E8%96%A9%E8%B5%B0%E5%BB%8A" class="news-hot-tag" target="_blank">加薩走廊</a></li>
+<li><a style="color:#0000a0;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E7%89%B9%E6%8B%9B" class="news-hot-tag" target="_blank">特招</a></li>
+<li><a style="color:#111fa7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%87%91%E5%9F%8E%E6%AD%A6" class="news-hot-tag" target="_blank">金城武</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=TVBS%E6%B0%91%E8%AA%BF" class="news-hot-tag" target="_blank">TVBS民調</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=4G" class="news-hot-tag" target="_blank">4G</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E9%84%AD%E6%8D%B7" class="news-hot-tag" target="_blank">鄭捷</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%9C%B0%E9%9C%87" class="news-hot-tag" target="_blank">地震</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%89%B2%E9%97%8C%E5%B0%BE" class="news-hot-tag" target="_blank">割闌尾</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%8F%8D%E6%A0%B8" class="news-hot-tag" target="_blank">反核</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=22K" class="news-hot-tag" target="_blank">22K</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E6%89%93%E6%88%BF" class="news-hot-tag" target="_blank">打房</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%8F%8D%E6%9C%8D%E8%B2%BF" class="news-hot-tag" target="_blank">反服貿</a></li>
+<li><a style="color:#111FA7;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=%E5%8F%B0%E5%8C%97%E5%B8%82%E9%95%B7" class="news-hot-tag" target="_blank">台北市長</a></li>
+<li><a style="color:#0000a0;font-size:15px;" href="http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword=M8" class="news-hot-tag" target="_blank">M8</a></li>
+         </ul>
+    </section>
+	
+	
+	
+	<!-- fb plugin start -->
+    <h4 class="slogan" style="background-color: #999999;  color: white;  padding: 4px 0 4px 4px;">網友推薦新聞</h4>
+    <!--<div class="fb-recommendations" data-app-id="156538777856063" data-site="news.tvbs.com.tw" data-action="likes, recommends" data-width="300px" data-height="300px" data-max-age="5" data-colorscheme="light" data-header="true"></div>
+    -->
+    <!--
+    <div style="margin: 0 auto; width:100%; height:400px;">
+    <object type="text/html" data="www.facebook.com/plugins/activity.php?site=news.tvbs.com.tw&width=240&height=500&header=false&colorscheme=light&linktarget=_blank&font&recommendations=true" style="width:100%; height:100%; margin:1%;">
+    </object>
+</div>
+	<div class="fb-recommendations" data-site="http://news.tvbs.com.tw/" data-action="likes, recommends" data-height="400" data-max-age="7" data-colorscheme="light" data-header="false"></div>-->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&appId=570676173050604&version=v2.0";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+    
+    <iframe style="width:290px; height:500px; " frameborder="0" scrolling="no" src="http://www.facebook.com/plugins/activity.php?site=news.tvbs.com.tw&width=240&height=500&header=false&colorscheme=light&linktarget=_blank&font&recommendations=true"></iframe>
+	 <section class="facebook gray-header-box"> 
+		<div class="fb-like-box" data-href="https://www.facebook.com/tvbsfb" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="false" data-show-border="false"></div>
+		<!--<div class="fb-follow" data-href="https://www.facebook.com/tvbsfb" data-colorscheme="light" data-layout="standard" data-show-faces="false"></div>-->
+	</section>
+
+	 <!-- fb plugin end -->
+
+        <div class="ads banner-ads">
+        <div class="ad_sidebar_large ads-bricks">
+                    <a class="theme-brick-slike2" href="http://www.kje.com.tw/2015tiwte_booking1.html" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.kje.com.tw/2015tiwte_booking1.html');" target="_blank"><img class="theme-brick-image active" src="/static/backend_attachment/photo/original/f660b9d780dde5d00868185c2c649d7c.jpg"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                             <br>
+                  <iframe width="300" height="250" src="//www.youtube.com/embed/J8KLthdnDto?rel=0" frameborder="0" allowfullscreen></iframe>
+                <br>
+                                <a class="theme-brick-slike2" href="http://sports.tvbs.com.tw/uba/index.aspx" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://sports.tvbs.com.tw/uba/index.aspx');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/2dbc2c8f6e95c368559b8279f11bca3e.jpg"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                                 <a class="theme-brick-slike2" href="http://www1.tvbs.com.tw/project/tvbs_g/program/linewalker/index.html" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www1.tvbs.com.tw/project/tvbs_g/program/linewalker/index.html');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/13f2773219f9d14f46e7212aeea78bf4.jpg"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                                 <a class="theme-brick-slike2" href="http://www.tvbs.com.tw/project/womanreport/womanentry.php?class=2&amp;id=63" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.tvbs.com.tw/project/womanreport/womanentry.php?class=2&amp;id=63');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/bc8543e6266edf911d3f2f492154e433.gif"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                                 <a class="theme-brick-slike2" href="http://www.tvbs.com.tw/project/2015_taipei/index.php" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.tvbs.com.tw/project/2015_taipei/index.php');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/44047ec03ee42f6141e289e1499b624c.gif"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                                 <a class="theme-brick-slike2" href="http://www.tvbs.com.tw/project/2015_taipei/02.html" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www.tvbs.com.tw/project/2015_taipei/02.html');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/20dfeb4e889253c42e73e6600527f80c.gif"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                                 <a class="theme-brick-slike2" href="http://www1.tvbs.com.tw/project/tvbs_n/Hakka7/" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www1.tvbs.com.tw/project/tvbs_n/Hakka7/');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/558154cb9b28d13e4eca4c54be84189e.jpg"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                                 <a class="theme-brick-slike2" href="http://www1.tvbs.com.tw/project/tvbs_n/taiwanmyhome1/" onclick="ga('send', 'event', '廣告 - TVBS NEWS','todaynewsSIDEBAR','http://www1.tvbs.com.tw/project/tvbs_n/taiwanmyhome1/');" target="_blank"><img class="theme-brick-image " src="/static/backend_attachment/photo/original/fb16f4df8b6cdea400997f29904572ed.jpg"  data-slide-duration="5"></a><br>
+            <!-- video AD -->
+                             </div>
+    </div>
+    </aside>
+<style>
+    .13-4{
+        color: #990000;
+    }
+    .more-button-font{
+        position: absolute;
+        right: 2px;
+        bottom: 0px;
+        display: block;
+        width: 69px;
+        height: 15px;
+        border: 0 none;
+        text-indent: 0px;
+        overflow: hidden;
+        text-align: right;
+        padding-right: 3px;
+        color: #5a5252;
+        font-weight: 900;
+        font-size: large;
+        padding-bottom: 2px;
+    }
+    .demo1{position: fixed;_position: absolute;top: 0px;padding-top: 40px;}
+</style>
+<script src="/static/js/jquery.xdomain.js"></script>
+<script type="text/javascript">
+    var mallUrl='http://mall.brands.com.tw/ec/front/staticPageAlone/beautystrip2/index.html';
+    function sendUrl(id){
+        var url='http://mall.brands.com.tw/ec/front/staticPageAlone/beautystrip2/index.html?utm_source=tvbs&utm_medium=display&utm_campaign=promotion_bs-rs_201404&utm_content='+id;
+		//alert(url);
+        $.ajax({url: url,type: 'GET'});
+    }
+    function checkMailURL(attr,id){
+    	$(function($) {
+			$('a['+attr+']').each(function() {
+				 var adurl=$(this).attr(attr).toString();
+				 if(adurl.length>0&&adurl.trim()===mallUrl){
+					$(this).attr('onclick',' sendUrl(\''+id+'\'); '+$(this).attr('onclick'));
+				 }
+			});
+	    });
+    }
+</script>
+<script>
+$(document).ready(function() {
+
+    //ad_sidebar ads-bricks      theme-brick-slike1
+
+    var _parentTop = $('.ad_sidebar').eq(0);
+    var Sidebar_TopAD_Num = $('.theme-brick-image', _parentTop).length;   //<<1
+    var _parentDown = $('.ad_sidebar_large').eq(0);
+    var Sidebar_DownAD_Num = $('.theme-brick-image', _parentDown).length;
+    //var tmpi = 0;
+
+    function runad_Top(i){
+        if(i < Sidebar_TopAD_Num){
+            $('.theme-brick-slike1', _parentTop).eq(i).css("display", "inline");
+            $('.theme-brick-image', _parentTop).eq(i).css("display", "inline");
+
+
+            setTimeout(function(){ 
+                $('.theme-brick-slike1', _parentTop).eq(i).css("display", "none");
+                $('.theme-brick-image', _parentTop).eq(i).css("display", "none");
+                runad_Top(i+1);
+            }, ADtimer);
+
+        }else{
+
+            i = 0;
+            $('.theme-brick-slike1', _parentTop).eq(i).css("display", "inline");
+            $('.theme-brick-image', _parentTop).eq(i).css("display", "inline");
+
+               
+
+            setTimeout(function(){ 
+                $('.theme-brick-slike1', _parentTop).eq(i).css("display", "none");
+                $('.theme-brick-image', _parentTop).eq(i).css("display", "none");
+                runad_Top(i+1);
+            }, ADtimer);
+        }
+    }
+
+
+    if(Sidebar_TopAD_Num > 0){
+       runad_Top(0);
+    }
+
+
+    // AD imperssion end
+    if($('.ad_sidebar_large > a') && $('.ad_sidebar_large > a').size()>0 ){
+        var adLast = $('.ad_sidebar_large > a').children().last();      
+        adLast.attr("id", "AdTop");
+        adLast.attr("class", "demo2");                   
+        var loaded = false; 
+        var top =adLast.offset().top;                        
+                //var top = adLast.offset().top+adLast.height();             
+                function Add_Data(){ 
+                    var heightMain = $("#main_container").height();
+                    var heightSidebar = $("#sidebar").height();
+                    if(parseInt(heightMain,10) <= parseInt(heightSidebar,10)){
+                        return;
+                    }
+                    //var top =adLast.offset().top;
+                    //var top =adLast.offset().top +adLast.outerHeight(true);
+                    var scrolla=$(window).scrollTop(); 
+                    var cha=parseInt(top)-parseInt(scrolla); 
+                    //if(cha<48){cha=0;}
+                    //alert('a ot '+adLast.offset().top+'  top '+top+'  scrolla '+scrolla+' cha '+cha );
+                    if(loaded && cha<=0){
+                        //top在scroll bar之上
+                        //
+                        //alert('top在scroll bar之上 ot '+adLast.offset().top+'  scrolla '+scrolla+' cha '+cha +' '+loaded);
+                        adLast.removeClass("demo2").addClass("demo1"); 
+                        loaded=false; 
+                        top =adLast.offset().top;
+                    }else if(!loaded && cha>0){ 
+                        //top在scroll bar之下
+                        //
+                        //alert(' top在scroll bar之下 ot '+adLast.offset().top+'  scrolla '+scrolla+' cha '+cha+' '+loaded );
+                        adLast.removeClass("demo1").addClass("demo2"); 
+                        loaded=true; 
+                        top =adLast.offset().top;
+                    } 
+                }
+                $(window).scroll(Add_Data);            
+            }            
+        });  
+    var nextHotTabId='hot_right_tab',time=20000;
+    var switchHotTabTimeout = setTimeout(function(){$('#'+nextHotTabId+' a').trigger('click');},time);
+	function clickHotTab(tabId){
+		clearTimeout(switchHotTabTimeout);
+		if(tabId=='hot_left_tab'){nextHotTabId='hot_right_tab';}else{nextHotTabId='hot_left_tab';}
+		$('.current').removeClass('current');$('#'+tabId).addClass('current');
+        switchHotTabTimeout = setTimeout(function(){$('#'+nextHotTabId+' a').trigger('click');},time);
+	}
+	$(function($) {
+		$('a[adurl]').each(function() {
+			 if($(this).attr('adurl')){
+				 var adurl=$(this).attr('adurl').toString();
+				 if(adurl.length>0){
+					 if($(this).attr('class')=='news-hot-tag'){
+						 $(this).replaceWith("<a href="+adurl+" onclick=\"ga('send', 'event', '廣告-關鍵字','NEWS_KEYWORD','"+adurl+"');\" class=\"news-hot-tag\" target=\"_blank\">"+$(this).text()+"</a>");
+					 }else if($(this).attr('class')=='indexTag'){
+						 $(this).replaceWith("<a href="+adurl+" style=\"font-size: 22px;display:table-cell; vertical-align:middle;\" onclick=\"ga('send', 'event', '廣告-關鍵字','NEWS_KEYWORD','"+adurl+"');\" class=\"indexTag\" target=\"_blank\">"+$(this).text()+"</a>");
+					 } 
+				 }
+			 }
+		});
+		checkMailURL('bigAd','news_big-ad&utm_term=bcs140324-tvb007');
+		var nowDate=parseInt(new Date().getTime(), 10);
+        var _20140415=1397520000000;
+        //var _20140415=1395792000000;
+        if(nowDate<_20140415){
+        	checkMailURL('bigAd2','news_big-bulletin2&utm_term=bcs140324-tvb008');
+        }else{
+        	checkMailURL('bigAd2','news_big-bulletin2&utm_term=bcs140324-tvb009');
+        }
+    });
+    
+</script>
+</div>
+
+    <div id="google_search_hack" style="height:0px;clear:both;overflow:hidden;">
+        <gcse:search></gcse:search>
+    </div>
+    <br><br>
+    <footer id="footer" class="container" style="position: relative;background-color: rgb(213,219,224);background-image: url('../static/img/newsbg.jpg');">
+        <style>
+    .red { color: #B70000 !important; }
+    .footer-outlink { text-align: center;}
+
+    .copyright { text-align: center;}
+    .footer-outlink a:hover, .copyright a:hover { text-decoration: underline;}
+</style>
+
+<!--
+<div class="footer-outlink">
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/live/tvbs_new_live.html">線上直播</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/2011_about_TVBS/about.html">公司介紹</a> │ 
+    <a target="_blank" href="http://www1.tvbs.com.tw/careers/careers_list.aspx">招募人才</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/Marketing/emarketing4.html">電視廣告託播</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/Marketing/emarketing5.aspx">行銷合作</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/Marketing/emarketing3_1.html">網站廣告刊登</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/copyright/tvbs_program_sale.html">節目版權銷售</a> │ 
+    <a target="_top" class="red" href="http://www1.tvbs.com.tw/tenderproject/tendering1.aspx">公開招標</a><br>
+    <a target="_blank" href="http://www.facebook.com/chfntw/">公益專區</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/Anchor/tvbs_Anchor.html">主播專區</a> │ 
+    
+	<!--<a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/Anchor/tvbs_Artistes.html">藝人專區</a> │ -->
+<!--	
+    <a  href="javascript:void(0)" onclick="alert('敬請期待');return false;" >藝人專區</a> │
+
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/page/tvbs_autonomy_standard.html">新聞自律規範</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/pch/tvbs_poll_center.aspx">民調中心POLL CENTER</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/page/tvbs_sns.html">SNS</a> │ 
+    <a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/SiteMap/tvbs_webmap.html">網站地圖</a>
+</div>
+-->
+
+<div class="footer-outlink">
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/live/">線上直播</a> │ 
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/about/">公司介紹</a> │ 
+    <a target="_blank" href="http://home.tvbs.com.tw/career">招募人才</a> │ 
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/tv_advertisement/">電視廣告託播</a> │ 
+    <a href="mailto:gclub@tvbs.com.tw">行銷合作</a> │ 
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/web_advertisement/web_adv.html">網站廣告刊登</a> │ 
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/copyright/">節目版權銷售</a> │ 
+    <a target="_top" class="red" href="http://home.tvbs.com.tw/tendering">公開招標</a><br> │
+	<!-- <a target="_top" class="red" href="http://www1.tvbs.com.tw/tenderproject/tendering1.aspx">公開招標</a><br> │ -->
+    <a target="_blank" href="http://www.facebook.com/chfntw/">公益專區</a> │ 
+    <a target="_top" href="http://home.tvbs.com.tw/anchor">主播專區</a> │ 
+
+	<!--<a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/Anchor/tvbs_Artistes.html">藝人專區</a> │ -->
+    <a  href="javascript:void(0)" onclick="alert('敬請期待');return false;" >藝人專區</a> │
+
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/news_rule/">新聞自律規範</a> │ 
+    <!--<a target="_top" href="http://www1.tvbs.com.tw/tvbs2011/pch/tvbs_poll_center.aspx">民調中心POLL CENTER</a> │ -->
+    <a href="http://home.tvbs.com.tw/poll_center">民調中心POLL CENTER</a> │ 
+	<a target="_top" href="http://home.tvbs.com.tw/static_page/SNS/">SNS</a> │ 
+    <a target="_top" href="http://home.tvbs.com.tw/static_page/sitemap/">網站地圖</a>
+</div>
+
+<nav class="copyright news-copyright">
+    <p>TVBS觀眾服務專線：02-2656-1599／台北市內湖區瑞光路451號／觀眾服務信箱：
+    <a class="white" href="mailto:service@tvbs.com.tw">service@tvbs.com.tw&nbsp;&nbsp;</a>
+    <a class="white" href="mailto:public@tvbs.com.tw">public@tvbs.com.tw</a></p>
+    <p>版權所有：聯意製作股份有限公司 &copy; 2002-2014 TVBS Inc‧ All Rights Reserved‧&nbsp;&nbsp;網站設計規劃：數位媒體發展部
+    <a target="_top" class="white" href="http://home.tvbs.com.tw/static_page/EULA/">TVBS.COM.TW網站使用協定</a></p>
+</nav>    </footer>
+<div id="fb_root"></div>
+
+<script type="text/javascript" src="/static/js/jquery.simplemodal.js"></script>
+<script type="text/javascript">
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+(function() {
+  var cx = '004258968360253587782:5s__1qavxxm';
+  var gcse = document.createElement('script'); gcse.type = 'text/javascript';
+  gcse.async = true;
+  gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//www.google.com.tw/cse/cse.js?cx=' + cx;
+  s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(gcse, s);
+})();
+
+window.fbAsyncInit = function() {
+    FB.init({appId: "156538777856063", status: true, cookie: true});
+
+    FB.getLoginStatus(function(response) {
+        if (response.status == 'connected') {
+            document.getElementById('fblogout').style.display = 'block';
+            document.getElementById('fblogin').style.display = 'none';
+        } else {
+            document.getElementById('fblogout').style.display = 'none';
+            document.getElementById('fblogin').style.display = 'block';
+        }
+    });
+};
+
+</script>
+<script src="/static/js/bootstrap.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $('#footer_popup').on('click', function(event) {
+        event.preventDefault();
+
+        $(this).toggleClass('active');
+        $('.hidden-nav', '.footer-nav').toggleClass('hidden');
+    });    
+	$('.iframe').on('click', function(event) {
+		var src = $(this).attr('href');
+		var w = $(window).width()-200;
+		var h = $(window).height()-100;
+		$.modal('<iframe src="' + src + '" height="'+h+'" width="'+w+'" style="border:0">', {
+			containerCss:{
+				borderColor:"#fff", 
+				height:h+15, 
+				padding:0, 
+				width:w+15
+			},
+			overlayClose:true
+		});
+		return false;
+	});
+    $('img').bind('error',function(){
+            //alert(this.src);
+        var newsrc = srcN(this.src,'_m');  
+        if(newsrc == null) {
+            newsrc = srcN(this.src,'_l');
+        }
+        if(newsrc == null) {
+            newsrc = srcN(this.src,'_s');
+        } 
+        if(newsrc != null) {            
+            this.src = newsrc;
+        }                
+    });
+});
+</script>
+<script src="/static/js/jquery.marquee.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.reject({
+        reject: { all: false, msie5: true, msie6: true, msie7: true, msie8: true}, // Reject all renderers for demo
+        paragraph1: '您的瀏覽器無法在本網站上正確執行', // Warning about closing
+        paragraph2: '請下載下列瀏覽器進行瀏覽，確保完整的呈現!!',
+        closeMessage: ''
+    });
+    $('.notopenpic').on('contextmenu', function() {
+        return false;
+    });
+    $('.jqmarquee').marquee('pointer').mouseover(function () {
+        $(this).trigger('stop');
+    }).mouseout(function () {
+        $(this).trigger('start');
+    });
+    $('.container').on('click', '.iframe', function(event) {
+        event.preventDefault();
+        var src = $(this).attr('href');
+        var w = 800;
+        var h = $(window).height()-100;
+        $.modal('<iframe src="' + src + '" height="'+h+'" width="'+w+'" style="border:0">', {
+            containerCss:{
+                borderColor:"#fff", 
+                width:w+15,
+                height:h+15, 
+                padding:0,
+                border:0,
+                backgroundColor: '#FFFFFF'
+            },
+            overlayClose:true
+        });
+        return false;
+    });
+
+    $('#search_keyword').on('keypress', function(event) {
+        var keyCode = event.which || event.keyCode || event.chatCode;
+        if (keyCode == 13) {
+            if($('#search_keyword')&&$('#search_keyword').val().length>0){
+            	$('#google_search').trigger('click');
+            }
+            return false;
+        }
+    });
+
+    $('#google_search').on('click', function(event) {
+        event.preventDefault();
+        /*
+        $('input.gsc-input', '.gsc-search-box').val($('#search_keyword').val());
+        $('.gsc-search-button-v2').trigger('click');
+        */
+        var keyword = encodeURIComponent($('#search_keyword').val());
+        window.open("http://search.tvbs.com.tw:8080/TVBSSearch/Search?fid=2&keyword="+keyword);
+        $('#search_keyword').val('');
+    });
+    $('.trigger-sub-link').hover(
+        function() {
+            $(this).children('.sub-link').stop().slideDown();
+        },
+        function() {
+            $(this).children('.sub-link').stop().slideUp();
+        }
+    );
+    /*
+    $('.news-hot-tag').on('click', function(event) {
+        event.preventDefault();
+        $('input.gsc-input', '.gsc-search-box').val($(this).text());
+        $('.gsc-search-button-v2').trigger('click');
+        $('#search_keyword').val('');
+    });
+    */
+    
+    var entrance_bricks = $('.entrance_slider').length - 1;
+    if (entrance_bricks > 0) {
+        var rand_bricks = Math.round(Math.random()*entrance_bricks) + 1;
+        var entrance_duration = parseInt($('.theme-brick-image', $('.entrance_slider').eq(rand_bricks)).eq(0).data('slide-duration'))*1000;
+        var et = setInterval(function() {
+            var _parent = $('.entrance_slider').eq(rand_bricks);
+
+            if ($('.theme-brick-image', _parent).length > 1) {
+                var _active = $('.theme-brick-image.active', _parent),
+                    activeIndex = $('.theme-brick-image', _parent).index(_active), nextIndex = activeIndex + 1;
+                    nextIndex = nextIndex >= $('.theme-brick-image', _parent).length ? 0 : nextIndex;
+                $('.theme-brick-image', _parent).eq(nextIndex).hide().fadeIn(1000);
+                _active.fadeOut(1000, function() {
+                    _active.removeClass('active');
+                    $('.theme-brick-image', _parent).eq(nextIndex).addClass('active');
+                    rand_bricks = Math.round(Math.random()*entrance_bricks);
+                });
+            } else {
+                rand_bricks = Math.round(Math.random()*entrance_bricks);
+            }
+        }, entrance_duration);
+    }
+
+    var top_entrance_duration = parseInt($('.theme-brick-image', $('.entrance_slider').eq(0)).eq(0).data('slide-duration'))*1000;
+    var tt = setInterval(function() {
+        var _parent = $('.entrance_slider').eq(0);
+
+        if ($('.theme-brick-image', _parent).length > 1) {
+            var _active = $('.theme-brick-image.active', _parent),
+                activeIndex = $('.theme-brick-image', _parent).index(_active),
+                nextIndex = activeIndex + 1;
+                nextIndex = nextIndex >= $('.theme-brick-image', _parent).length ? 0 : nextIndex;
+                
+            $('.theme-brick-image', _parent).eq(nextIndex).hide().fadeIn(1000);
+            _active.fadeOut(1000, function() {
+                _active.removeClass('active');
+                $('.theme-brick-image', _parent).eq(nextIndex).addClass('active');
+                
+            });
+        }
+    }, ADtimer);
+});
+</script>
+</body>
+</html>
+<dt class="news" style="padding-top: 1px;"><span class="bull" style="margin-right:5px;float:left;">&bull;</span><div style="padding-top: 3px;padding-left:10px;padding-bottom: 6px;display : block;line-height: 15px;"> <a target="_top" title="​​UBA／UBA女籃劉懿文破繭而出　「雙十」加4助攻北市大博愛首勝" href="/entry/558322">​​UBA／UBA女籃劉懿文破繭而出　「雙十」加4助攻北市大博愛首勝</a></div></dt><dd class="date">(17:21)</dd><dt class="news" style="padding-top: 1px;"><span class="bull" style="margin-right:5px;float:left;">&bull;</span><div style="padding-top: 3px;padding-left:10px;padding-bottom: 6px;display : block;line-height: 15px;"> <a target="_top" title="天冷買氣熱！　露營「人形睡袋」銷量增3倍" href="/entry/558321">天冷買氣熱！　露營「人形睡袋」銷量增3倍</a></div></dt><dd class="date">(17:21)</dd><dt class="news" style="padding-top: 1px;"><span class="bull" style="margin-right:5px;float:left;">&bull;</span><div style="padding-top: 3px;padding-left:10px;padding-bottom: 6px;display : block;line-height: 15px;"> <a target="_top" title="政治感覺太遙遠　日年輕人「政治冷感」" href="/entry/558320">政治感覺太遙遠　日年輕人「政治冷感」</a></div></dt><dd class="date">(17:13)</dd><dt class="news" style="padding-top: 1px;"><span class="bull" style="margin-right:5px;float:left;">&bull;</span><div style="padding-top: 3px;padding-left:10px;padding-bottom: 6px;display : block;line-height: 15px;"> <a target="_top" title="​超萌貓界花美男　睡著後…形象一秒崩壞！" href="/entry/558319">​超萌貓界花美男　睡著後…形象一秒崩壞！</a></div></dt><dd class="date">(17:09)</dd><dt class="news" style="padding-top: 1px;"><span class="bull" style="margin-right:5px;float:left;">&bull;</span><div style="padding-top: 3px;padding-left:10px;padding-bottom: 6px;display : block;line-height: 15px;"> <a target="_top" title="泰王室家變！王儲妃被逐　失皇族身份" href="/entry/558318">泰王室家變！王儲妃被逐　失皇族身份</a></div></dt><dd class="date">(17:06)</dd><dt class="news" style="padding-top: 1px;"><span class="bull" style="margin-right:5px;float:left;">&bull;</span><div style="padding-top: 3px;padding-left:10px;padding-bottom: 6px;display : block;line-height: 15px;"> <a target="_top" title="​UBA／文化女籃身高平均179.25成UBA之最　開幕戰贏60分" href="/entry/558317">​UBA／文化女籃身高平均179.25成UBA之最　開幕戰贏60分</a></div></dt><dd class="date">(17:00)</dd>

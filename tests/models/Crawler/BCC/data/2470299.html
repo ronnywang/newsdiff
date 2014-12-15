@@ -1,0 +1,782 @@
+
+
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head >
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta property="fb:app_id" content="323542927739459" />
+    <meta property="fb:admins" content="100000221688218" />
+
+    <meta content="width=device-width; initial-scale=1.0" name="viewport">
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="Author" content="Designer by NEWMEDIAMAX digital‧www.newmediamax.com.tw">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+
+    <link rel="shortcut icon" href="images/bcc.ico" />
+
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style2.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style3.css" rel="stylesheet" type="text/css"/>
+
+    <!-- main css -->
+
+    <!-- media queries css -->
+
+    <!-- html5.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+	<script src="js/html5.js"></script>
+<![endif]-->
+
+    <!-- css3-mediaqueries.js for IE less than 9 -->
+    <!--[if lt IE 9]>
+	<script src="js/css3-mediaqueries.js"></script>
+<![endif]-->
+
+    <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+
+    <script type="text/javascript" src="js/www.bcc.com.tw.js"></script>
+    <script type="text/javascript" src="js/jquery-migrate-1.1.1.js"></script>
+    <!--輪播(跑馬)-->
+    <script type="text/javascript" src="js/jcarousellite_1.0.1.min.js"></script>
+    <!--字++-->
+    <script type="text/javascript" src="js/jquery.jfontsize-1.0.js"></script>
+
+    <!--瀑布流-->
+    <script type="text/javascript" src="js/jquery-migrate-1.1.1.js"></script>
+    <script type="text/javascript" src="sample-images/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="sample-images/block.js"></script>
+
+    <!--[if lt IE 9]>
+<script src="sample-images/html5.js"></script>
+<![endif]-->
+
+    <!--拉軸-->
+    <link  type="text/css" href="css/jquery.jscrollpane.css" rel="stylesheet" media="all" />
+    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="js/jquery-cookie.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            getWidth();
+            $(window).resize(getWidth);
+        })
+
+        function getWidth() {
+            var html = '';
+            html = '總寬：' + $(window).width() + ' <br />Left:' + $('.w1').width() + ', Right:' + $('.w2').width();
+            html += '<br />wrapper寬:' + $('#wrapper').width() + ', .m4寬：' + $('.m4').width() + ', .m10寬：' + $('.m10').width();
+            html += ', .a3寬' + $('.a3').width() + ', bod寬' + $('body').width();
+            $('#msg').html(html);
+
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".img_over").hover(function () {
+                var src = $(this).attr("src"), n = src.lastIndexOf(".");
+                var s1 = src.substring(src, n), s2 = src.replace(s1, "");
+                $(this).attr("src", s1 + "_over" + s2);
+            }, function () {
+                var src = $(this).attr("src");
+                $(this).attr("src", src.replace("_over", ""));
+            });
+
+            if ($(window).width() >= 1120) {
+                $('#topx').show();
+            } else {
+                $('#topx').hide();
+            }
+
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 1) {
+                    if ($(window).width() >= 1120) {
+                        $('#topx').fadeIn();
+                    } else {
+                        $('#topx').hide();
+                    }
+                } else {
+                    $('#topx').fadeOut();
+                }
+            });
+
+            $('#topx').click(function () {
+                $('html,body').animate({ scrollTop: 0 }, 'slow');
+                return false;
+            });
+        });
+    </script>
+
+
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=651190948230813";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <title>中國廣播公司全球資訊網</title>
+    
+    
+
+
+</head>
+<body>
+    <form method="post" action="newsView.2470299?nid=2470299" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=uHIkleVeDJf4xS50Krz-yMfFLgO6mKuivxCphHY1RrsK8dx5QColXfg5_O97H3gv5ULmAAMpRb9epcctDLbPAtsatuX_iSOtRK5cqvLjnsZZbOz5x7MedEDamanlS6Dj9TSSbi0_xxuiFghM3zzVs3ERfeo-DPa6LfQcSC-W1hE1&amp;t=ca758f3" type="text/javascript"></script>
+        
+        
+     
+                <script type="text/javascript">
+                    $(function () {
+                        $('#block_url').change(function () {
+                            var i = $(this).val();
+                            //window.open($("#url_"+i).attr('href'),'_blank');
+                            if (i != '') {
+                                window.location.replace($('#url_' + i).attr('href'));
+                            } else {
+                                window.location.replace('http://www.bcc.com.tw/');
+                            }
+                        });
+                    });
+                </script>
+
+                <div class="m1">
+                    <div id="msg" style="position: fixed; font: 13px/18px '微軟正黑體'; color: #333; position: fixed; left: -0px; display: none"></div>
+                    <div class="a1">
+                        <div class="lg h_800 s_680">
+                            <a href="index.asp">
+                                <img src="images/0225/lg3.png" border="0" /></a>
+                        </div>
+                        <div class="hd">
+                            <div class="lgs h_5000 s_800 h_680 ">
+                                <a href="index.asp">
+                                    <img src="images/0225/lg2.png" border="0" /></a>
+                            </div>
+                            <div class="hdlk" style="display: none">
+                                <a href="https://zh-tw.facebook.com/bccevent.fans?ref=stream&hc_location=stream" target="_blank">
+                                    <img src="images/fb.png" border="0" class="img_over" /></a>
+                            </div>
+                            <div class="hdlk hdlk2">
+                                <a href="bccapp" target="_blank">
+                                    <img src="images/0306/ic2.png" /></a>
+                            </div>
+                            <div class="hdlk hdlk2">
+                                <a href="http://www.intw.com.tw/" target="_blank">
+                                    <img src="images/0306/ic1.png" border="0" /></a>
+                            </div>
+                            <div class="hdlk hdlk2">
+                                <a href="https://www.youtube.com/user/iradiofm96" target="_blank">
+                                    <img src="images/1004/ir.png" /></a>
+                            </div>
+                            <div class="hdlk hdlk2">
+                                <a href="https://www.youtube.com/user/iLikeRadioFM103" target="_blank">
+                                    <img src="images/1004/ilr.png" /></a>
+                            </div>
+                            <div class="hdlk" style="display: none">
+                                <a href="https://www.youtube.com/results?search_query=%E4%B8%AD%E5%BB%A3&oq=%E4%B8%AD%E5%BB%A3&gs_l=youtube.3..0l2.53979.57478.0.57929.13.12.1.0.0.0.79.545.12.12.0...0.0...1ac.1j4.11.youtube.fELzRvd0J2Q" target="_blank">
+                                    <img src="images/yt.png" border="0" class="img_over" /></a>
+                            </div>
+                            <div class="sh h_680">
+                                <script >
+                                    function googlesearch() {
+                                        window.open("http://www.google.com/cse?cx=008018144696462401269:me1ymmokvnu&cof=FORID:11&q=" + document.getElementById("q").value, "_blank");
+                                    }
+                                </script>                               
+                                    
+                                    <input name="q" type="text" class="bx" id="q" size="16" onblur="if (this.value == '') {this.value = ' 搜尋'; this.style.color='#000'}"
+                                        value=" 搜尋" onfocus="if (this.value == ' 搜尋') {this.value = ''; this.style.color='#000'}" />
+                                    <div class="z">
+                                        <input onclick="googlesearch()" type="image" src="images/z.png" border="0" class="img_over" />
+                                    </div>                                
+                            </div>
+                            <div class="sch h_5000 s_680">
+                                <div class="zm">
+                                    <img src="images/0306/z.png" class="img_over" />
+                                </div>
+                                <input name="" type="text" class="box2" />
+                            </div>
+                            <div class="tplk h_5000 s_680">
+                                <select id="block_url" class="box">
+                                    <option value="">請選擇</option>
+                                    <option value="1" selected='selected'>中廣新聞網</option>
+                                    <option value="2">中廣流行網</option>
+                                    <option value="3">中廣音樂網</option>
+                                    <option value="5">中廣寶島網</option>
+                                    <option value="6">中廣鄉親網</option>
+                                    <option value="4">I go 531</option>
+                                    <option value="7">中廣培訓營</option>
+                                </select>
+                            </div>
+                            <div class="tp h_680">
+                                <div class="lk2">
+                                    <a id="url_7" href="http://www.bcccourse.com/" target="_blank">
+                                        <img src="images/0225/lbt7.png" border="0" class="img_over" /></a>
+                                </div>
+                                <div class="lk2">
+                                    <a id="url_4" href="news4_program.asp">
+                                        <img src="images/0225/lbt4.png" border="0" class='img_over' /></a>
+                                </div>
+                                <div class="lk2">
+                                    <a id="url_6" href="news6_program.asp">
+                                        <img src="images/0225/lbt6.png" border="0" class='img_over' /></a>
+                                </div>
+                                <div class="lk2">
+                                    <a id="url_5" href="news5_program.asp">
+                                        <img src="images/0225/lbt5.png" border="0" class='img_over' /></a>
+                                </div>
+                                <div class="lk2">
+                                    <a id="url_3" href="news3_index.asp">
+                                        <img src="images/0225/lbt3.png" border="0" class='img_over' /></a>
+                                </div>
+                                <div class="lk2">
+                                    <a id="url_2" href="news2_index.asp">
+                                        <img src="images/0225/lbt2.png" border="0" class='img_over' /></a>
+                                </div>
+                                <div class="lk2">
+                                    <a id="url_1" href="news">
+                                        <img src="images/0225/lbt1_over.png" border="0" /></a>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="topx" style="position: absolute; z-index: 99999; top: 400px; right: 20px; position: fixed; display: none; cursor: pointer;">
+                    <div class="abgne_gotoheader">
+                        <img src="images/gotop.png" border="0" class="img_over" />
+                    </div>
+                </div>
+                <div id="topx" style="position: absolute; z-index: 99999; top: 400px; right: 20px; position: fixed; display: none; cursor: pointer;">
+                    <div class="abgne_gotoheader">
+                        <img src="images/gotop.png" border="0" class="img_over" />
+                    </div>
+                </div>
+
+                
+
+    <!--速報 control!-->
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#onAir_marquee').jCarouselLite({
+            auto: 5000,
+            speed: 800,
+            circular: true,	//是否循環滾動
+            vertical: true,	//是否垂直滾動
+            start: 1,	//開始值
+            scroll: 1,	//每次li數量
+            visible: 1
+        });
+    });
+</script>
+<!--begin 速報-->
+<div class="m6">
+    <div class="a6">
+        <div class="icc2">速報</div>
+        <div id="onAir_marquee" class="tt10" style="overflow: hidden;">
+            <ul>
+                
+                        <li style="height: 40px; overflow: hidden;"><a></a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>陳水扁保外就醫聲明異議，遭高院裁定駁回。法務部說，不影響矯正署對扁另聲請保外就醫案的審查。
+</a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>新版性別工作平等法13日正式上路，除了陪產假從3天延長至5天，另新增5天有薪產檢假，預計將有超過31萬名準爸媽受惠。
+</a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>巴基斯坦警方逮捕凱達組織，在南亞新設支部的重要指揮官烏斯曼。
+</a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>金門縣金寧鄉超商店員翁雅萱和王靜宜，因為成功阻止詐騙事件，獲得警方表揚。
+</a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>歐洲聯盟證實，伊朗和世界強國針對德黑蘭核子計劃的會談，將於本月17日復談。
+</a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>以網路起家的計程車公司Uber，由於駕駛涉及強暴案，決定暫停在印度新德里營運。
+</a></li>
+                    
+                        <li style="height: 40px; overflow: hidden;"><a>罹患癌症的大陸女主播邱園園，為保護腹中孩子，拒絕接受化療，生下小孩不久後過世。</a></li>
+                    
+            </ul>
+        </div>
+
+    </div>
+</div>
+<!--end 速報-->
+
+    <div class="m7 m7_2">
+        <div class="a7">
+            
+    <input type="hidden" name="ctl00$ctl00$body$body$hiddenRID" id="body_body_hiddenRID" value="2470299" />
+    
+
+   
+     
+
+    
+
+    <script type="text/javascript" language="javascript">
+        $(function () {
+            $('#jfontsize-d').addClass(' checked');
+            $('#some-class-name').jfontsize({
+                btnMinusClasseId: '#jfontsize-m',
+                btnDefaultClasseId: '#jfontsize-d',
+                btnPlusClasseId: '#jfontsize-p'
+            });
+
+            $('.jfontsize').click(function () {
+                $('.jfontsize').removeClass(" checked");
+                $(this).addClass(" checked");
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            var $this = $('#im4_img'),
+                w = 0, src = '', vs = 0;
+
+            vs = $this.attr('xx');
+            if (vs > 0) {
+                w = $this.height();
+
+                if (w > 400) {
+                    $('.im4').show();
+                } else {
+                    $('.m16').show();
+                }
+
+
+                $('.block_img').attr('src', $('#im4_img').attr('src'));
+            } else {
+                $('.m16').hide();
+                $('.im4').hide();
+            }
+
+            $this.each(function (i, e) {
+                $(this).load(function () {
+                }).error(function () {
+                    $('.m16').hide();
+                    $('.im4').hide();
+                });
+            });
+
+        });
+    </script>
+
+    <div class="gd3"><a href="index.asp">官網首頁</a> > <a href="news">中廣新聞網 NewsRadio</a> 
+        
+                 > 生活
+            
+    </div>
+
+    <!--modify date 2014/7/8 !-->
+    
+        
+                <img id="im4_img"  xx="0" style="display:none;" class="block_img"  />
+                <div class="nsa3">
+
+
+                <div class="bk">
+                    <a href="newsList.生活">
+                        <img src="images/ns/bc.jpg" border="0" class="img_over" /></a>
+                </div>
+
+                <div class="tt26" style="margin: 7px 0 10px 0">強烈大陸冷氣團明發威  愈晚愈冷</div>
+                <div class="tt26-2">
+                    <img src="images/post/bcc.jpg" />
+                </div>
+                <div class="tt27">2014/12/11 18:58 報導</div>
+                <div id="some-class-name" class="ma7">
+                <div style="width:500px">
+                    <script type="text/javascript"><!--
+                        google_ad_client = "ca-pub-2111941696632965";
+                        /* BCC_content_u_400x60 */
+                        google_ad_slot = "1821682335";
+                        google_override_format = true;
+                        google_ad_width = 400;
+                        google_ad_height = 60;
+                        google_ad_format = "400x60";
+                        //-->
+                    </script>
+                    <script type="text/javascript"
+                    src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div><br /><br /><br />
+                    <div class="m16" style="display: none;">
+                        <img src="http://www.bcc.com.tw/onair/" class="block_img" onerror="this.src='images/1011/imx.jpg'" />
+                    </div>
+                    <div class="ft">
+                        <a href="#" id="jfontsize-m" class="jfontsize">小</a> <a href="#" id="jfontsize-d"
+                            class="jfontsize">中</a> <a href="#" id="jfontsize-p" class="jfontsize">大</a>
+                        <div class="tx">字級大小：</div>
+                    </div>
+
+                    <div class="im4" style="display: none;" >
+                        <img class="block_img" src="http://www.bcc.com.tw/onair/"  />
+                    </div>
+
+                    <span name="iclickAdBody_Start" id="iclickAdBody_Start"></span>
+                    受強烈大陸冷氣團影響，明天白天北部低溫約只有13、14度，南部約17到19度，明晚溫度將持續下降，預計到十四號的白天才有稍微回升的趨勢。<br/><br/>   中央氣象局表示，明天強烈大陸冷氣團影響，中部以北及東北部氣溫較低，其他地區早晚氣溫亦低，而明晚低溫會再下降。<br/><br/>    降雨方面，明天台灣北部及東半部地區有短暫雨，中南部地區及澎湖、金門、馬祖亦有局部短暫雨。<br/><br/> 氣象局指出，大陸冷氣團在明天到十四號清晨影響台灣最為明顯，最低溫預計落在13、14日清晨，中部以北低溫可能降到11至13度，南部低溫也只有14、15度左右，整體氣溫要到14日白天後才有稍回升的趨勢。<br/><br/>    氣象局表示，14日白天到15日大陸冷氣團減弱，各地氣溫將會再回升，不過從16日開始，新一波冷空氣又將南下，17日起影響台灣，這波冷空氣強度比上一波強，預計會來到強烈大陸冷氣團的等級。
+                    <span name="iclickAdBody_End" id="iclickAdBody_End"></span>
+                    <script language="javascript" type="text/javascript">
+                        (function () {
+                            var w = 2;
+                            var charset = 'utf-8';
+                            document.write(unescape('%3Cscript type="text/javascript" src="http://js2.dotmore.com.tw/verify.aspx?w=' + w + '&charset=' + charset + '&ord=' + Math.floor(1000000 * Math.random()) + '" %3E%3C/script%3E'));
+                        })();
+                    </script>
+
+                </div>
+                <div class="tk">
+                    <div class="tx">分享： </div>
+                    <div class="sher">
+                        <a class="addthis_button_email">
+                            <img src="images/ic/5.jpg" /></a>
+                    </div>
+                    <div class="sher">
+                        <a class="addthis_button_facebook">
+                            <img src="images/ic/1.jpg" border="0" /></a>
+                    </div>
+                    <div class="sher">
+                        <a class="addthis_button_plurk">
+                            <img src="images/ic/2.jpg" border="0" /></a>
+                    </div>
+                    <div class="sher"><a class="addthis_button_google_plusone" g: plusone:annotation="bubble"></a></div>
+                    <div class="sher">
+                        <iframe src="//www.facebook.com/plugins/like.php?href=http://www.bbc.com.tw/newsView.2470299&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=true&amp;font=arial&amp;colorscheme=light&amp;action=recommend&amp;height=21&amp;appId=616649798351201"
+                            scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 80px; height: 21px;"
+                            allowtransparency="true"></iframe>
+                    </div>
+                    <div class="tx_2" style="display:" >點閱：208次 </div>
+                </div>
+            
+
+    <div>
+        <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-2111941696632965";
+            /* BCC_content_d_l_300x250 */
+            google_ad_slot = "9205348338";
+            google_ad_width = 300;
+            google_ad_height = 250;
+            //-->
+        </script>
+        <script type="text/javascript"
+        src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </div>
+    <div style="margin-left:25px;">
+        <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-2111941696632965";
+            /* BCC_content_d_r_300x250 */
+            google_ad_slot = "1682081531";
+            google_ad_width = 300;
+            google_ad_height = 250;
+            //-->
+        </script>
+        <script type="text/javascript"
+        src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </div>
+        <div style="margin: 10px 0 20px 0;">
+            <script>var q = "z=4086&w=468&h=60";</script>
+            <script src="http://ads.doublemax.net/adx/rt_publisher.js"></script>
+        </div>
+
+
+
+        
+                <div class="oth" style=' '‏>
+                    <div class="ic11">
+                        <a href="newsView.2470298">
+                            <img src="images/ns/pre.jpg" border="0" class="img_over" /></a>
+                    </div>
+                    <div class="tt28"><a href="newsView.2470298">水利署:明清晨 南部進行人工增雨</a></div>
+                </div>
+                <div class="oth" style=' '‏>
+                    <div class="tt29"><a href="newsView.2470377">孫子14歲中風 劉泰英：疑食毒油</a></div>
+                    <div class="ic11">
+                        <a href="newsView.2470377">
+                            <img src="images/ns/next.jpg" border="0" class="img_over" /></a>
+                    </div>
+                </div>
+
+            
+
+        <div class="fb">
+            <img src="images/ns/fb.png" style="display: none;" />
+            <fb:comments href="http://www.bbc.com.tw/newsView.2470299" num_posts="1" width="628"> </fb:comments>
+        </div>
+
+    </div>
+
+
+        </div>
+        <div class="m17">
+            <!--_adminx/program/skin/right1_list.asp!-->
+
+
+
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td height="34" align="center" valign="middle" class="tm3 h_800 s_680">時間：01:02~02:00／節目：新聞大解讀(重播)</td>
+                <td>
+                    <div class="lst2">
+                        <a onclick="_gaq.push(['_trackPageview', '/onair.html']);window.open('http://www.bcc.com.tw/onAir.asp?nid=1','中廣','width=470,height=600,scrollbars=yes')" style="cursor: pointer;">
+                            <img src="images/wave.png" />&nbsp;&nbsp;線上收聽</a>
+                    </div>
+                    <div class="lst2-2">
+                        <a href="news_program.asp">
+                            <img src="images/0124/ls.png" />&nbsp;&nbsp;節目表</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    
+
+        </div>
+        <div class="ma5" style="margin-bottom: 5px">
+            <!--_adminx/adv/skin/_adv_list_7.asp!-->
+
+ 
+
+
+        <a href='adv_count.asp?nid=204''  target="_blank" onclick="_gaq.push(['_trackPageview', '/intw.html']);" title="" > <img src="http://www.bcc.com.tw/imgs/adv/201412030032031.jpg" border="0" /></a>
+    
+
+        </div>
+        <div class="m15">
+            <input name="ctl00$ctl00$body$KW" type="text" id="body_KW" class="bx4" onblur="if (this.value == &#39;&#39;) {this.value = &#39;中廣新聞搜尋&#39;; this.style.color=&#39;#000&#39;}" value="中廣新聞搜尋" onfocus="if (this.value == &#39;中廣新聞搜尋&#39;) 
+{this.value = &#39;&#39;; this.style.color=&#39;#000&#39;}" />
+            <div class="bt4">
+                <a onclick="checkEmpty();" id="body_btnSearch" href="javascript:__doPostBack(&#39;ctl00$ctl00$body$btnSearch&#39;,&#39;&#39;)">搜尋</a>
+            </div>
+        </div>
+        <div class="a8">
+            <!--點閱排名-->
+
+            <!--_adminx/onAir/skin/news_host.asp!-->
+
+
+
+
+
+<div class="tops">
+    <div class="tt18">
+        <div class="tta3">點閱排名</div>
+        <img src="images/ns/en4.png" />
+    </div>
+    <div class="ma4">
+        
+                <div class="ls11">
+            <div class="ic6">1</div>
+            <div class="tt19"><a href="newsView.2470114" title="匯聚社會愛心盼為嘉義弱勢暖個好">匯聚社會愛心盼為嘉義弱勢暖個好</a></div>
+            <div class="pit">點閱：1,272次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic6">2</div>
+            <div class="tt19"><a href="newsView.2470262" title="負面意念多的人  容易罹病">負面意念多的人  容易罹病</a></div>
+            <div class="pit">點閱：454次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic6">3</div>
+            <div class="tt19"><a href="newsView.2469976" title="勞動局長遴選挨批   柯P：的">勞動局長遴選挨批   柯P：的</a></div>
+            <div class="pit">點閱：302次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">4</div>
+            <div class="tt19"><a href="newsView.2469790" title="冷氣團來襲  越晚越冷">冷氣團來襲  越晚越冷</a></div>
+            <div class="pit">點閱：263次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">5</div>
+            <div class="tt19"><a href="newsView.2470299" title="強烈大陸冷氣團明發威  愈晚愈">強烈大陸冷氣團明發威  愈晚愈</a></div>
+            <div class="pit">點閱：208次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">6</div>
+            <div class="tt19"><a href="newsView.2470691" title="科比：把隊友丟進水裡  是沉是">科比：把隊友丟進水裡  是沉是</a></div>
+            <div class="pit">點閱：186次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">7</div>
+            <div class="tt19"><a href="newsView.2470259" title="落實全面週休二日  年底前送政">落實全面週休二日  年底前送政</a></div>
+            <div class="pit">點閱：182次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">8</div>
+            <div class="tt19"><a href="newsView.2470287" title="37跨黨派立委 提案成立修憲委">37跨黨派立委 提案成立修憲委</a></div>
+            <div class="pit">點閱：179次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">9</div>
+            <div class="tt19"><a href="newsView.2469901" title="破壞納斯卡線 綠色和平道歉">破壞納斯卡線 綠色和平道歉</a></div>
+            <div class="pit">點閱：174次</div>
+        </div>
+            
+                <div class="ls11">
+            <div class="ic7">10</div>
+            <div class="tt19"><a href="newsView.2470836" title="林佳龍原民會主委換人   改馬">林佳龍原民會主委換人   改馬</a></div>
+            <div class="pit">點閱：174次</div>
+        </div>
+                    
+    </div>
+</div>
+
+            <div>
+                <!--
+                <div class="tt20">
+                    <div class="tta4">焦點影音</div>
+                    <img src="http://www.bcc.com.tw/images/ns/en5.png" />
+                </div>
+                -->                
+    <div style="width:445px; background-color:white; text-align:center; margin-bottom:10px">
+    <script type="text/javascript"><!--
+    google_ad_client = "ca-pub-2111941696632965";
+    /* BCC_list_r_d_336x280 */
+    google_ad_slot = "7868215937";
+    google_ad_width = 336;
+    google_ad_height = 280;
+    //-->
+    </script>
+    <script type="text/javascript"
+    src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
+    </div>
+
+            </div>
+            <div class="tops">
+                <!--焦點影音下方廣告-->
+                
+
+ <!--_adminx/adv/skin/_adv_list_2.asp!-->
+
+
+
+
+       
+        <a href='adv_count.asp?nid=203'  target="_parent" title="" > <img src="http://www.bcc.com.tw/imgs/adv/201412030031271.jpg" border="0" /></a>         
+    
+
+            </div>
+
+            <!--收聽頻率-->
+            <div class="tt48 ">
+                <div class="tta7">收聽頻率</div>
+                <img src="http://www.bcc.com.tw/images/ns2/en7-2.png" />
+            </div>
+            <div class="ar7">
+                <div class="ls19">
+                    <div class="tt49">AM648</div>
+                    <div class="tt50">台北、桃園</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM882</div>
+                    <div class="tt50">新竹</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM1413</div>
+                    <div class="tt50">苗栗、埔里</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM720</div>
+                    <div class="tt50">台中、彰化、南投</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM1350</div>
+                    <div class="tt50">嘉義、雲林</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM1296</div>
+                    <div class="tt50">台南</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM864</div>
+                    <div class="tt50">高雄、屏東</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM630</div>
+                    <div class="tt50">宜蘭</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM819</div>
+                    <div class="tt50">台東</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM855</div>
+                    <div class="tt50">花蓮</div>
+                </div>
+                <div class="ls19 ">
+                    <div class="tt49">AM1116</div>
+                    <div class="tt50">玉里</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function checkEmpty() {
+            var val=document.getElementById("body_KW").value;
+            if (val == "" || val=="中廣新聞搜尋") {
+                window.alert("請輸入搜尋文字！");
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+
+
+                <style>
+                    .mxa a {
+                        font: 14px/18px;
+                    }
+                </style>
+                <div class="m5">
+                    <div class="a5">
+                        <div class="lg2">
+                            <img src="images/lg2.png" />
+                        </div>
+                        <div class="tt8">
+                            本網站內容屬於中國廣播公司全球資訊網所有，非經允許，不得轉載 All Rights Reserved.<br class="h_5000 s_800 h_480" />
+                            台北市中山區松江路375號
+     <span class="block_mail mxa" style="margin-right: 40px;"><span style="margin: 0 5px 0 10px">
+         <img src="images/0114/mail.png" /></span><a href="contact_view.asp">廣告業務聯絡</a></span>
+                            <span class="block_mail mxa"><span style="margin: 0 5px 0 10px">
+                                <img src="images/0114/mail.png" /></span><a href="mailto:customer@ms1.bcc.com.tw">客服信箱</a></span>
+                            <span class="block_mail mxa"><span style="margin: 0 5px 0 10px;">
+                                <img src="images/0124/ic.png" /></span><a href="aa_1.asp">關於中廣</a></span>
+                            <br class="h_800 s_480" />
+
+                            TEL：886-2-25019688<br class="h_5000 s_800" />
+                            Broadcasting Corporation of China No.375, Song Jiang Rd., Taipei, Taiwan, R.O.C.
+                        </div>
+                        <div class="tt9">Design by <a href="http://www.newmediamax.com.tw/" target="_blank">NEWMEDIAMAX</a></div>
+                    </div>
+                </div>
+
+    </form>
+</body>
+</html>

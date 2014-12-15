@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_StormMediaGroup_Parse_048c71d1 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_StormMediaGroup::parse (048c71d1.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/048c71d1.html');
+        $result = Crawler_StormMediaGroup::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/048c71d1.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

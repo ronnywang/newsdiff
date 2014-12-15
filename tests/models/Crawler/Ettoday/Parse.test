@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_Ettoday_Parse_436375 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Ettoday::parse (436375.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/436375.html');
+        $result = Crawler_Ettoday::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/436375.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}
