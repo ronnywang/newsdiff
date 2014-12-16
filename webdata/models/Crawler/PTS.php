@@ -16,26 +16,37 @@ class Crawler_PTS implements Crawler_Common
 
     public static function parse($body)
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
+        // add \n after end of paragraphs, ease to separate paragrahs later
+        $body = preg_replace('/(\<br\>|\<br[ ]*\/\>|\<\/p\>|\<\/div\>)/', "$1\n", $body);
 
+        $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
-        foreach ($doc->getElementsByTagName('meta') as $meta_dom) {
-            if ('og:title' == $meta_dom->getAttribute('property')) {
-                $ret->title = preg_replace('#-公視新聞網$#', '', $meta_dom->getAttribute('content'));
-            }
+
+        // read content
+        $content = '';
+        $finder = new DomXPath($doc);
+
+        // find title
+        $itemList = $finder->query("//td[@class='News_page_tittle']/table/tr/table/td");
+        if ($itemList->length == 0) {
+            return NULL;
+        }
+        $ret->title = trim($itemList->item(0)->nodeValue);
+
+        // find body
+        $content = '';
+        $itemList = $finder->query("//p[@class='Page']");
+        foreach ($itemList as $item) {
+            $content .= $item->nodeValue;
+        }
+        $ret->body = $content;
+        $ret->body = preg_replace('/[\n\r\t ]*(\n|\r)[\n\r\t ]*/', "\n\n", $ret->body); // fix line breaks
+        $ret->body = trim($ret->body);
+        if (empty($ret->body)) {
+            return NULL;
         }
 
-        $ret->body = '';
-        foreach ($doc->getElementsByTagName('p') as $p_dom) {
-            if ($p_dom->getAttribute('class') == 'Page') {
-                $ret->body .= Crawler::getTextFromDom($p_dom);
-            }
-        }
-        if ($ret->title and $ret->body) {
-            return $ret;
-        }
-
-        return null;
+        return $ret;
     }
 }
