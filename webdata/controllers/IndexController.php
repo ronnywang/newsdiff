@@ -67,7 +67,7 @@ class IndexController extends Pix_Controller
 
     public function healthAction()
     {
-        header('Content-Type: text/plain');
+        header('Content-Type: text/plain; charset=utf-8');
 
         $ret = array();
         $check_time = 30; // 幾分鐘沒有從列表抓到任何新聞就要警告
