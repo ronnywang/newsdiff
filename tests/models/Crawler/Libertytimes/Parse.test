@@ -1,0 +1,57 @@
+<?php
+
+class TestCase_Crawler_Libertytimes_Parse_20130813t3 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Libertytimes::parse (20130813t3.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/20130813t3.html');
+        $result = Crawler_Libertytimes::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/20130813t3.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}
+
+class TestCase_Crawler_Libertytimes_Parse_1180585 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Libertytimes::parse (1180585.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/1180585.html');
+        $result = Crawler_Libertytimes::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/1180585.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

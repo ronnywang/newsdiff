@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_Newtalk_Parse_52850 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Newtalk::parse (52850.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/52850.html');
+        $result = Crawler_Newtalk::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/52850.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

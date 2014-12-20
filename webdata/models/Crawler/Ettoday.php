@@ -1,24 +1,20 @@
 <?php
 
-class Crawler_Ettoday
+class Crawler_Ettoday implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         // http://www.ettoday.net/news/20130813/255848.htm
         $content = Crawler::getBody('http://www.ettoday.net');
         $content .= Crawler::getBody('http://feeds.feedburner.com/ettoday/realtime');
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/news/\d+/\d+\.htm#', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $update ++;
-            $url = Crawler::standardURL('http://www.ettoday.net' . $link);
-            $insert += News::addNews($url, 4);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        array_walk($matches[0], function(&$link) { $link = 'http://www.ettoday.net' . $link; });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)

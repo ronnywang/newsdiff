@@ -1,8 +1,8 @@
 <?php
 
-class Crawler_CNA
+class Crawler_CNA implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         // http://www.cna.com.tw/News/aCN/201308130087-1.aspx
         // http://www.cna.com.tw/Topic/Popular/3907-1/201308130021-1.aspx
@@ -10,57 +10,44 @@ class Crawler_CNA
         for ($i = 1; $i < 10; $i ++) {
             $content .= Crawler::getBody('http://www.cna.com.tw/list/aall-' . $i . '.aspx');
         }
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#/(News|Topic/Popular)/[^/]*/\d+-\d+\.aspx#i', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $update ++;
-            $url = Crawler::standardURL('http://www.cna.com.tw' . $link);
-            $insert += News::addNews($url, 3);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
-
+        array_walk($matches[0], function(&$link) { $link = 'http://www.cna.com.tw' . $link; });
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)
     {
-        if (preg_match('/<title>404<\/title>/', $body)) {
-            $ret = new StdClass;
-            $ret->title = '404';
-            $ret->body = '404';
-            return $ret;
-        }
+        // add \n after end of paragraphs, ease to separate paragrahs later
+        $body = preg_replace('/(\<br\>|\<br[ ]*\/\>|\<\/p\>|\<\/div\>)/', "$1\n", $body);
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
 
-        foreach ($doc->getElementsByTagName('div') as $div_dom) {
-            if ($div_dom->getAttribute('class') == 'news_content') {
-                if ($div_dom->getElementsByTagName('h1')->item(0)) {
-                    $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
-                } else {
-                    $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
-                }
-                foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
-                    if ($child_div_dom->getAttribute('class') == 'box_2') {
-                        $ret->body = '';
-                        foreach ($child_div_dom->getElementsByTagName('p')->item(0)->childNodes as $childNode) {
-                            if (trim($childNode->nodeValue) == '※你可能還想看：') {
-                                break;
-                            }
-                            $ret->body .= Crawler::getTextFromDom($childNode);
-                        }
-                        break;
-                    }
-                }
-                break;
+        // get data, if exists
+        $item = $doc->getElementById('ctl00_ctl00_cph_container_cph_primary_View2014_PnlCont');
+        if ($item === NULL) {
+            return NULL;
+        }
+
+        // parse title
+        $og_title = FALSE;
+        foreach ($doc->getElementsByTagName('meta') as $meta) {
+            if ($meta->getAttribute('property') == 'og:title') {
+                $og_title = $meta->getAttribute('content');
             }
         }
-        $ret->body = trim($ret->body);
+        $ret->title = preg_replace('/^(.+?)[ ]*\|.*$/', '$1', $og_title);
 
+        // parse body
+        $ret->body = $item->nodeValue;
+        $ret->body = preg_replace('/[\n\r\t ]*(\n|\r)[\n\r\t ]*/', "\n\n", $ret->body); // fix line breaks
+        $ret->body = trim($ret->body);
         return $ret;
     }
 }

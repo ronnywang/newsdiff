@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_Chinatimes_Parse_260115 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Chinatimes::parse (260115.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/260115.html');
+        $result = Crawler_Chinatimes::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/260115.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

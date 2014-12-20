@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_TVBS_Parse_556732 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_TVBS::parse (556732.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/556732.html');
+        $result = Crawler_TVBS::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/556732.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

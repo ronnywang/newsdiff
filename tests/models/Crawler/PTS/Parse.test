@@ -1,0 +1,57 @@
+<?php
+
+class TestCase_Crawler_PTS_Parse_285779 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_PTS::parse (285779.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/285779.html');
+        $result = Crawler_PTS::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/285779.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}
+
+class TestCase_Crawler_PTS_Parse_285812 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_PTS::parse (285812.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/285812.html');
+        $result = Crawler_PTS::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/285812.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

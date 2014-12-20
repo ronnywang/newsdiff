@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_Nownews_Parse_1529819 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Nownews::parse (1529819.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/1529819.html');
+        $result = Crawler_Nownews::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/1529819.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

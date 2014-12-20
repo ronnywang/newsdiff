@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_UDN_Parse_9127738 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_UDN::parse (9127738.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/9127738.html');
+        $result = Crawler_UDN::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/9127738.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_TTV_Parse_10312120017000I extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_TTV::parse (10312120017000I.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/10312120017000I.html');
+        $result = Crawler_TTV::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/10312120017000I.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

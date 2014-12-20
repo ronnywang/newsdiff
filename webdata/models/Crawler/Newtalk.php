@@ -1,26 +1,21 @@
 <?php
 
-class Crawler_Newtalk
+class Crawler_Newtalk implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         $content = Crawler::getBody('http://newtalk.tw');
         $content .= Crawler::getBody('http://newtalk.tw/rss_news.php');
         for ($i = 1; $i >= 14; $i ++) {
             $content .= Crawler::getBody('http://newtalk.tw/rss_news.php?oid=' . $i);
         }
+        return $content;
+    }
 
+    public static function findLinksIn($content)
+    {
         preg_match_all('#http://newtalk.tw\/news/\d+/\d+/\d+/\d+\.html#', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $update ++;
-            $link = Crawler::standardURL($link);
-            $insert += News::addNews($link, 6);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        return array_unique($matches[0]);
     }
 
     public static function parse($body)

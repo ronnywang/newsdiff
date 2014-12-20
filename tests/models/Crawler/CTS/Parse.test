@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_CTS_Parse_201411111536296 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_CTS::parse (201411111536296.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/201411111536296.html');
+        $result = Crawler_CTS::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/201411111536296.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

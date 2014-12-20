@@ -1,0 +1,876 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head><meta http-equiv="expires" content="0" /><meta http-equiv="cache-control" content="no-cache" /><meta http-equiv="pragma" content="no-cache" /><meta id="ctl00_metaUrl" property="og:url" /><meta id="ctl00_metaTitle" property="og:title" /><meta id="ctl00_metaImage" property="og:image" /><meta property="og:type" content="article" /><meta name="google-site-verification" content="urUoJwJK9BRvN_r1I8OZ6iBKN_e6ARtwwkcPw717xiA" /><title>
+	【民視新聞網】
+</title>
+<script language ="JavaScript" type ="text/javascript">
+
+function bookmark()
+{
+ bookmarkurl="http://news.ftv.com.tw/";
+ bookmarktitle="【民視新聞網】";
+ if (document.all)
+ {
+  window.external.AddFavorite(bookmarkurl,bookmarktitle);
+ }
+ else if (window.sidebar){
+  window.sidebar.addPanel(bookmarktitle, bookmarkurl, "");
+ }
+}
+
+function doSubmit() {
+    var oq = process(document.getElementById("oq").value)
+    if ( oq.replace(/^\s+|\s+$/g,"") == '')
+    {
+     alert('請輸入查詢關鍵字!');
+    }
+    else
+    {
+     location.href = "http://search.ftv.com.tw/search/doSearch.jsp?oq=" + encodeURI(oq) + "&q=" + encodeURI(oq) + "&qt=dismax&os=true";
+    }			
+   }
+   
+function process(str){
+ str=str.replace(/\:+/g,"\":\"");
+ str=str.replace(/\*+/g,"\"*\"");
+ str=str.replace(/\?+/g,"\"?\"");
+ str=str.replace(/\!+/g,"\"!\"");
+ return str.replace(/^\s+|\s+$/g,"");
+}
+
+function videoload(videourl)
+{   
+  var videopath = videourl;
+  document.getElementById("video1").innerHTML = '<embed src="' + videopath +'?autoplay=1" width="480" height="335" bgcolor="#000000" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true"></embed>';  
+}
+
+function PushMBlog(type,url,title,lead)
+{
+   
+    var sel='';
+    if (window.getSelection) { sel = window.getSelection();}
+    else if (document.getSelection) {sel = document.getSelection();}
+    else if (document.selection) {sel = document.selection.createRange().text;}
+       
+    if (sel != "")
+          {lead = sel;}
+    if (type=="twitter") 
+      {javascript: void(window.open('http://twitter.com/home/?status='.concat(encodeURIComponent(title+' '+lead+'...')) .concat(' ') .concat(encodeURIComponent(url))));}
+    else if (type=="plurk")
+      {
+        javascript: void(window.open('http://www.plurk.com/?qualifier=shares&amp;status=' .concat(encodeURIComponent(url)) .concat(' ') .concat('(') .concat(encodeURIComponent(title)) .concat(') ') .concat(encodeURIComponent(lead+'...')),"plurk"));                
+      } 
+    else if (type=="facebook")    
+    {
+    //javascript: void(window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(title),'sharer','toolbar=0,status=0,width=626,height=436'));                
+    javascript: void(window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='.concat(encodeURIComponent(title)),'sharer','toolbar=0,status=0,width=626,height=436'));                
+    }  
+} 
+
+function doZoom(size){
+
+  document.getElementById("img1").src ="images/sfont_icon_off.gif";
+  document.getElementById("img2").src ="images/mfont_icon_on.gif";
+  document.getElementById("img3").src ="images/bfont_icon_off.gif";
+
+  if (size == 13) {
+      document.getElementById("img1").src ="images/sfont_icon_on.gif";
+	  document.getElementById("img2").src ="images/mfont_icon_off.gif";
+	  document.getElementById("img3").src ="images/bfont_icon_off.gif";
+      var c1 = 18;
+  }
+  else if (size == 15) {
+	  document.getElementById("img1").src ="images/sfont_icon_off.gif";
+	  document.getElementById("img2").src ="images/mfont_icon_on.gif";
+	  document.getElementById("img3").src ="images/bfont_icon_off.gif";
+	  var c1 = 24;
+  }
+  else if (size == 18) {
+	  document.getElementById("img1").src ="images/sfont_icon_off.gif";
+	  document.getElementById("img2").src ="images/mfont_icon_off.gif";
+	  document.getElementById("img3").src ="images/bfont_icon_on.gif";
+	  var c1 = 26;
+  }
+  
+  var t1 = size + 2 ;
+  document.getElementById('h1').style.fontSize = t1 + 'px';
+  document.getElementById('h2').style.fontSize = size + 'px';
+  document.getElementById('newscontent').style.fontSize = size + 'px';
+  document.getElementById('newscontent').style.lineHeight = c1 + 'px';
+  document.getElementById('newscontent').style.letterSpacing  = '0px';
+  document.getElementById('newscontent').style.color = '#3C3C3C';
+}
+
+function checkdata(){
+var oq = process(document.getElementById("ctl00_searchkey").value);
+if (oq.replace(/^\s+|\s+$/g,"") == ''){
+    alert('請輸入查詢關鍵字!');
+    return false;
+   }
+
+document.getElementById("ctl00_searchkey").value = oq;
+
+if (document.getElementById("ctl00_searchkey").value==""){
+    alert('搜尋欄位不允許空白!');
+    document.getElementById("ctl00_searchkey").focus();
+	return false;
+   }
+  
+if (document.getElementById("ctl00_searchkey").value.length < 2){
+    alert('請輸入至少兩個以上的搜尋關鍵字!');
+    document.getElementById("ctl00_searchkey").focus();
+	return false;
+   } 
+}
+
+function checkView(strFun,strVal,divName){
+
+    var http_request = false;
+	if (window.XMLHttpRequest) {
+		http_request = new XMLHttpRequest();
+	} else if (window.ActiveXObject) { // IE
+		try {
+			http_request = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try {
+				http_request = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e) {}
+		}
+	}
+	if (!http_request) {
+		alert('Error1.');
+		return false;
+	}
+	http_request.onreadystatechange = function(){ 
+		if (http_request.readyState == 4){
+			if(http_request.status == 200){
+			   IgotIt = http_request.responseText;
+			   if(divName == undefined){
+		          done = eval(IgotIt)
+	           }
+	           else{
+		          //alert(IgotIt);
+		          //document.getElementById(divName).innerHTML = IgotIt;
+	           }
+	    
+	        } 
+	        else{
+		      if(document.getElementById(divName) != null){
+			     //alert(http_request.responseText);
+			     //document.getElementById(divName).innerHTML = http_request.responseText;
+		      }
+		      else{
+			    //alert('Error2.');
+		      }    
+	        }
+        }
+	};
+	var url = 'newsViewCount.aspx?itemfun=' + strFun + '&itemVal=' + escape(strVal);
+	http_request.open('GET', url, true);
+	http_request.send(null);
+
+}
+
+(function(){try{var g,j,k,l,m=window.gbar=window.gbar||{};
+   function _tvn(a,b){var c=parseInt(a,10);
+   return isNaN(c)?b:c}function _tvf(a,b){var c=parseFloat(a);return isNaN(c)?b:c}function _tvb(a,b){return a=="true"?true:a=="false"?false:b}function _tvv(a){return!!a}m.bv={n:_tvn("2",0),r:"",m:_tvn("0",1)};var n=function(){return m.bv.m==1};m.sb=n;var o,p,q; function r(a){var b=window.encodeURIComponent&&(document.forms[0].q||"").value;if(b)a.href=a.href.replace(/([?&])q=[^&]*|$/,function(c,d){return(d||"&")+"q="+encodeURIComponent(b)})}l=r;function s(a,b,c,d,h,i){var f=document.getElementById(a);if(f){var e=f.style;e.left=d?"auto":b+"px";e.right=d?b+"px":"auto";e.top=c?"auto":c+"px";e.visibility=p?"hidden":"visible";if(h&&i){e.width=h+"px";e.height=i+"px"}else{s(o,b,c,d,f.offsetWidth,f.offsetHeight);p=p?"":a}}} var t=[],u=function(a,b){t.push(b)},x=function(a){a=a||window.event;var b=a.target||a.srcElement;a.cancelBubble=true;if(o==null){a=document.createElement(Array.every||window.createPopup?"iframe":"div");a.frameBorder="0";o=a.id="gbs";a.src="#";document.body.appendChild(a);document.onclick=v}var c=b;b=0;if(c.className!="gb3")c=c.parentNode;a=c.getAttribute("aria-owns")||"pushlist";var d=c.offsetWidth,h=c.offsetTop>20?46:24;if(document.getElementById("tphdr"))h-=3;var i=false;do b+=c.offsetLeft||0;while(c= c.offsetParent);c=(document.documentElement.clientWidth||document.body.clientWidth)-b-d;var f;d=document.body;var e=document.defaultView;if(e&&e.getComputedStyle){if(d=e.getComputedStyle(d,""))f=d.direction}else f=d.currentStyle?d.currentStyle.direction:d.style.direction;f=f=="rtl";if(a=="pushlist"){for(d=0;e=t[d++];)e();w(null,window.navExtra);if(f){b=c;i=true}}else if(!f){b=c;i=true}p!=a&&v();s(a,b,h,i)},v=function(){p&&s(p,0,0)},w=function(a,b){var c,d=document.getElementById("pushlist"),h=a;if(!h)h=d.firstChild; for(;b&&(c=b.pop());){var i=d,f=c,e=h;q||(q="gb2");i.insertBefore(f,e).className=q}},y=function(){return document.getElementById("gb_70")};m.qs=l;m.setContinueCb=k;m.pc=j;m.tg=x;m.close=v;m.addLink=g;m.almm=w;m.si=y;m.adh=u;}catch(e){window.gbar&&gbar.logger&&gbar.logger.ml(e);}})();
+</script>
+<link href="css/StyleSheet.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="css/thickbox.css" type="text/css" media="screen" />
+
+<style type="text/css">
+#youtubebox{width:480px; height:335px;	position:relative;}
+.youtube-link{
+	position:absolute;
+	display:block
+	top:0;
+	left:0;
+	width:480px;
+	height:335px;
+	z-index:1;
+	background:url('images/play.png');
+	text-indent:-9999px;
+}
+.youtube-link:hover{background:url('images/play-on.png');}
+
+</style>
+</head>
+<body id="ftvBody">
+<form name="aspnetForm" method="post" action="index.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTc5NzAzMTM4NA9kFgJmD2QWAgIDD2QWCAIBDxYCHgRUZXh0ZWQCBQ8PFgIfAAUUMjAxNC8xMi8xMyDmmJ/mnJ/lha1kZAIMDxYCHwAFRjxhIGhyZWY9Ik5ld3NDb2x1bW5MaXN0LmFzcHg/Y2lkPTM0IiBjbGFzcz0iY29sdW1uIj7ogLboqpXnibnovK88L2E+Cg1kAhIPZBYgAgUPFgIfAAXPDjxkaXY+5by354OI5Ya35rCj5ZyY5b2x6Z+/IOWQhOWcsOawo+a6q+S9jjwvZGl2PjxkaXY+5LiL6YCx5LqM5rC05rCj5aKeIOWMl+mDqOWPiuadsemDqOaciemZo+mbqDwvZGl2PjxkaXY+5pyx56uL5YCr5o+Q5YWn6Zaj5Yi2IOiDoeW/l+W8tzropoHlhajmsJHmnInlhbHorZg8L2Rpdj48ZGl2PuiDoeW/l+W8t+WMl+S4iuacg+acseeri+WAqyDlrqPluIPkuI3pgbjpu6jkuLvluK08L2Rpdj48ZGl2PuWMl+W4guWJr+W4gumVtyDlgrPlhaflrprlu6PlkYrkurrojormt5Hoiqw8L2Rpdj48ZGl2PumZs+eCuuW7t+mBuOeri+WnlCDos7TmuIXlvrfooajmhYvlipvmjLo8L2Rpdj48ZGl2PuWFp+mWo+WItuihjOS4jeihjD8g6LO05riF5b63OuaUueWbniLlrozmlbTpm5npppbplbfliLYiPC9kaXY+PGRpdj7pmbPmsLTmiYHkv53lpJblsLHphqvogbLmmI7nlbDorbAg6YGt6auY6Zmi6aeB5ZuePC9kaXY+PGRpdj7lj7jmqZ/mm77msYLliqnmoYPoraYg5ZOh6K2m5YOF55m76KiY6LOH5paZ5pyq6YCa55+l5a625bGsPC9kaXY+PGRpdj7nlLflrZDooqvnoI3loLHmoYggM+WWruS9jeaLljXlsI/mmYLmgJLmjqforablkIPmoYg8L2Rpdj48ZGl2Pum7keaJi+e8uuW3pea9riAzMEvoq4vkuI3liLDou4rluoou54SK5o6l5belPC9kaXY+PGRpdj7purXnsonlg7nmoLzpmY3kuIDmiJAg5Zyf5Y+46bq15YyF5Y+N5ryy5YWp5oiQPC9kaXY+PGRpdj7lnIvpmpvljp/nianmlpnntJvotbDot4wg6YCf6aOf5bqX5LuN5ZaK5ryyPC9kaXY+PGRpdj7ntrLot6/lsbHlr6jljp/lu6Dntq3kv67nq5kg572w6Y2w5oGQ5o+Q6auYPC9kaXY+PGRpdj7lhZLnpo/oga/nm5/npL7lnJjmtLvli5Ug5Yqp5YGP6YSJ5a2456ul5ZyT5aSiPC9kaXY+PGRpdj4xLzEwIOWFqOeQg+Wls+asiumspeWjq+S8iuiKme+8juaBqeaWr+WLkuiSnuWPsOa8lOismzwvZGl2PjxkaXY+MjAxNeWPsOWNl+i3qOW5tCLlsLHmmK/mhJvnp4Ai5q+U6LO9IOiri+a0veWumOe2sjwvZGl2PjxkaXY+MTIvMTMg57SZ6aKo6LuK5Y2h6LuK6Jed6KGTIDE5OjAw6Zuy5p6X5YWD6ZW35ZyL5bCPPC9kaXY+PGRpdj4xMi8xNCDntJnpoqjou4rljaHou4rol53ooZMgIuiYi+aenOWKh+WcmCLmvJTlh7o8L2Rpdj48ZGl2PjEyLzE05Y2IMTPmmYLlj7DljJfou4rnq5nopb/kuozploAg5aSW5Yue5YGl5bq36Zec5oe3PC9kaXY+PGRpdj7mnY7pjq7mupDlhqXoqpXpn7PmqILmnIMgMDYtMjM4MTcxMSMxMjIy5YWN6LK7PC9kaXY+PGRpdj7ljJfluILmt5jmsbDkuozooYznqIvliqDnorwz5Y2DIDEyLzE15oiq5q2i5rS9MTk5OTwvZGl2PjxkaXY+6Zmz5a6a5Y2X6Zm95YWJ542O6YeRLuW/l+W3pSDlrpzomK3pq5jkuK3ogbcxMi8xM+aIquatojwvZGl2PjxkaXY+57i9542O6YeRMTDokKzlhYMgIOS4iue2suaQnOWwi+W5uOemj+iDvemHj+Wkp+WLn+mbhjwvZGl2PjxkaXY+5b+D5YGl5bq355+t54mH5b616YG4ICDkuIrntrLmkJzlsIvlv4PlgaXlurfnn63niYc8L2Rpdj48ZGl2PuabtOWkmuawkeimluaWsOiBniAg6KuL55yL5rCR6KaW5paw6IGeQXBwPC9kaXY+PGRpdj7pl5bolanlpKfoga/nm58yMOW5tCDlk4jph5Hmlq/lrqPluIPmmI7lubTpgIDkvJE8L2Rpdj48ZGl2Pue+juWci+Wlp+eRnuWyoeagoeWckuanjeaTiiA05YK3M+S6uuWRveWNsTwvZGl2PjxkaXY+576O5ZyL6KW/6YOo6aKo6Zuo5Lqk5YqgIOWNl+WKoOW3nueIhuWcn+efs+a1gTwvZGl2PjxkaXY+6IGv6Iiq5Y2h6LeR6YGTIOS5mOWuouWPl+WbsOa+s+a0suapn+WgtDjlsI/mmYI8L2Rpdj48ZGl2PuiIqueuoembu+iFpuaVhemanCDlgKvmlabpl5zplonpoJjnqbox5bCP5pmCPC9kaXY+PGRpdj7lqJjlrrbosqrohZDmoYjnuo/ouqsg546L5YSy5aaD5qOE546L5a6k6aCt6YqcPC9kaXY+ZAIHDxYCHwAFsw48ZGl2PumAseaXpeeZveWkqeiHs+mAseS4gCDlhrfmsKPlnJjmuJvlvLHmsKPmuqvlm57ljYc8L2Rpdj48ZGl2PuS4i+mAseS6jOWvkua1geS+huilsiDkvY7muqvkuIvmjqLkuZ3luqY8L2Rpdj48ZGl2PuiDoeW/l+W8t+WMl+S4iuacg+acseeri+WAqyDpgIDpgbjpu6jkuLvluK08L2Rpdj48ZGl2PuacseaLi+WFp+mWo+WItiDlkLPmlabnvqk66LyU6YG45Lit56uL5LiN6KGo5oWLPC9kaXY+PGRpdj7mnLHnq4vlgKvorpPkvY0yMDE2P+WQs+aVpue+qemBv+irh+eVmeS8j+ethjwvZGl2PjxkaXY+5p6X5L2z6b6N5ZyY6ZqK5Lqu55u4IOihjOWLleW4guW6nOWVn+WLlTwvZGl2PjxkaXY+5ZyL6Ziy6YOo5Ymv6YOo6ZW35aSP56uL6KiAIOWknOWutOWJjeWFsei7jeWumOWToTwvZGl2PjxkaXY+5oaC57235YWN6JSh5q2j5YWD6Zuj5oiQ5qGIIOWJsumXjOWwvue6jOihneWIujwvZGl2PjxkaXY+5aSx5pm66ICB57+B5aSx6Lmk5YeN5q27IOWutuWxrOaOp+iotOahg+WckuWToeitpuWGt+a8oDwvZGl2PjxkaXY+6L+95o2V5qeN5q+S6YCa57ed54qvIOaxveaXheeIhuitpuWMqumngeeBqzwvZGl2PjxkaXY+5b2t5reu5Y2X5ZaK6KmxIOaYjuW5tOS8gealreaHieWKoOiWqjQlITwvZGl2PjxkaXY+5aSq6a2v6Zaj6Lev6LeR6LO9IOawkeecvue2geW4g+aineaKl+itsOS6nuazpTwvZGl2PjxkaXY+6YeP6LKp5Zyf5Y+4Lua8ouWgoeeOi+WWiua8siDmtojosrvogIU65ouS5ZCDPC9kaXY+PGRpdj7nlJ/mtLvnhKbpu54v6buR5omL57y65bel5r2uIDMwS+iri+S4jeWIsOeEiuaOpeW3pTwvZGl2PjxkaXY+5ryB5rCRIumjhOa1queahOS6uueUnyIg5YWo5Zyo6KGM5YuV6KiO5rW36aSoPC9kaXY+PGRpdj7kvIroipnvvI7mganmlq/li5LmvJTorJsg5rS95Yu16aaoMDItODkxMTU1OTUjMTE4PC9kaXY+PGRpdj4xMi8xN+aFiOael+mfs+aoguacgyAxOTowMOWPsOWMl+mmrOWBleWkp+emruWggjwvZGl2PjxkaXY+MTIvMTMg57SZ6aKo6LuK5Y2h6LuK6Jed6KGTICLllJDnvo7pm7LmrYzku5TmiLLlnJgi5ryU5Ye6PC9kaXY+PGRpdj4xMi8xNCDntJnpoqjou4rljaHou4rol53ooZMgMTk6MDDpurvosYbnuL3niLrol53mlofkuK3lv4M8L2Rpdj48ZGl2Pue0memiqOi7iuWKh+WcmDEyLzEz5pmaN+aZgiDlmInnvqnmsJHpm4TphInmnbHmpq7lnIvlsI88L2Rpdj48ZGl2PjEyLzIx5p2O6Y6u5rqQ55m+5q2y5Yal6KqV6Z+z5qiC5pyDIOiHuuWNl+aWh+WMluS4reW/gzwvZGl2PjxkaXY+5Y2X5oqV6ZuG6ZuG6Iqx54++5a+2ICAxMi8yMeWJjeavj+mAseWFreaXpTwvZGl2PjxkaXY+6ZuG6ZuG6Iqx54++5a+25rS75YuV6KuL5LiKRkIgICJISSHkuK3ljYDllYblnIgiPC9kaXY+PGRpdj7pmbPlrprljZfpmb3lhYnnjY7lrbjph5Eu5b+X5bel54efIOa0vTAzLTk4OS04ODU1PC9kaXY+PGRpdj7ntJPlo5PlsI/lgY/mlrnlvrXpgbggIOS4iue2suaQnOWwi0VR5bCP5YGP5pa5PC9kaXY+PGRpdj7msJHoppbmlrDogZ5MaXZlICDlkIzmraVZb3VUdWJl55u05pKtPC9kaXY+PGRpdj7nrKzkuInlsYblj7DngaPkuYvnvo7lpKfos73li5/ku7Yg5rS95rCR6KaW5a6Y57ayPC9kaXY+PGRpdj7nm67mk4rogIXmjIfmp43miYvkuI3lj6rkuIDkurog55aR5bmr5rS+5Lu95a2QPC9kaXY+PGRpdj7ljbDlsLzniKrlk4fls7blpKflsbHltKkg5beyM+atuzM45YK3MTA35aSx6LmkPC9kaXY+PGRpdj7kuK3lnIvmg4XkvrbprKfmqZ8g5rOh6bq15r2R56m65aeQ6YGt5rGC5YSfPC9kaXY+PGRpdj7kvZTkuK3lianpioXpkbzngaPkuIDomZUg5pyA5b+r5LiL6YCx5riF5aC0PC9kaXY+PGRpdj7mnbHkuqzooajlj4PpgZPpu57nh4gg5rWq5ryr54eI5rW35ZC4552bPC9kaXY+ZAIJDxYCHwAF1AY8bGk+PGEgaHJlZj0iTmV3c0NvbnRlbnQuYXNweD9udHlwZT1haXImc25vPTIwMTRDMTNBMDFNMSI+6ZeW6JWp5aSn6IGv55ufMjDlubQg5ZOI6YeR5pav5a6j5biD5piOPC9hPjwvbGk+CjxsaT48YSBocmVmPSJOZXdzQ29udGVudC5hc3B4P250eXBlPWFpciZzbm89MjAxNEMxM0wwNE0xIj7pl5Xlqr3lqr3njbvmhJsyM+W5tCDppIrogrIyMOWQjeWvhDwvYT48L2xpPgo8bGk+PGEgaHJlZj0iTmV3c0NvbnRlbnQuYXNweD9udHlwZT1haXImc25vPTIwMTRDMTNTMDRNMSI+6L+95o2V5qeN5q+S6YCa57ed54qvIOaxveaXheeIhuitpuWMqumngeeBqzwvYT48L2xpPgo8bGk+PGEgaHJlZj0iTmV3c0NvbnRlbnQuYXNweD9udHlwZT1haXImc25vPTIwMTRDMTNGMDFNMSI+6YeP6LKp5Zyf5Y+444CB5ryi5aCh546L5ZaK5ryyIOa2iOiyu+iAhTo8L2E+PC9saT4KPGxpPjxhIGhyZWY9Ik5ld3NDb250ZW50LmFzcHg/bnR5cGU9YWlyJnNubz0yMDE0QzEzSTA1TTEiPue+juilv+miqOmbqOS6pOWKoCDljZfliqDlt57niIblnJ/nn7PmtYE8L2E+PC9saT4KPGxpPjxhIGhyZWY9Ik5ld3NDb250ZW50LmFzcHg/bnR5cGU9YWlyJnNubz0yMDE0QzEzSTA0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IjM1cHgiIGFsaWduPSJyaWdodCIgdmFsaWduPSJib3R0b20iPjxhIGhyZWY9Imh0dHA6Ly92aWV3LmZ0di5jb20udHcvd2Vlay5hc3B4IiB0YXJnZXQ9Il9ibGFuayIgc3R5bGU9ImJhY2tncm91bmQ6bm9uZTt0ZXh0LWRlY29yYXRpb246bm9uZTsiPjxpbWcgc3JjPSJpbWFnZXMvbW9yZV9idG4ucG5nIiBib3JkZXI9IjAiIGFsdD0iIi8+PC9hPjwvdGQ+PC90cj4NCjwvdGFibGU+DQo8L2Rpdj4NCjxkaXY+DQo8dGFibGUgd2lkdGg9IjEwMCUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIj4NCjx0cj48dGQgaGVpZ2h0PSIzMXB4Ij48Yj7lionph4zplbfnmoTliY3og4zljIUo5LiLKTwvYj48L3RkPjwvdHI+DQo8dHI+PHRkIGFsaWduPSJsZWZ0IiB2YWxpZ249InRvcCI+54Sh5aWI55qE5pS/5rK75q235Y+y5Zug57Sg77yM6K6T54Sh5pW455qE5a625bqt6KKr6L+r5YiG6ZqU5rW35bO95YWp5bK444CC54ax5b+D55qE6YeM6ZW35YqJ5b635paH5oqK6ICB5YW155qE6aqo54Gw5pS+5Zyo5LuW55qE5YmN6IOM5YyF77yM5LiA6Lev6IOM5Zue5Lit5ZyL5a626YSJ77yM5a6M5oiQ6ICB5YW16IiH5a625Lq65ZyY5ZyT55qE5b+D6aGY77yM6YCZ5qij5oSf5Lq655qE5pWF5LqL5Lmf5YKzLi4uPC90ZD48L3RyPg0KPHRyPjx0ZCBoZWlnaHQ9IjM1cHgiIGFsaWduPSJyaWdodCIgdmFsaWduPSJib3R0b20iPjxhIGhyZWY9Imh0dHA6Ly92aWV3LmZ0di5jb20udHcvd2Vlay5hc3B4IiB0YXJnZXQ9Il9ibGFuayIgc3R5bGU9ImJhY2tncm91bmQ6bm9uZTt0ZXh0LWRlY29yYXRpb246bm9uZTsiPjxpbWcgc3JjPSJpbWFnZXMvbW9yZV9idG4ucG5nIiBib3JkZXI9IjAiIGFsdD0iIi8+PC9hPjwvdGQ+PC90cj4NCjwvdGFibGU+DQo8L2Rpdj4NCjxkaXY+DQo8dGFibGUgd2lkdGg9IjEwMCUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIj4NCjx0cj48dGQgaGVpZ2h0PSIzMXB4Ij48Yj7jgIzph5HjgI3pnZ7mmJTmr5Q8L2I+PC90ZD48L3RyPg0KPHRyPjx0ZCBhbGlnbj0ibGVmdCIgdmFsaWduPSJ0b3AiPum7g+mHkeaYr+Wkp+WutumdnuW4uOeGn+aCieeahOiytOmHkeWxrO+8jOW+nuWPpOWIsOS7iu+8jOS6uuWAkemDveaKium7g+mHkeWSjOiyoeWvjOeVq+S4iuetieiZn++8jOWcqOWPpOS7o+S4remGq++8jOeUmuiHs+aKiuWug+aLv+S+hueVtuS9nOayu+eXheeahOiXpeadkOS5i+S4gOOAguePvuS7o+S6uuiBveS+huaIluioseimuuW+l+S4jeWPr+aAneitsO+8jOm7g+mHkeecn+eahOWPr+S7peayu+eXheWXji4uLjwvdGQ+PC90cj4NCjx0cj48dGQgaGVpZ2h0PSIzNXB4IiBhbGlnbj0icmlnaHQiIHZhbGlnbj0iYm90dG9tIj48YSBocmVmPSJodHRwOi8vdmlldy5mdHYuY29tLnR3L3dlZWsuYXNweCIgdGFyZ2V0PSJfYmxhbmsiIHN0eWxlPSJiYWNrZ3JvdW5kOm5vbmU7dGV4dC1kZWNvcmF0aW9uOm5vbmU7Ij48aW1nIHNyYz0iaW1hZ2VzL21vcmVfYnRuLnBuZyIgYm9yZGVyPSIwIiBhbHQ9IiIvPjwvYT48L3RkPjwvdHI+DQo8L3RhYmxlPg0KPC9kaXY+DQpkAiUPFgIfAAXfDDxkaXY+DQo8dGFibGUgd2lkdGg9IjEwMCUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIiBjbGFzcz0ib2dnIj4NCjx0cj48dGQgaGVpZ2h0PSIzMXB4Ij48Yj7poK3lrrbkvobplovorJs8L2I+PC90ZD48L3RyPg0KPHRyPjx0ZCBhbGlnbj0ibGVmdCIgdmFsaWduPSJ0b3AiPui2hei2iuiXjee2oC7lj7DljJfph43plovmqZ8hPyDnjajlrrblsIjoqKrmn6/mloflk7INCi4uLjwvdGQ+PC90cj4NCjx0cj48dGQgaGVpZ2h0PSIzNXB4IiBhbGlnbj0icmlnaHQiIHZhbGlnbj0iYm90dG9tIj48YSBocmVmPSJodHRwOi8vbmV3cy5mdHYuY29tLnR3L05ld3NQcm9nL2Jvc3MvaW5kZXguYXNweCAiIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0iYmFja2dyb3VuZDpub25lO3RleHQtZGVjb3JhdGlvbjpub25lOyI+PGltZyBzcmM9ImltYWdlcy9tb3JlX2J0bi5wbmciIGJvcmRlcj0iMCIgYWx0PSIiLz48L2E+PC90ZD48L3RyPg0KPC90YWJsZT4NCjwvZGl2Pg0KPGRpdj4NCjx0YWJsZSB3aWR0aD0iMTAwJSIgYm9yZGVyPSIwIiBjZWxsc3BhY2luZz0iMCIgY2VsbHBhZGRpbmc9IjAiIGNsYXNzPSJvZ2ciPg0KPHRyPjx0ZCBoZWlnaHQ9IjMxcHgiPjxiPuaWsOiBnuingOa4rOermTwvYj48L3RkPjwvdHI+DQo8dHI+PHRkIGFsaWduPSJsZWZ0IiB2YWxpZ249InRvcCI+6auY6ZuE5biC6ZW36Zmz6I+KIOWwiOioqi4uLjwvdGQ+PC90cj4NCjx0cj48dGQgaGVpZ2h0PSIzNXB4IiBhbGlnbj0icmlnaHQiIHZhbGlnbj0iYm90dG9tIj48YSBocmVmPSJodHRwOi8vbmV3cy5mdHYuY29tLnR3L05ld3NQcm9nL2ludGVybmV0L2luZGV4LmFzcHggIiB0YXJnZXQ9Il9ibGFuayIgc3R5bGU9ImJhY2tncm91bmQ6bm9uZTt0ZXh0LWRlY29yYXRpb246bm9uZTsiPjxpbWcgc3JjPSJpbWFnZXMvbW9yZV9idG4ucG5nIiBib3JkZXI9IjAiIGFsdD0iIi8+PC9hPjwvdGQ+PC90cj4NCjwvdGFibGU+DQo8L2Rpdj4NCjxkaXY+DQo8dGFibGUgd2lkdGg9IjEwMCUiIGJvcmRlcj0iMCIgY2VsbHNwYWNpbmc9IjAiIGNlbGxwYWRkaW5nPSIwIiBjbGFzcz0ib2dnIj4NCjx0cj48dGQgaGVpZ2h0PSIzMXB4Ij48Yj7msJHoppbnlbDoqIDloII8L2I+PC90ZD48L3RyPg0KPHRyPjx0ZCBhbGlnbj0ibGVmdCIgdmFsaWduPSJ0b3AiPuS5neWQiOS4gOmBuOiIieiQveW5le+8jOmBuOWHuuS+humAmem6vOWkmuawkeaEj+S7o+ihqOeVtuS4re+8jOWSjOawkeecvuS6kuWLleacgOWvhuWIh+eahO+8jOaHieipsuWwseaYr+mHjOmVt+S6huOAgumHjOmVt+eahOW3peS9nOWMheaLrOS6huWCs+mBlOaUv+S7pOOAgeWNlOiqv+mHjOawkee0m+eIre+8jOS7peWPiuWNlOWKqei+pueQhuWQhOmgheeUs+iri+ijnOWKqeetieetie+8jOS4jemBju+8jOWcqC4uLjwvdGQ+PC90cj4NCjx0cj48dGQgaGVpZ2h0PSIzNXB4IiBhbGlnbj0icmlnaHQiIHZhbGlnbj0iYm90dG9tIj48YSBocmVmPSJodHRwOi8vdmlldy5mdHYuY29tLnR3LyAiIHRhcmdldD0iX2JsYW5rIiBzdHlsZT0iYmFja2dyb3VuZDpub25lO3RleHQtZGVjb3JhdGlvbjpub25lOyI+PGltZyBzcmM9ImltYWdlcy9tb3JlX2J0bi5wbmciIGJvcmRlcj0iMCIgYWx0PSIiLz48L2E+PC90ZD48L3RyPg0KPC90YWJsZT4NCjwvZGl2Pg0KZBgBBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAQUSY3RsMDAkSW1hZ2VCdXR0b24xmtpnXGG2OpafRJ7HUUiqh0rnFCE=" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWAwLt/duYCQLMxL+CDwLssvLQA77kPcJnAROFmscwrOs4qeAsmacB" />
+</div>
+
+     <div id="ftvCanvas">
+		<div id="ftvMain">
+		    
+		    
+		    <div id="showArea" style="display:none;">
+    <h6 id="v-handler">video</h6>
+	<img src="images/close.jpg" width="15px" height="15px" id="close" alt="" />
+	<div id="showVideo"></div>
+	<div id="bgblack"></div>
+</div>
+
+		    <div id="imgtop">
+		      
+		      <!--
+<div id="scupio_E_script"></div>
+<script type="text/javascript" src="http://223.26.70.54/demo/videoads/js/scripts/expandable/expandable.js">
+</script>
+-->
+
+		    </div>
+
+		    <div id="ftvHeader">
+            	<a href="http://www.ftv.com.tw/" class="logo">民視FTV電視公司</a>
+            	<div class="search">
+                	<div class="date">
+                        <span id="ctl00_Label1">2014/12/13 星期六</span> │<a href="javascript:bookmark()" target="_self" class="cipher">加入最愛</a>│<a href="http://m.ftv.com.tw" target="_blank" class="cipher">手機版</a><!--│<a href="#" class="rssicon">RSS</a>-->
+                    </div>
+                    <div class="searchBox">
+                        <div class="hotkey">
+                   		  
+                 	    </div>
+<!--
+                 	    <div class="searchform">
+                        	<input id="oq" onkeydown="if(event.keyCode==13){doSubmit();return false;}" name="oq" class="ipt"/><input type="hidden" name="q" /> <input type="hidden" value="dismax" name="qt" /><a href="javascript:OnClientClick =doSubmit();"><img src ="images/search_Btn.jpg" class ="btn" alt=""/></a>    		
+                        </div>
+-->
+                        <div class="searchform">
+                            <input name="ctl00$searchkey" type="text" maxlength="25" id="ctl00_searchkey" class="ipt" /><input type="image" name="ctl00$ImageButton1" id="ctl00_ImageButton1" class="btn" src="images/search_Btn.jpg" onclick="return checkdata();" style="border-width:0px;cursor:pointer;" />
+                        </div>
+                   </div>
+               </div><!-- search end -->
+            </div><!-- ftvHeader end -->
+            
+            <div id="content">
+               
+               <div id="slider">
+                 <div id="programe_menu">
+	               <a href="https://www.facebook.com/challengeftv53?fref=ts" class="p" target="_blank"><img src="img/TZXW.jpg" border="0" alt=""/></a><br/>
+	               <a href="committee/organization.aspx" class="other">民視新聞自律委員會</a>
+	               <a href="NewsColumnList.aspx?cid=34" class="column">耶誕特輯</a>
+
+	                   <a href="NewsList.aspx?Class=L">生活新聞</a>
+	<a href="NewsList.aspx?Class=F">財經新聞</a>
+	<a href="NewsList.aspx?Class=P">政治新聞</a>
+	<a href="NewsList.aspx?Class=S">社會新聞</a>
+	<a href="NewsList.aspx?Class=I">國際新聞</a>
+	<a href="NewsList.aspx?Class=A">體育新聞</a>
+	<a href="NewsList.aspx?Class=U" class="s">南部地方新聞</a>
+	<a href="NewsList.aspx?Class=C" class="s">中部地方新聞</a>
+	<a href="NewsList.aspx?Class=N" class="s">北部東部地方新聞</a>
+	<a href="NewsList.aspx?Class=Q">新聞專欄</a>
+	<a href="http://news.ftv.com.tw/NewsOtherList.aspx?kind=1" class="s">台灣之美影音專欄</a>
+	<a href="http://news.ftv.com.tw/NewsOtherList.aspx?kind=2" class="s">銀髮逍遙遊影音專欄</a>
+	<a href="http://news.ftv.com.tw/NewsOtherList.aspx?kind=3" class="s">商圈Go影音專欄</a>
+	<a href="Life.aspx" class="other">好康新聞生活通</a>
+	<a href="NewsDTList.aspx" class="end">每日新聞列表</a>
+</div>
+<div id="bind_menu">
+	<a href="#" class="one">新聞節目</a>
+	<a href="http://news.ftv.com.tw/newsprog/taiwan/" target="_blank">台灣演義</a>
+	<a href="http://news.ftv.com.tw/NewsOtherList.aspx?kind=4" target="_blank">民視全球新聞</a>
+	<a href="http://news.ftv.com.tw/NewsProg/boss/index.aspx" target="_blank">頭家來開講</a>
+	<a href="http://view.ftv.com.tw/" target="_blank">民視異言堂</a> 
+	<a href="http://program.ftv.com.tw/progList.aspx?id=155" target="_blank">挑戰新聞</a>  
+	<a href="http://program.ftv.com.tw/progList.aspx?id=165" target="_blank">財經火線論壇</a>                       
+	<a href="http://news.ftv.com.tw/NewsProg/internet/index.aspx" target="_blank" class="end">新聞觀測站</a>
+</div>
+<div id="mlb_menu">
+	<!--<a href="http://mlb.ftv.com.tw/" target="_blank" class="one">美國職棒看民視</a>-->
+	<a href="http://sports.ftv.com.tw/" target="_blank">民視體育</a>
+	<a href="http://englishnews.ftv.com.tw/index.aspx" target="_blank">英語新聞</a>
+	<!--<a href="#">每日新聞列表</a>-->
+	<a href="http://1999.ftv.com.tw/" target="_blank">1999網友新聞</a>                                         
+</div>
+                 <div id="AD">
+                   <center>
+<!--img src="http://www.ftv.com.tw/ad/FSTV.jpg"/ border="0"-->
+<a href="http://www.ieco.tw./"><img src="http://program.ftv.com.tw/Variety/ad/img/m1231.gif"/ border="0"></a>
+<a href="http://ed.arte.gov.tw/ch/Index/index.aspx"><img src="http://program.ftv.com.tw/Variety/ad/img/s1231.jpg"/ border="0"></a>
+<a href="http://www.whatsmedia.com/demo/yunlinwater/"><img src="http://program.ftv.com.tw/Variety/ad/img/y1220.jpg"/ border="0"></a>
+<a href="http://www.hpa.gov.tw/BHPNet/Web/HealthTopic/Topic.aspx?id=200712250030"><img src="http://program.ftv.com.tw/Variety/ad/img/b1225.gif"/ border="0"></a>
+<a href="http://sports.bestmotion.com/Page/taxing_1.aspx"><img src="http://program.ftv.com.tw/Variety/ad/img/sp1219.gif"/ border="0"></a>
+<a href="http://sports.bestmotion.com/Page/capital_1a.aspx"><img src="http://program.ftv.com.tw/Variety/ad/img/i1219.jpg"/ border="0"></a>
+<a href="http://www.hpa.gov.tw/BHPNet/Web/Teach/PropagandaShowDetail.aspx?No=138"><img src="http://program.ftv.com.tw/Variety/ad/img/n1214.jpg"/ border="0"></a>
+<a href="http://ntpctree.dididada.com.tw/"><img src="http://program.ftv.com.tw/Variety/ad/img/t1215.gif"/ border="0"></a>
+<a href="http://www.cdcsexplatoon.com"><img src="http://program.ftv.com.tw/Variety/ad/img/cdc1220.gif"/ border="0"></a>
+<a href="http://www.findphoto.com.tw/"><img src="http://program.ftv.com.tw/Variety/ad/img/find.gif"/ border="0"></a>
+<a href="http://www.altamoda.com.tw"><img src="http://program.ftv.com.tw/Variety/ad/img/altamoda.gif"/ border="0"></a>
+<a href="http://news.ftv.com.tw/NewsProg/2008trip/index.htm"><img src="http://program.ftv.com.tw/Variety/ad/img/TimeForTaiwan.gif"/ border="0"></a>
+</center>
+
+                 </div>                    
+               </div><!-- slider end -->
+    
+               
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2325336-5', 'ftv.com.tw');
+  ga('send', 'pageview');
+
+</script>
+
+<script language="Javascript" type ="text/javascript" src="js/news_scroll.js"></script>
+<div id="main">
+    <div id="videoNews">
+      <!--<li class="end"><a href="#"><img src="images/bb.gif" border="0" alt=""/></a></li>-->
+      <!--<a href="" target="_blank" class="gb2">Facebook</a> -->
+      <iframe width="780" height="438" src="http://www.youtube.com/embed/s5Vj3VKOZGc?rel=0&wmode=transparent&autoplay=1" frameborder="0" allowfullscreen></iframe>
+              
+    </div><!-- videoNews end -->
+    
+    <div id="FtvContent">
+        <div id="FtvContentCat">
+            
+            <div class="marquee">
+              <div class="marq1">
+                <div id="news1" delay="4">
+                  <div>強烈冷氣團影響 各地氣溫低</div><div>下週二水氣增 北部及東部有陣雨</div><div>朱立倫提內閣制 胡志強:要全民有共識</div><div>胡志強北上會朱立倫 宣布不選黨主席</div><div>北市副市長 傳內定廣告人莊淑芬</div><div>陳為廷選立委 賴清德表態力挺</div><div>內閣制行不行? 賴清德:改回"完整雙首長制"</div><div>陳水扁保外就醫聲明異議 遭高院駁回</div><div>司機曾求助桃警 員警僅登記資料未通知家屬</div><div>男子被砍報案 3單位拖5小時怒控警吃案</div><div>黑手缺工潮 30K請不到車床.焊接工</div><div>麵粉價格降一成 土司麵包反漲兩成</div><div>國際原物料紛走跌 速食店仍喊漲</div><div>網路山寨原廠維修站 罰鍰恐提高</div><div>兒福聯盟社團活動 助偏鄉學童圓夢</div><div>1/10 全球女權鬥士伊芙．恩斯勒蒞台演講</div><div>2015台南跨年"就是愛秀"比賽 請洽官網</div><div>12/13 紙風車卡車藝術 19:00雲林元長國小</div><div>12/14 紙風車卡車藝術 "蘋果劇團"演出</div><div>12/14午13時台北車站西二門 外勞健康關懷</div><div>李鎮源冥誕音樂會 06-2381711#1222免費</div><div>北市淘汰二行程加碼3千 12/15截止洽1999</div><div>陳定南陽光獎金.志工 宜蘭高中職12/13截止</div><div>總獎金10萬元  上網搜尋幸福能量大募集</div><div>心健康短片徵選  上網搜尋心健康短片</div><div>更多民視新聞  請看民視新聞App</div><div>闖蕩大聯盟20年 哈金斯宣布明年退休</div><div>美國奧瑞岡校園槍擊 4傷3人命危</div><div>美國西部風雨交加 南加州爆土石流</div><div>聯航卡跑道 乘客受困澳洲機場8小時</div><div>航管電腦故障 倫敦關閉領空1小時</div><div>娘家貪腐案纏身 王儲妃棄王室頭銜</div>
+                </div>
+                <script language="Javascript" type ="text/javascript">if(window.WIN98){RenderNWR98('news1');}else{RenderNWR('news1');}</script>
+              </div>
+              <div class="marq2">
+                <div id="news2" delay="4">
+                  <div>週日白天至週一 冷氣團減弱氣溫回升</div><div>下週二寒流來襲 低溫下探九度</div><div>胡志強北上會朱立倫 退選黨主席</div><div>朱拋內閣制 吳敦義:輔選中立不表態</div><div>朱立倫讓位2016?吳敦義避談留伏筆</div><div>林佳龍團隊亮相 行動市府啟動</div><div>國防部副部長夏立言 夜宴前共軍官員</div><div>憂罷免蔡正元難成案 割闌尾續衝刺</div><div>失智老翁失蹤凍死 家屬控訴桃園員警冷漠</div><div>追捕槍毒通緝犯 汽旅爆警匪駁火</div><div>彭淮南喊話 明年企業應加薪4%!</div><div>太魯閣路跑賽 民眾綁布條抗議亞泥</div><div>量販土司.漢堡王喊漲 消費者:拒吃</div><div>生活焦點/黑手缺工潮 30K請不到焊接工</div><div>漁民"飄浪的人生" 全在行動討海館</div><div>伊芙．恩斯勒演講 洽勵馨02-89115595#118</div><div>12/17慈林音樂會 19:00台北馬偕大禮堂</div><div>12/13 紙風車卡車藝術 "唐美雲歌仔戲團"演出</div><div>12/14 紙風車卡車藝術 19:00麻豆總爺藝文中心</div><div>紙風車劇團12/13晚7時 嘉義民雄鄉東榮國小</div><div>12/21李鎮源百歲冥誕音樂會 臺南文化中心</div><div>南投集集花現寶  12/21前每週六日</div><div>集集花現寶活動請上FB  "HI!中區商圈"</div><div>陳定南陽光獎學金.志工營 洽03-989-8855</div><div>紓壓小偏方徵選  上網搜尋EQ小偏方</div><div>民視新聞Live  同步YouTube直播</div><div>第三屆台灣之美大賽募件 洽民視官網</div><div>目擊者指槍手不只一人 疑幫派份子</div><div>印尼爪哇島大山崩 已3死38傷107失蹤</div><div>中國情侶鬧機 泡麵潑空姐遭求償</div><div>佔中剩銅鑼灣一處 最快下週清場</div><div>東京表參道點燈 浪漫燈海吸睛</div>
+                </div>
+                <script language="Javascript" type ="text/javascript">if(window.WIN98){RenderNWR98('news2');}else{RenderNWR('news2');}</script>
+              </div>
+            </div>	 
+    
+            <div class="body">                            	
+                <ul class="hotnews">                                	
+                	<b>最新新聞</b>
+                    <li><a href="NewsContent.aspx?ntype=air&sno=2014C13A01M1">闖蕩大聯盟20年 哈金斯宣布明</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13L04M1">闕媽媽獻愛23年 養育20名寄</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13S04M1">追捕槍毒通緝犯 汽旅爆警匪駁火</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13F01M1">量販土司、漢堡王喊漲 消費者:</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13I05M1">美西風雨交加 南加州爆土石流</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13I04M1">東京表參道點燈 浪漫燈海吸睛</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13U03M1">被砍控警吃案 3單位拖5小時</a></li>
+<li><a href="NewsContent.aspx?ntype=air&sno=2014C13I03M1">中國情侶鬧機 泡麵潑空姐</a></li>
+
+                </ul>
+                <ul class="catnews">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=L">生活新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13L04M1">闕媽媽獻愛23年 養育20名寄</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13L02M1">下週二寒流來襲 低溫下探9度</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13L03M1">山寨原廠維修站 罰鍰恐提高</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12L05M1">14歲孫中風  劉泰英:黑心油</a></li>
+                   
+                </ul>
+                <ul class="catnews ogg">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=F">財經新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13F01M1">量販土司、漢堡王喊漲 消費者:</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12F08M1">反大戶條款 林伯豐:禿頭就禿吧</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12F07M1">美麗島事件 台灣民主分水嶺</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12F05M1">大戶條款存廢  財長.金管會不</a></li>
+                
+                </ul>
+                <ul class="catnews">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=P">政治新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13P04M1">國防部副部長夏立言 夜宴前共軍</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13P02M1">憂罷免蔡正元難成案 割闌尾續衝</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13P03M1">柯文哲第三位副手 傳奧美莊淑芬</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13P01M1">朱拋內閣制 吳敦義:輔選中立不</a></li>
+                   
+                </ul>
+                <ul class="catnews ogg">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=S">社會新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13S04M1">追捕槍毒通緝犯 汽旅爆警匪駁火</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13S02M1">扁保外就醫聲明異議 遭高院駁回</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13S03M1">失智翁搭錯公車 警方草率害凍死</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12S10M1">失智老翁搭錯車 失蹤六天凍死路</a></li>
+                    
+                </ul>
+                <ul class="catnews">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=I">國際新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C12I18M1">日年度漢字票選出爐 「稅」字當</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12I20M1">義大利抗議撙節 民眾扮耶老示威</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13I05M1">美西風雨交加 南加州爆土石流</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13I04M1">東京表參道點燈 浪漫燈海吸睛</a></li>
+                  
+                </ul>
+                <ul class="catnews ogg">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=A">體育新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13A01M1">闖蕩大聯盟20年 哈金斯宣布明</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12A10M1">三歲獨臂高球神童 球技令伍茲驚</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12A05M1">陳偉殷沒換坎普 道奇認賠送教士</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12A07M1">冬季會議好好玩 各式棒球商機齊</a></li>
+                      
+                </ul>
+                <ul class="catnews">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=U">南部地方新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13U04M1">黑手缺工潮 30K請不到焊接工</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13U03M1">被砍控警吃案 3單位拖5小時</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13U05M1">陳為廷選立委 賴清德:比照柯P</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13U01M1">追求自然療法 氫氣環保新選擇</a></li>
+                         
+                </ul>
+                <ul class="catnews ogg">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=C">中部地方新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13C01M1">林佳龍團隊亮相 行動市府啟動</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13C02M1">胡志強北上會朱立倫 退選黨主席</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13C03M1">不敢吃泡麵 手工麵老店業績漲3</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12C08M1">雙林「同祖宗」 林佳龍.林明溱</a></li>
+                    
+                </ul>
+                <ul class="catnews">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=N">北部東部地方新聞</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C13N01M1">太魯閣路跑賽 民眾綁布條抗議亞</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13N04M1">監獄來的同意書 警破門救狗</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C13N03M1">漁民"飄浪的人生" 全在行動討</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C12N10M1">潛逃中國18年 槍擊要犯利滿永</a></li>
+                       
+                </ul>
+                <ul class="catnews ogg">                                	
+                	<b><a href="http://news.ftv.com.tw/NewsList.aspx?Class=Q">新聞專欄</a></b>
+                    <li><a href="NewsContent.aspx?ntype=class&sno=2014C11Q01M1">道奇大動作　但交易恐有變數</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C11Q06M1">明年有競爭力？　傳白襪有大動作</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C11Q05M1">白襪得Samardzija、R</a></li>
+<li><a href="NewsContent.aspx?ntype=class&sno=2014C11Q04M1">小熊、響尾蛇交易 Monter</a></li>
+                         
+                </ul>
+            </div>
+        </div>
+        
+        <div class="FtvContentSil">
+            <div id="weatherbox">
+                <h2><span>阿愷報氣象</span><a href="http://blog.ftv.com.tw/akai" target="_blank">更多</a></h2>
+                <div class="body">
+                   <embed src="http://www.youtube.com/v/e4JVwNRXk7I?autoplay=0" width="266px" height="224px" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" />
+             	</div>
+            </div><!-- weather --> 
+            
+            <div id="lifebox">
+                <h2><span>好康新聞</span><a href="life.aspx">更多</a></h2>
+                <div class="body">
+                   <div class="first">
+<a href="life_news.aspx?sno=2014C09C06M1&lifetype=03"><img src="http://news.ftv.com.tw/media/2014/12/09/2014C09C06M1.jpg" border="0" alt="" width="120px" height="90px" onerror= "this.src= 'http://news.ftv.com.tw/images/life/food.jpg'" /></a>
+<div class="info">
+<a href="life_news.aspx?sno=2014C09C06M1&lifetype=03">無花果園養火雞 攝取酵素肉質</a>
+<p>火雞，向來是感恩節或耶誕節的代表食物，雲林北港有農民，將.....</p>
+</div>
+</div>
+<ul>
+<li><b class="color3">【餐飲】</b><a href="life_news.aspx?sno=2014C01L08M1&lifetype=03">「良心包子」重視食安 虧損2</a></li>
+<li><b class="color3">【餐飲】</b><a href="life_news.aspx?sno=2014C07C07M1&lifetype=03">厚切牛排火鍋 愛吃幾分熟靠涮</a></li>
+<li><b class="color3">【餐飲】</b><a href="life_news.aspx?sno=2014C10S12M1&lifetype=03">創意川味 砂鍋魚頭暖胃又開胃</a></li>
+</ul>
+
+
+                </div>
+            </div><!-- lifebox --> 
+            
+            <div id="newsprog">
+                <h2>新聞節目</h2>
+                <div class="body">
+                  
+                  <div id="news_scroll_type" delay="5"> 
+                    <div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td height="31px"><b>劉里長的前背包(上)</b></td></tr>
+<tr><td align="left" valign="top">九合一選舉落幕，選出來這麼多民意代表當中，和民眾互動最密切的，應該就是里長了。里長的工作包括了傳達政令、協調里民紛爭，以及協助辦理各項申請補助等等，不過，在...</td></tr>
+<tr><td height="35px" align="right" valign="bottom"><a href="http://view.ftv.com.tw/week.aspx" target="_blank" style="background:none;text-decoration:none;"><img src="images/more_btn.png" border="0" alt=""/></a></td></tr>
+</table>
+</div>
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td height="31px"><b>劉里長的前背包(下)</b></td></tr>
+<tr><td align="left" valign="top">無奈的政治歷史因素，讓無數的家庭被迫分隔海峽兩岸。熱心的里長劉德文把老兵的骨灰放在他的前背包，一路背回中國家鄉，完成老兵與家人團圓的心願，這樣感人的故事也傳...</td></tr>
+<tr><td height="35px" align="right" valign="bottom"><a href="http://view.ftv.com.tw/week.aspx" target="_blank" style="background:none;text-decoration:none;"><img src="images/more_btn.png" border="0" alt=""/></a></td></tr>
+</table>
+</div>
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td height="31px"><b>「金」非昔比</b></td></tr>
+<tr><td align="left" valign="top">黃金是大家非常熟悉的貴金屬，從古到今，人們都把黃金和財富畫上等號，在古代中醫，甚至把它拿來當作治病的藥材之一。現代人聽來或許覺得不可思議，黃金真的可以治病嗎...</td></tr>
+<tr><td height="35px" align="right" valign="bottom"><a href="http://view.ftv.com.tw/week.aspx" target="_blank" style="background:none;text-decoration:none;"><img src="images/more_btn.png" border="0" alt=""/></a></td></tr>
+</table>
+</div>
+
+                  </div>                  
+                  <script language="Javascript" type ="text/javascript">if(window.WIN98){RenderNWR98('news_scroll_type');}else{RenderNWR('news_scroll_type');}</script>
+                  
+                  <div id="news_scroll_type2" delay="5">
+                    <div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="ogg">
+<tr><td height="31px"><b>頭家來開講</b></td></tr>
+<tr><td align="left" valign="top">超越藍綠.台北重開機!? 獨家專訪柯文哲
+...</td></tr>
+<tr><td height="35px" align="right" valign="bottom"><a href="http://news.ftv.com.tw/NewsProg/boss/index.aspx " target="_blank" style="background:none;text-decoration:none;"><img src="images/more_btn.png" border="0" alt=""/></a></td></tr>
+</table>
+</div>
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="ogg">
+<tr><td height="31px"><b>新聞觀測站</b></td></tr>
+<tr><td align="left" valign="top">高雄市長陳菊 專訪...</td></tr>
+<tr><td height="35px" align="right" valign="bottom"><a href="http://news.ftv.com.tw/NewsProg/internet/index.aspx " target="_blank" style="background:none;text-decoration:none;"><img src="images/more_btn.png" border="0" alt=""/></a></td></tr>
+</table>
+</div>
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="ogg">
+<tr><td height="31px"><b>民視異言堂</b></td></tr>
+<tr><td align="left" valign="top">九合一選舉落幕，選出來這麼多民意代表當中，和民眾互動最密切的，應該就是里長了。里長的工作包括了傳達政令、協調里民紛爭，以及協助辦理各項申請補助等等，不過，在...</td></tr>
+<tr><td height="35px" align="right" valign="bottom"><a href="http://view.ftv.com.tw/ " target="_blank" style="background:none;text-decoration:none;"><img src="images/more_btn.png" border="0" alt=""/></a></td></tr>
+</table>
+</div>
+
+                  </div>
+                  <script language="Javascript" type ="text/javascript">if(window.WIN98){RenderNWR98('news_scroll_type2');}else{RenderNWR('news_scroll_type2');}</script>
+                </div>
+            </div><!-- newsprog --> 
+        </div><!-- FtvContentSil -->
+        
+        <table border="0" width="785px">
+          <tr>
+            <td height="10px">&nbsp;</td>
+          </tr>
+        </table>
+       
+        <div id="Artistlist">
+          <h2><span>主播社群</span></h2>
+    	    <div class="body">
+    	      <div id="img_bag">
+        	    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="31px" valign="top"><a href="javascript:void(0)" onmousedown="moveLeft()"><img src="images/arrowL_btn.jpg" width="31" height="145" border="0" alt=""/></a></td>
+                    <td align="left" valign="top">
+                      <div id="img">
+                        <ul>
+                          <li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201106_385221_s.jpg" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲胡婉玲</td>
+</tr>
+<tr>
+<td width="110px"><a href="http://www.annehu.idv.tw/" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_437299_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲李偵禎</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/492842854159663" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://www.wretch.cc/blog/chenchen817" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_293401_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲張嘉欣</td>
+</tr>
+<tr>
+<td width="110px"><a href="http://www.wretch.cc/blog/buckingham" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201404_429227_s.jpg" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲林靖芬</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/pages/%E6%B0%91%E8%A6%96%E6%96%B0%E8%81%9E-%E6%9E%97%E9%9D%96%E8%8A%AC/555560621189308" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://tw.myblog.yahoo.com/debra-blog" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_281469_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲常聖傳</td>
+</tr>
+<tr>
+<td width="110px"><a href="http://csccsc.pixnet.net/blog" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201207_719183_s.jpg" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲林柏妤</td>
+</tr>
+<tr>
+<td width="110px"><a href="http://www.facebook.com/ftvnewspoyu" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_210552_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲張筱芬</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/212737675601156" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://tw.myblog.yahoo.com/jw!xivo8ISBGBYLhZJ1lHmP0ocJQc8-" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_393580_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲陳淑貞</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/130108547061381" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://tw.myblog.yahoo.com/claire-ftv" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_367551_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲劉朝陽</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/1461517824077060" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://tw.myblog.yahoo.com/jw!LAazHPyBBRnhILUp702Z" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_84341_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲陳建君</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/shortstop1107" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://www.wretch.cc/blog/shortstop11" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_177210_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲許仲江</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/587458534606204" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://www.wretch.cc/blog/rekeyhsu" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201107_461240_s.png" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲王人瑞</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/ftvjameswang" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a><a href="http://www.wretch.cc/blog/vsjameswang" target='_blank'><img src="images/b_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201404_473905_s.jpg" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲何文堯</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/130108547061381" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201404_369932_s.jpg" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲林子皓</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/howard0622SC" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+<li>
+<table width="110px" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="110px" class="alumb"><img src="http://www.ftv.com.tw/images/entertainer/201404_496959_s.jpg" width="90px" height="90px" alt=""/></td>
+</tr>
+<tr>
+<td width="110px" height="20px" class="MsgTitlea">▲周康韵</td>
+</tr>
+<tr>
+<td width="110px"><a href="https://www.facebook.com/choukangyun" target='_blank'><img src="images/fb_icon.jpg" border="0" alt=""/></a></td>
+</tr>
+</table>
+</li>
+
+
+                        </ul>
+                      </div>
+                    </td>
+                    <td width="31px" valign="top"><a href="javascript:void(0)" onmousedown="moveRight()"><img src="images/arrowR_btn.jpg" width="31" height="145" border="0" alt=""/></a></td>
+                  </tr>
+                </table>
+              </div>
+              <div style="clear:both;"></div>
+              <div id="scrollBar" style="display:none">
+                <div id="scroll" style="left:0;display:none"></div>
+              </div>
+              <script type="text/javascript" src="js/entertainer.js"></script>
+            </div>
+        </div>
+        
+    </div><!-- FtvContent -->                                      
+    
+</div><!-- main end -->  
+
+
+                
+            </div><!-- content end -->
+             
+            <div id="nav">
+              <div class="navbar">
+  <a href="#">網站速覽</a>
+  <a href="http://program.ftv.com.tw/" target="_blank">經典回顧</a>
+  <!--<a href="http://bbs.ftv.com.tw/" target="_blank">討論區</a>-->
+</div>
+<div class="tag1box">
+	<h2><a href="http://program.ftv.com.tw/index2012.aspx" target="_blank" >戲劇</a></h2>
+    <a href="http://program.ftv.com.tw/progList.aspx?id=171" target="_blank" class="a">★嫁妝★</a> 
+    <a href="http://program.ftv.com.tw/progList.aspx?id=164" target="_blank" class="a">龍飛鳳舞</a> 
+    <a href="http://program.ftv.com.tw/Drama/JusticeHeroes/" target="_blank" class="a">廉政英雄</a>
+    <a href="http://program.ftv.com.tw/progList.aspx?id=170" target="_blank" class="a">燃燒的鬥魂</a>   
+    <a href="http://program.ftv.com.tw/progList.aspx?id=169" target="_blank" class="a">鮮一杯!!咖啡<br>-王子1號店</a>
+    <a href="http://program.ftv.com.tw/Drama/liferoad/" target="_blank" class="a">世間路</a>
+    <a href="http://program.ftv.com.tw/progList.aspx?id=167" target="_blank" class="a">仙狐奇緣</a>
+    <a href="http://program.ftv.com.tw/drama/rookiesdiary/" target="_blank" class="a">新兵日記</a>
+
+	
+</div>
+<div class="tag2box">
+	<h2><a href="http://program.ftv.com.tw/index2012.aspx" target="_blank" >綜藝</a></h2>
+    <a href="http://program.ftv.com.tw/Variety/jedjh/index.htm" target="_blank" class="a">綜藝大集合</a> 
+    <a href="http://program.ftv.com.tw/Variety/star/" target="_blank" class="a">明日之星</a>
+    <a href="http://program.ftv.com.tw/Variety/StepUp/" target="_blank" class="a">愛妮雅舞力全開</a>
+    <a href="http://program.ftv.com.tw/Variety/piggo/" target="_blank" class="a">三星報喜</a>
+    <a href="http://program.ftv.com.tw/Variety/MayfonDate/" target="_blank" class="a">均岱SCANPAN<br>-美鳳有約</a> 
+    <a href="http://program.ftv.com.tw/progList.aspx?id=162" target="_blank" class="a">流行新勢力</a>
+    <a href="http://shop.ftv.com.tw/" target="_blank" class="a">消費高手</a>
+    <a href="http://program.ftv.com.tw/Variety/luxuryliving/" target="_blank" class="a">豪宅旗艦王</a> 
+    <a href="http://dessertfmtv.pixnet.net/blog" target="_blank" class="a">用點心做點心</a>
+    <a href="http://gambade.pixnet.net/blog" target="_blank" class="a">元氣加油站</a> 
+    <a href="http://lifefmtv.pixnet.net/blog" target="_blank" class="a">香榭大道</a> 
+    <a href="http://blog.ftv.com.tw/gogotaiwan/" target="_blank" class="a">Go Go Taiwan</a>  
+ 
+</div>
+<div class="tag3box">
+	<h2><a href="http://news.ftv.com.tw/" target="_blank" >新聞</a></h2>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=L" target="_blank" class="a">生活新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=F" target="_blank" class="a">財經新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=P" target="_blank" class="a">政治新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=S" target="_blank" class="a">社會新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=I" target="_blank" class="a">國際新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=A" target="_blank" class="a">體育新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=U" target="_blank" class="a">南部地方新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=C" target="_blank" class="a">中部地方新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=N" target="_blank" class="a">北部東部地方新聞</a>
+    <a href="http://news.ftv.com.tw/NewsList.aspx?Class=Q" target="_blank" class="a">新聞專欄</a>
+    <a href="http://news.ftv.com.tw/NewsDTList.aspx" target="_blank" class="a">每日新聞列表</a>
+    <!--
+    <a href="#" target="_blank" class="a">氣象新聞</a>
+    -->
+    <a href="http://englishnews.ftv.com.tw/index.aspx" target="_blank" class="a">英語新聞</a> 
+    <a href="http://mlb.ftv.com.tw/" target="_blank" class="a">美國職棒看民視</a> 
+    <a href="http://news.ftv.com.tw/life.aspx" target="_blank" class="a">NEWS生活通</a>
+    <a href="http://news.ftv.com.tw/newsprog/taiwan/" target="_blank" class="a">台灣演義</a> 
+    <a href="http://view.ftv.com.tw/" target="_blank" class="a">民視異言堂</a>
+    <a href="http://program.ftv.com.tw/progList.aspx?id=155" target="_blank" class="a">挑戰新聞</a> 
+    <a href="http://news.ftv.com.tw/NewsProg/boss/index.aspx" target="_blank" class="a">頭家來開講</a> 
+    <a href="http://news.ftv.com.tw/NewsProg/internet/index.aspx" target="_blank" class="a">新聞觀測站</a>
+    <a href="http://program.ftv.com.tw/Variety/fei-yue/" target="_blank" class="a">飛閱文學地景</a>
+</div>
+<!-- 新增部分 -->
+<div class="tag5box">
+    <h2><a href="http://program.ftv.com.tw/index2012.aspx" target="_blank" >綜合</a></h2>
+    <a href="http://blog.ftv.com.tw/9classroom/" target="_blank" class="a">第九堂課</a>
+    <a href="http://program.ftv.com.tw/Variety/HappyKidsKing/index.html" target="_blank" class="a">快樂孩子王</a>
+    <a href="http://program.ftv.com.tw/Variety/Columbus/" target="_blank" class="a">小小哥倫布</a>
+    <a href="http://program.ftv.com.tw/Variety/LikeScience/" target="_blank" class="a">科學補給讚</a>
+    <a href="http://program.ftv.com.tw/variety/sciencediscovery/index.html" target="_blank" class="a">科學再發現</a>
+</div>
+<!-- 新增部分end -->
+<div class="tag4box">
+	<h2><a href="#">服務</a></h2>
+    <a href="http://fmtv.ftv.com.tw/" target="_blank" class="a">交通台</a>
+    <a href="https://www.facebook.com/tmtv8" target="_blank" class="a">台灣手機電視</a>
+    <a href="http://www.pure17go.com.tw/" target="_blank" class="a">消費高手購物網</a>
+    <a href="http://www.flyvision.com.tw/" target="_blank" class="a">飛來訊</a>
+    <a href="http://www.ftv.com.tw/phoenix/" target="_blank" class="a">鳳凰藝能</a>
+    <a href="http://www.tvt.com.tw/" target="_blank" class="a">台員多媒體</a>
+    <a href="http://ftv.webs-tv.net/" target="_blank" class="a">民視點視台</a>
+    <a href="http://epaper.ftv.com.tw/aomori/" target="_blank" class="a">青森蘋果</a>
+    <a href="http://news.ftv.com.tw/committee/organization.aspx" target="_blank" class="a">民視新聞自律</a>
+</div>
+
+            </div><!-- nav end -->
+             
+            <div id="footer">
+              <a href="http://www.ftv.com.tw/" class="logo">民視</a>
+                <div class="link">
+                	<a href="http://www.ftv.com.tw/aboutftv.aspx">關於民視</a> | <a href="http://www.ftv.com.tw/QAftv.aspx">常見問題</a> |<a href="http://www.ftv.com.tw/howtoftv.aspx"> 如何收看民視</a> |<!--<a href="http://bobby.ftv.com.tw/mcenter/index.aspx" target="_blank"> 會員中心</a> |--> <a href="mailto:service@ftv.com.tw">意見信箱</a> | <a href="http://www.ftv.com.tw/map.aspx">位置圖</a> | <a href="http://www.ftv.com.tw/contactFTV.aspx">觀眾反映方式</a> | <a href="http://www.104.com.tw/jobbank/custjob/index.php?r=cust&j=5e604327486c3f2548423c1d1d1d1d5f2443a363189j01&jobsource=n104bank1" target="_blank">民視徵才</a><br/>
+					<font color="#506e8f">觀眾服務中心│電話：(02)2578-6686、 (02)2570-2570#1、0800-055-066│<br/>
+					信箱：service@ftv.com.tw│傳真：(02)2579-8715</font><br/>
+					© 2011 FTV All Rights Reserved 版權所有‧盜用必究 Designed by FTV <br/>
+					地址:台北市八德路三段30號14樓  電話:02-25702570 FAX:02-2577-3522<br/>
+                </div>
+            </div><!-- footer end -->
+                     
+        </div><!-- ftvMain end -->
+    </div><!-- ftvCanvas end -->
+</form>
+</body>
+</html>

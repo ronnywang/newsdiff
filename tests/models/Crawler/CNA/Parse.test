@@ -1,0 +1,114 @@
+<?php
+
+
+class TestCase_Crawler_CNA_Parse_201308130021 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_CNA::parse (201308130021-1.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/201308130021-1.html');
+        $result = Crawler_CNA::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/201308130021-1.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}
+
+class TestCase_Crawler_CNA_Parse_201308130087 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_CNA::parse (201308130087-1.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/201308130087-1.html');
+        $result = Crawler_CNA::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/201308130087-1.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}
+
+class TestCase_Crawler_CNA_Parse_201412120210 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_CNA::parse (201412120210-1.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/201412120210-1.html');
+        $result = Crawler_CNA::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/201412120210-1.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}
+
+class TestCase_Crawler_CNA_Parse_201412120137 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_CNA::parse (201412120137-1.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/201412120137-1.html');
+        $result = Crawler_CNA::parse($content);
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/201412120137-1.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

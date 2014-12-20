@@ -1,0 +1,29 @@
+<?php
+
+class TestCase_Crawler_BCC_Parse_2470299 extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_BCC::parse (2470299.html)';
+    }
+
+    function testParse()
+    {
+        $content = file_get_contents(__DIR__ . '/data/2470299.html');
+        $result = Crawler_BCC::parse(Crawler::prepareContent($content));
+        $reference = json_decode(file_get_contents(__DIR__ . '/data/2470299.json'));
+
+        $this->assertEqual(
+          $result->title,
+          $reference->title,
+          'Parsed Page Title'
+        );
+        $this->assertEqual(
+          $result->body,
+          $reference->body,
+          'Parsed Page Body'
+        );
+    }
+
+}

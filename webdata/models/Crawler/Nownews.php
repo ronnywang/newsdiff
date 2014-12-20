@@ -1,24 +1,20 @@
 <?php
 
-class Crawler_Nownews
+class Crawler_Nownews implements Crawler_Common
 {
-    public static function crawl($insert_limit)
+    public static function crawlIndex()
     {
         $content = Crawler::getBody('http://www.nownews.com');
         $content .= Crawler::getBody('http://feeds.feedburner.com/nownews/realtime');
-
-        preg_match_all('#http://www\.nownews\.com\/n/\d\d\d\d/\d\d/\d\d/\d+#', $content, $matches);
-        $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $link = Crawler::standardURL($link);
-            $update ++;
-            $insert += News::addNews($link, 7);
-            if ($insert_limit <= $insert) {
-                break;
-            }
-        }
-        return array($update, $insert);
+        return $content;
     }
+
+    public static function findLinksIn($content)
+    {
+        preg_match_all('#http://www\.nownews\.com\/n/\d\d\d\d/\d\d/\d\d/\d+#', $content, $matches);
+        return array_unique($matches[0]);
+    }
+
     public static function parse($body)
     {
         $body = mb_convert_encoding($body, 'HTML-ENTITIES', "UTF-8");

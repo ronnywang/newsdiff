@@ -1,0 +1,20 @@
+<?php
+
+class TestCase_Crawler_Libertytimes_findLinksIn extends UnitTestCase
+{
+
+    function __construct()
+    {
+        $this->label = 'Crawler_Libertytimes::findLinksIn test (listing.html)';
+    }
+
+    function testCrawlLinksIn()
+    {
+        $body = file_get_contents(__DIR__ . '/data/listing.html');
+        $links = array_values(Crawler_Libertytimes::findLinksIn($body));
+        sort($links);
+        $expected_links = json_decode(file_get_contents(__DIR__ . '/data/listing.json'), TRUE);
+        $this->assertIdentical($links, $expected_links, 'Crawling links');
+    }
+
+}
