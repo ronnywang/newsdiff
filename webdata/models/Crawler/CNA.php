@@ -63,6 +63,7 @@ class Crawler_CNA
             }
             break;
         }
+        $ret->title = trim($ret->title);
         $ret->body = trim($ret->body);
 
         return $ret;
