@@ -39,25 +39,29 @@ class Crawler_CNA
 
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('class') == 'news_content') {
-                if ($div_dom->getElementsByTagName('h1')->item(0)) {
-                    $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
-                } else {
-                    $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
-                }
-                foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
-                    if ($child_div_dom->getAttribute('class') == 'box_2') {
-                        $ret->body = '';
-                        foreach ($child_div_dom->getElementsByTagName('p')->item(0)->childNodes as $childNode) {
-                            if (trim($childNode->nodeValue) == '※你可能還想看：') {
-                                break;
-                            }
-                            $ret->body .= Crawler::getTextFromDom($childNode);
-                        }
-                        break;
-                    }
-                }
-                break;
+            } elseif ($div_dom->getAttribute('class') == 'news_content_new'){
+            } else {
+                continue;
             }
+
+            if ($div_dom->getElementsByTagName('h1')->item(0)) {
+                $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+            } else {
+                $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
+            }
+            foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
+                if ($child_div_dom->getAttribute('class') == 'box_2') {
+                    $ret->body = '';
+                    foreach ($child_div_dom->getElementsByTagName('p')->item(0)->childNodes as $childNode) {
+                        if (trim($childNode->nodeValue) == '※你可能還想看：') {
+                            break;
+                        }
+                        $ret->body .= Crawler::getTextFromDom($childNode);
+                    }
+                    break;
+                }
+            }
+            break;
         }
         $ret->body = trim($ret->body);
 
