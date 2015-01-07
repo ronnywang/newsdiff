@@ -11,7 +11,18 @@ foreach(glob($path . '/models/*.php') AS $m) {
     $p = pathinfo($m);
     $o = new $p['filename'];
     if($o instanceof Pix_Table) {
-        $o->dropTable();
+        try {
+            $o->dropTable();
+        } catch (Pix_Table_Exception $e) {
+            echo 'Unable to drop table "'.$p['filename'].'". ';
+            if (preg_match('/^Table: \w+SQL Error: \(1051\)Unknown table/',
+                $e->getMessage())) {
+                echo 'Table missing. Ignored.'."\n";
+            } else {
+                echo "\n";
+                die($e->getMessage());
+            }
+        }
         $o->createTable();
     }
 }
