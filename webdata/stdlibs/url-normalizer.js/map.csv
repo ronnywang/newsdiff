@@ -31,3 +31,4 @@ www.setnews.net,'^/News\.aspx$',http://www.setnews.net/News.aspx?NewsID={$NewsID
 www.youtube.com,'^/watch',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
 www.youtube.com,'^/embed',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
 www.stormmediagroup.com,'^/opencms',http://www.stormmediagroup.com/opencms/news/detail/{$uuid}/?uuid={$uuid},stormmediagroup/{$uuid}
+www.storm.mg,'^/article/',http://www.storm.mg/article/{$articleid}/{$date}/{$title},storm/{$articleid}

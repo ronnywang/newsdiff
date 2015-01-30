@@ -72,6 +72,41 @@ class NewsRow extends Pix_Table_Row
         }
         $this->update(array('last_changed_at' => count($diff_infos) > 1 ? $diff_infos[0]['time'] : 0));
     }
+
+    public function updateNews()
+    {
+        $curl = curl_init($this->url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+        $content = curl_exec($curl);
+        $info = curl_getinfo($curl);
+        list($header, $body) = explode("\r\n\r\n", $content, 2);
+        if ($info['http_code'] != 200) {
+            if ($skip) {
+                continue;
+            }
+            if ($this->error_count > 3) {
+                if (!in_array($info['http_code'], array(404))) { // 404 不用 log
+                    error_log("{$this->url} {$info['http_code']}");
+                }
+                Crawler::updateContent($newsthis, $info['http_code'], $header);
+                continue;
+            }
+            $this->update(array('error_count' => $this->error_count + 1));
+            continue;
+        }
+        try {
+            Crawler::updateContent($this, $body, $header);
+        } catch (Exception $e) {
+            error_log("處理 {$this->url} 錯誤: " . $e->getMessage());
+        }
+
+    }
 }
 
 class News extends Pix_Table

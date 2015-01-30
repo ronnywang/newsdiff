@@ -6,7 +6,7 @@ class Crawler_StormMediaGroup
     {
         $urls = array();
         for ($i=1; $i<=4; $i++) {
-            $urls[] = "http://www.stormmediagroup.com/opencms/news/news-{$i}/more.html";
+            $urls[] = 'http://www.storm.mg/articles/' . $i;
         }
 
         $content = '';
@@ -18,10 +18,10 @@ class Crawler_StormMediaGroup
             }
         }
 
-        preg_match_all('#href="(/opencms/news/detail/.*/?uuid=[0-9a-zA-Z\-]*)#', $content, $matches);
+        preg_match_all('#href="(/article/[0-9]*/[0-9]*/[^"]*)"#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[1] as $link) {
-            $url = Crawler::standardURL("http://www.stormmediagroup.com{$link}");
+            $url = Crawler::standardURL("http://www.storm.mg{$link}");
             $update ++;
             $insert += News::addNews($url, 16);
             if ($insert_limit <= $insert) {
@@ -37,10 +37,9 @@ class Crawler_StormMediaGroup
         $ret = new StdClass;
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
-        $divCentercolumn = $doc->getElementById('centercolumn');
 
-        $ret->title = trim($divCentercolumn->getElementsByTagName('h3')->item(0)->nodeValue);
-        $ret->body = trim($divCentercolumn->getElementsByTagName('div')->item(9)->nodeValue);
+        $ret->title = trim($doc->getElementsByTagName('title')->item(0)->nodeValue);
+        $ret->body = trim($doc->getElementsByTagName('article')->item(0)->nodeValue);
 
         return $ret;
     }
