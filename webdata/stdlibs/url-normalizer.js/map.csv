@@ -14,6 +14,7 @@ iservice.libertytimes.com.tw,'^/liveNews/news.php',http://iservice.libertytimes.
 news.ltn.com.tw,'^/news/[^/]*/[^/]*/([0-9]*)',http://iservice.libertytimes.com.tw/liveNews/news.php?no={$1},iservice.libertytimes.com.tw/liveNews/{$1}
 www.libertytimes.com.tw,'^/([0-9]*)/new/([a-z]*)/([0-9]*)/today-([^.]*)\.htm',http://www.libertytimes.com.tw{$0},www.libertytimes.com.tw/new/{$1}/{$2}/{$3}/{$4}
 newtalk.tw,'^/news/([0-9]*)/([0-9]*)/([0-9]*)/([0-9]*)\.html',http://newtalk.tw{$0},newtalk.tw/{$4}
+newtalk.tw,'^/news/view/[0-9]*-[0-9]*-[0-9]*/([0-9]*)',http://newtalk.tw${0},newtalk.tw/{$1}
 www.nownews.com,'^/n/[0-9]*/[0-9]*/[0-9]*/([0-9]*)',http://www.nownews.com{$0},www.nownews.com/{$1}
 www.cna.com.tw,'^/News/a[^/]*/([0-9]*-[0-9]*)\.aspx'i,http://www.cna.com.tw/News/aAll/{$1}.aspx,www.cna.com.tw/aAll/{$1}
 www.cna.com.tw,'^/news/todayinhistory/([0-9]*-[0-9]*)\.aspx',http://www.cna.com.tw/news/todayinhistory/{$1}.aspx,www.cna.com.tw/todayinhistory/{$1}
