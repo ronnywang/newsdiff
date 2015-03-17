@@ -4,19 +4,15 @@ class Crawler_UDN
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://udn.com/NEWS/hierArrays.js');
-        preg_match_all('#http://udn.com/NEWS/[^\.]*\.js#', $content, $matches);
-        $jslinks = $matches[0];
-        $insert = $update = 0;
-        foreach ($jslinks as $jslink) {
-            $content = Crawler::getBody($jslink);
-            preg_match_all('#http://udn.com/NEWS/[^/"\']*/[^/"\']*/[0-9]*\.shtml#', $content, $matches);
-            foreach ($matches[0] as $link) {
-                $update ++;
-                $insert += News::addNews($link, 8);
-                if ($insert_limit <= $insert) {
-                    break;
-                }
+        for ($i = 1; $i <10; $i ++) {
+            $content .= Crawler::getBody("http://udn.com/rssfeed/news/1/{$i}?ch=news");
+        }
+        preg_match_all('#http://udn.com/news/story/[0-9]*/[0-9]*#', $content, $matches);
+        foreach ($matches[0] as $link) {
+            $update ++;
+            $insert += News::addNews($link, 8);
+            if ($insert_limit <= $insert) {
+                break;
             }
         }
         return array($update, $insert);
@@ -24,42 +20,19 @@ class Crawler_UDN
 
     public static function parse($body)
     {
-        $body = str_replace('<meta content="text/html; charset=big5" http-equiv="Content-Type">', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
-        $body = str_replace('<meta http-equiv="Content-Type" content="text/html; charset=big5">', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
-
         $ret = new StdClass;
-        if (false !== strpos($body, '<img src="/NEWS/404.gif')) {
-            $ret->title = $ret->body = 404;
-            return $ret;
-        }
-
-        if (false !== strpos($body, 'window.location.href="http://udn.com/NEWS/404.shtml"')) {
+        if (false !== strpos($body, '<link rel="canonical" href="http://udn.com/news/e404"/>')) {
             $ret->title = $ret->body = 404;
             return $ret;
         }
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
-        $ret->title = trim($doc->getElementById('story_title')->nodeValue);
-        if ($doc->getElementById('story')) {
-            $ret->body = trim($doc->getElementById('story_author')->nodeValue . "\n"
-                . $doc->getElementById('story_update')->nodeValue . "\n"
-                . Crawler::getTextFromDom($doc->getElementById('story'))
-            );
-        }
+        $ret->title = trim($doc->getElementById('story_art_title')->nodeValue);
+        $ret->body = trim($doc->getElementById('story_bady_info')->nodeValue);
 
-        if (!$ret->title and !$ret->body) {
-            if (preg_match('#<script language=javascript>window.location.href="([^"]*)";</script>#', $body, $matches)) {
-                $ret->title = trim($doc->getElementsByTagName('title')->item(0)->nodeValue);
-                $ret->body = '重新導向至: ' . $matches[1];
-            }
-        }
-
-        if (!$ret->title and !$ret->body) {
-            if (preg_match('#<meta http-equiv="refresh" content="0;URL=([^"]*)">#', $body, $matches)) {
-                $ret->title = trim($doc->getElementsByTagName('title')->item(0)->nodeValue);
-                $ret->body = '重新導向至: ' . $matches[1];
-            }
+        if (!$ret->body) {
+            throw new Exception('not found');
         }
         return $ret;
     }
