@@ -1,5 +1,6 @@
 domain,pattern,normalized_url,normalized_id
 udn.com,'^/NEWS/([^/]*)/([^/]*)/([^/]*-)?([0-9]*)\.shtml',http://udn.com/NEWS/{$1}/{$2}/{$4}.shtml,udn.com/news/{$4}
+udn.com,'^/news/story/([0-9]*)/([0-9]*)',http://udn.com/news/story/{$1}/{$2},udn.com/news/{$1}/{$2}
 www.udn.com,'^/NEWS/([^/]*)/([^/]*)/([^/]*-)?([0-9]*)\.shtml',http://udn.com/NEWS/{$1}/{$2}/{$4}.shtml,udn.com/news/{$4}
 udn.com,'^/[0-9]*/[0-9]*/[0-9]*/NEWS/[^/]*/[^/]*/([0-9]*).shtml$',http://www.udn.com{$0},udn.com/news/{$1}
 www.udn.com,'^/[0-9]*/[0-9]*/[0-9]*/NEWS/[^/]*/[^/]*/([0-9]*).shtml$',http://www.udn.com{$0},udn.com/news/{$1}
