@@ -18,7 +18,7 @@ class Crawler_StormMediaGroup
             }
         }
 
-        preg_match_all('#href="(/article/[0-9]*/[0-9]*/[^"]*)"#', $content, $matches);
+        preg_match_all('#href="(/article/[0-9]*)"#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[1] as $link) {
             $url = Crawler::standardURL("http://www.storm.mg{$link}");
