@@ -57,9 +57,55 @@ class Crawler_Libertytimes
             return $ret;
         }
 
+        $body = str_replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
+
+        $content_dom = null;
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if (in_array('content', explode(' ', $div_dom->getAttribute('class')))) {
+                $content_dom = $div_dom;
+                break;
+            }
+        }
+
+        if (!is_null($content_dom)) {
+            $cont_dom = $btitle_dom = null;
+            foreach ($content_dom->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'cont') {
+                    $cont_dom = $div_dom;
+                    break;
+                }
+
+                if ($div_dom->getAttribute('class') == 'Btitle') {
+                    $btitle_dom = $div_dom;
+                    break;
+                }
+            }
+            if ($content_dom->getElementsByTagName('h1')->item(0) and $cont_dom) {
+                $ret->title = $content_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+                $ret->body = Crawler::getTextFromDom($cont_dom);
+                return $ret;
+            }
+
+            if ($btitle_dom and $doc->getElementById('fb-root')) {
+                $dom = $doc->getElementById('fb-root');
+                $ret->title = $btitle_dom->nodeValue;
+                while ($dom = $dom->nextSibling) {
+                    if ($dom->nodeType == XML_ELEMENT_NODE and $dom->getAttribute('class') == 'share boxTitle') { 
+                        continue;
+                    }
+                    if ($dom->nodeType == XML_ELEMENT_NODE and $dom->getAttribute('class') == 'elselist boxTitle') { 
+                        continue;
+                    }
+                    $ret->body .= Crawler::getTextFromDom($dom);
+                }
+                return $ret;
+            }
+        }
+
         if (!$doc->getElementById('newsti')){
             // 新版
             if (strpos($body, '無此則新聞') and $doc->getElementsByTagName('title')->item(0)->nodeValue == '自由時報電子報') {
