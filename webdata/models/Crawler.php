@@ -297,8 +297,10 @@ class Crawler
         } else {
             // array('table', 'td', 'span', 'strong', 'font', 'em', 'b', 'big', 'small', 'u', 'cite', 'h1', 'h2', 'h3', 'h4', 'h5', 'wbr'))) {
             // 其他 tag 都視為 inline tag
-            foreach ($node->childNodes as $child_node) {
-                $ret .= self::getTextFromDom($child_node);
+            if ($node->childNodes) {
+                foreach ($node->childNodes as $child_node) {
+                    $ret .= self::getTextFromDom($child_node);
+                }
             }
         }
         return $ret;
