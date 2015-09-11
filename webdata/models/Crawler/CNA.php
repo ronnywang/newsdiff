@@ -33,25 +33,34 @@ class Crawler_CNA
             $ret->body = '404';
             return $ret;
         }
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        @$doc->loadHTML($body);
-        $ret = new StdClass;
 
         preg_match('#/(\d+-\d+)\.aspx#', $url, $matches);
         $aid = $matches[1];
 
-
         if (!preg_match('#<link href="([^"]*)" rel="canonical" />#', $body, $matches)) {
-            throw new Exception('找不到 canonical link');
+            $ret = new StdClass;
+            $ret->title = $ret->body = '無法判斷的內容';
+            return $ret;
         }
         $canonical_url = $matches[1];
 
         preg_match('#/(\d+-\d+)\.aspx#', $canonical_url, $matches);
         if ($aid !== $matches[1]) {
-            throw new Exception('article id 不同');
+            throw new Exception("article id 不同，原始: {$aid}, 抓下來: {$matches[1]}");
         }
 
+        if (preg_match('#<!--新聞本文 開始 -->\s+<h1>\s+([^<]*)\s+</h1>.*<!--字級 結束 -->(.*)<!--新聞本文 結束 -->#ms', $body, $matches)) {
+            $ret = new StdClass;
+            $ret->title = htmlspecialchars_decode($matches[1]);
+            $doc = new DOMDocument('1.0', 'UTF-8');
+            @$doc->loadHTML('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head><boy>' . $matches[2] . '</body></html>');
+            $ret->body = trim(Crawler::getTextFromDom($doc));
+            return $ret;
+        }
 
+        $doc = new DOMDocument('1.0', 'UTF-8');
+        @$doc->loadHTML($body);
+        $ret = new StdClass;
 
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('class') == 'news_content') {
@@ -65,16 +74,15 @@ class Crawler_CNA
             } else {
                 $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
             }
+            $ret->body = '';
             foreach ($div_dom->getElementsByTagName('div') as $child_div_dom) {
-                if ($child_div_dom->getAttribute('class') == 'box_2') {
-                    $ret->body = '';
-                    foreach ($child_div_dom->getElementsByTagName('p')->item(0)->childNodes as $childNode) {
+                if (in_array($child_div_dom->getAttribute('class'), array('box_1', 'box_2'))) {
+                    foreach ($child_div_dom->childNodes as $childNode) {
                         if (trim($childNode->nodeValue) == '※你可能還想看：') {
                             break;
                         }
                         $ret->body .= Crawler::getTextFromDom($childNode);
                     }
-                    break;
                 }
             }
             break;
