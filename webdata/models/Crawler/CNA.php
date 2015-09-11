@@ -25,7 +25,7 @@ class Crawler_CNA
 
     }
 
-    public static function parse($body)
+    public static function parse($body, $url)
     {
         if (preg_match('/<title>404<\/title>/', $body)) {
             $ret = new StdClass;
@@ -36,6 +36,22 @@ class Crawler_CNA
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
+
+        preg_match('#/(\d+-\d+)\.aspx#', $url, $matches);
+        $aid = $matches[1];
+
+
+        if (!preg_match('#<link href="([^"]*)" rel="canonical" />#', $body, $matches)) {
+            throw new Exception('找不到 canonical link');
+        }
+        $canonical_url = $matches[1];
+
+        preg_match('#/(\d+-\d+)\.aspx#', $canonical_url, $matches);
+        if ($aid !== $matches[1]) {
+            throw new Exception('article id 不同');
+        }
+
+
 
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('class') == 'news_content') {
