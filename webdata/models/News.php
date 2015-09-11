@@ -42,6 +42,9 @@ class NewsRow extends Pix_Table_Row
                 try {
                     $ret = NewsRaw::getInfo($row->raw, $this->url);
                 } catch (Exception $e) {
+                    if (strpos($e->getMessage(), 'article id 不同') === 0) {
+                        continue;
+                    }
                     error_log("處理 {$this->url} 錯誤: " . $e->getMessage());
                     throw $e;
                 }
