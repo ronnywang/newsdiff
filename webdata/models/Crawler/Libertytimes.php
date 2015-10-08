@@ -126,6 +126,58 @@ class Crawler_Libertytimes
                 $ret->body = $body;
                 return $ret;
             }
+
+            // ex: http://ent.ltn.com.tw/news/breakingnews/1468862
+            foreach ($doc->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'news_content' and $div_dom->getElementsByTagName('h1')->length == 1) {
+                    $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+                    $dom = $div_dom->getElementsByTagName('h1')->item(0);
+                    while ($dom = $dom->nextSibling) {
+                        if ($dom->nodeType !== XML_ELEMENT_NODE) {
+                            continue;
+                        }
+                        $class = $dom->getAttribute('class');
+                        $id = $dom->getAttribute('id');
+                        //error_log("<{$dom->nodeName} id=\"{$id}\" class=\"{$class}\">");
+
+                        if ($dom->nodeName == 'div') {
+                            if (in_array($id, array('fb-root'))) {
+                                continue;
+                            } elseif (in_array($class, array('share boxTitle', 'fb_like'))) {
+                                continue;
+                            } elseif ($dom->getAttribute('class') == 'date') {
+                                $ret->body = $dom->nodeValue;
+                                continue;
+                            } elseif (in_array($class, array('elselist box_ani boxTitle', 'fb_mask'))) {
+                                break;
+                            } elseif ('fb-post' == $class) {
+                                $ret->body = trim($ret->body . "[fb-post:" . $dom->getAttribute('data-href') . "]");
+                                continue;
+                            }
+                        } elseif ($dom->nodeName == 'script') {
+                            continue;
+                        } elseif ($dom->nodeName == 'p' or ($dom->nodeName == 'span' and $class == 'ph_b')) {
+                            $ret->body = trim($ret->body . "\n" . trim(Crawler::getTextFromDom($dom)));
+                            continue;
+                        } elseif ('h4' == $dom->nodeName) {
+                            $ret->body = trim($ret->body . "\n" . trim(Crawler::getTextFromDom($dom)));
+                            continue;
+                        }
+                        throw new Exception("unknown tag '{$dom->nodeName}', class=\"{$class}\", id=\"{$id}\"");
+                    }
+                    return $ret;
+                }
+
+                if ($div_dom->getAttribute('class') == 'conbox' and $div_dom->getElementsByTagName('h2')->length == 1) {
+                    $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
+                    foreach ($div_dom->getElementsByTagName('div') as $dom) {
+                        if ($dom->getAttribute('class') == 'cont') {
+                            $ret->body = trim(Crawler::getTextFromDom($dom));
+                            return $ret;
+                        }
+                    }
+                }
+            }
             throw new Exception('newsti not found');
         }
         $ret->title = trim($doc->getElementById('newsti')->childNodes->item(0)->nodeValue);
