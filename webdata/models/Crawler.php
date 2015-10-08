@@ -142,6 +142,7 @@ class Crawler
         $alone_sources = array(
             10 => true, // BCC 中廣新聞
             14 => true, // 民視新聞
+            2 => true,  // 中時
         );
         $total = intval($total);
         $part = intval($part);
