@@ -19,20 +19,30 @@ class Dumper
             $showed = array();
             foreach (NewsInfo::search(1)->searchIn('news_id', array_keys($part_ids))->order('news_id, time') as $news_info) {
                 if ($showed[$news_info->news_id]) {
-                    continue;
-                }
-                $showed[$news_info->news_id] = true;
+                    $date = date('Ymd', $part_ids[$news_info->news_id]['created_at']) . '-diff';
+                    if (!$this->fps[$date]) {
+                        $fp = gzopen('/tmp/newsdump-' . $date . '.gz', 'w');
+                        $this->fps[$date] = $fp;
+                    }
+                    $fp = $this->fps[$date];
 
-                $date = date('Ymd', $part_ids[$news_info->news_id]['created_at']);
-                if (!$this->fps[$date]) {
-                    $fp = gzopen('/tmp/newsdump-' . $date . '.gz', 'w');
-                    $this->fps[$date] = $fp;
-                }
-                $fp = $this->fps[$date];
+                    fputs($fp, json_encode($part_ids[$news_info->news_id]) . "\n");
+                    fputs($fp, json_encode($news_info->title, JSON_UNESCAPED_UNICODE) . "\n");
+                    fputs($fp, json_encode($news_info->body, JSON_UNESCAPED_UNICODE) . "\n");
+                } else {
+                    $showed[$news_info->news_id] = true;
 
-                fputs($fp, json_encode($part_ids[$news_info->news_id]) . "\n");
-                fputs($fp, json_encode($news_info->title, JSON_UNESCAPED_UNICODE) . "\n");
-                fputs($fp, json_encode($news_info->body, JSON_UNESCAPED_UNICODE) . "\n");
+                    $date = date('Ymd', $part_ids[$news_info->news_id]['created_at']);
+                    if (!$this->fps[$date]) {
+                        $fp = gzopen('/tmp/newsdump-' . $date . '.gz', 'w');
+                        $this->fps[$date] = $fp;
+                    }
+                    $fp = $this->fps[$date];
+
+                    fputs($fp, json_encode($part_ids[$news_info->news_id]) . "\n");
+                    fputs($fp, json_encode($news_info->title, JSON_UNESCAPED_UNICODE) . "\n");
+                    fputs($fp, json_encode($news_info->body, JSON_UNESCAPED_UNICODE) . "\n");
+                }
             }
         }
     }
@@ -61,6 +71,12 @@ class Dumper
 
         for ($i = 1; $i < 7; $i ++) {
             $date = date('Ymd', strtotime('today') - 86400 * $i);
+            $fp = $this->fps[$date];
+            fflush($fp);
+            fclose($fp);
+            DropboxLib::putFile("/tmp/newsdump-{$date}.gz", "/OpenData/newsdiff/{$date}.txt.gz");
+
+            $date = date('Ymd', strtotime('today') - 86400 * $i) . '-diff';
             $fp = $this->fps[$date];
             fflush($fp);
             fclose($fp);
