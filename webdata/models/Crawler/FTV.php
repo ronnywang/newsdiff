@@ -22,7 +22,7 @@ class Crawler_FTV
     public static function parse($body)
     {
         $doc = new DOMDocument('1.0', 'UTF-8');
-        $body = str_replace('<head>', '<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
+        $body = str_replace('</head>', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>', $body);
 
         @$doc->loadHTML($body);
         if (!$h1_dom = $doc->getElementById('h1')) {
