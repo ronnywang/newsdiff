@@ -1,5 +1,6 @@
 <?php
 $first_info = $this->news->infos->order('time ASC')->first();
+$this->title = $first_info->title . "::";
 ?>
 <?= $this->partial('/common/header.phtml', $this) ?>
 <style>
