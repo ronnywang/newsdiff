@@ -71,7 +71,8 @@ class Crawler_CNA
                 $dom = $div_dom;
                 while ($dom = $dom->nextSibling) {
                     if ($dom->nodeType == XML_ELEMENT_NODE and $dom->getAttribute('class') == 'update_times') { 
-                        $ret->body = trim($dom->nodeValue) . "\n";
+                        $ret->body .= $dom->getElementsByTagName('p')->item(0)->nodeValue . "\n";
+                        $ret->body .= $dom->getElementsByTagName('p')->item(1)->nodeValue . "\n";
                         continue;
                     } elseif ($dom->nodeType == XML_ELEMENT_NODE and $dom->getAttribute('class') == 'article_box') { 
                         $ret->body .= Crawler::getTextFromDom($dom);
