@@ -1,6 +1,7 @@
 <?php
 $first_info = $this->news->infos->order('time ASC')->first();
-$this->title = $first_info->title . '@' . News::getSources()[$first_info->source] . "::";
+$sources = News::getSources();
+$this->title = $first_info->title . '@' . $sources[$this->news->source] . "::";
 ?>
 <?= $this->partial('/common/header.phtml', $this) ?>
 <style>
