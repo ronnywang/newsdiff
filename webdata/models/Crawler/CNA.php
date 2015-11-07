@@ -65,9 +65,24 @@ class Crawler_CNA
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('class') == 'news_content') {
             } elseif ($div_dom->getAttribute('class') == 'news_content_new'){
+            } elseif ($div_dom->getAttribute('class') == 'news_title') {
+                $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
+                $ret->body = '';
+                $dom = $div_dom;
+                while ($dom = $dom->nextSibling) {
+                    if ($dom->nodeType == XML_ELEMENT_NODE and $dom->getAttribute('class') == 'update_times') { 
+                        $ret->body = trim($dom->nodeValue) . "\n";
+                        continue;
+                    } elseif ($dom->nodeType == XML_ELEMENT_NODE and $dom->getAttribute('class') == 'article_box') { 
+                        $ret->body .= Crawler::getTextFromDom($dom);
+                        break;
+                    } 
+                }
+                return $ret;
             } else {
                 continue;
             }
+
 
             if ($div_dom->getElementsByTagName('h1')->item(0)) {
                 $ret->title = $div_dom->getElementsByTagName('h1')->item(0)->nodeValue;
