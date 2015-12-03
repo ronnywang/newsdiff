@@ -292,7 +292,9 @@ class Crawler
             $ret = trim($ret) . '</a>';
 
         } elseif ($node->nodeType == XML_ELEMENT_NODE and strtolower($node->nodeName) == 'figure') {
-            $ret .= $node->getElementsByTagName('img')->item(0)->getAttribute('src') . "\n";
+            if ($node->getElementsByTagName('img')->item(0)) {
+                $ret .= $node->getElementsByTagName('img')->item(0)->getAttribute('src') . "\n";
+            }
         } elseif (in_array(strtolower($node->nodeName), array('iframe', 'hr', 'script', 'audio', 'object', 'embed'))) {
             return '';
         } else {
