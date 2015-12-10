@@ -170,7 +170,8 @@ class Crawler_Libertytimes
                         } elseif ('img' == $dom->nodeName and 'display:none;' == $dom->getAttribute('style')) {
                             continue;
                         }
-                        throw new Exception("unknown tag '{$dom->nodeName}', class=\"{$class}\", id=\"{$id}\"");
+                        error_log("unknown tag '{$dom->nodeName}', class=\"{$class}\", id=\"{$id}\"");
+                        $ret->body = trim($ret->body . "\n" . trim(Crawler::getTextFromDom($dom)));
                     }
                     return $ret;
                 }
