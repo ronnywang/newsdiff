@@ -269,6 +269,16 @@ class Crawler
         }
     }
 
+    public static function getDomByNameAndClass($node, $name, $class)
+    {
+        foreach ($node->getElementsByTagName($name) as $dom) {
+            if (in_array($class, explode(' ', $dom->getAttribute('class')))) {
+                return $dom;
+            }
+        }
+        return null;
+    }
+
     public static function getTextFromDom($node)
     {
         $ret = '';

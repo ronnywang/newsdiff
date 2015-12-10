@@ -39,31 +39,41 @@ class Crawler_Chinatimes
         }
         $doc = new DOMDocument;
         @$doc->loadHTML($body);
-        if (!$article_dom = $doc->getElementsByTagName('article')->item(0)) {
+        if (!$pagecontainer_dom= Crawler::getDomByNameAndClass($doc, 'div', 'page_container')) {
             return null;
         }
-        $header_dom = $article_dom->getElementsByTagName('header')->item(0);
+        $header_dom = $pagecontainer_dom->getElementsByTagName('header')->item(0);
         $ret = new StdClass;
         $ret->title = trim($header_dom->getElementsByTagName('h1')->item(0)->nodeValue);
 
         $content = '';
-        foreach ($article_dom->getElementsByTagName('div') as $div_dom) {
-            if ($div_dom->getAttribute('class') == 'reporter') {
-                $content .= preg_replace('/[\r\n ]+/', ' ', Crawler::getTextFromDom($div_dom)) . "\n";
-                break;
+        if ($article_info_dom = Crawler::getDomByNameAndClass($doc, 'div', 'article_info')) {
+            foreach ($article_info_dom->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'reporter') {
+                    $content .= preg_replace('/[\r\n ]+/', ' ', Crawler::getTextFromDom($div_dom)) . "\n";
+                    break;
+                }
             }
         }
-        $article_dom = $doc->getElementsByTagName('article')->item(1);
+        $article_dom = $pagecontainer_dom->getElementsByTagName('article')->item(1);
 
-        // 有時候可能會有 div, 有的話就要跳過
-        if ($div_pic_dom = $article_dom->getElementsByTagName('div')->item(0)) {
-            $dom = $div_pic_dom->nextSibling;
-        } else {
-            $dom = $article_dom->childNodes->item(0);
+        $body = '';
+        foreach ($article_dom->childNodes as $child_node) {
+            if ($child_node->nodeName == 'div' and $child_node->getAttribute('id') == 'div-inread-ad') {
+                continue;
+            } elseif ($child_node->nodeName == '#comment') {
+                continue;
+            }
+            $body .= trim($child_node->nodeValue) . "\n";
+        } 
+        $content .= trim($body) . "\n";
+
+        if ($dom = Crawler::getDomByNameAndClass($doc, 'div', 'editorthis')) {
+            $content .= trim(Crawler::getTextFromDom($dom)) . "\n";
         }
-        do {
-            $content .= $dom->nodeValue. "\n";
-        } while ($dom = $dom->nextSibling);
+        if ($dom = Crawler::getDomByNameAndClass($doc, 'div', 'a_k')) {
+            $content .= trim(Crawler::getTextFromDom($dom)) . "\n";
+        }
 
         $ret->body = trim($content);
         return $ret;
