@@ -153,6 +153,9 @@ class Crawler_Libertytimes
                             } elseif ('fb-post' == $class) {
                                 $ret->body = trim($ret->body . "[fb-post:" . $dom->getAttribute('data-href') . "]");
                                 continue;
+                            } elseif ('fb-video' == $class) {
+                                $ret->body = trim($ret->body . "[fb-video:" . $dom->getAttribute('data-href') . "]");
+                                continue;
                             }
                         } elseif ($dom->nodeName == 'script') {
                             continue;
@@ -161,6 +164,10 @@ class Crawler_Libertytimes
                             continue;
                         } elseif ('h4' == $dom->nodeName) {
                             $ret->body = trim($ret->body . "\n" . trim(Crawler::getTextFromDom($dom)));
+                            continue;
+                        } elseif ('ul' == $dom->nodeName and 'ad_double' == $class) {
+                            continue;
+                        } elseif ('img' == $dom->nodeName and 'display:none;' == $dom->getAttribute('style')) {
                             continue;
                         }
                         throw new Exception("unknown tag '{$dom->nodeName}', class=\"{$class}\", id=\"{$id}\"");
