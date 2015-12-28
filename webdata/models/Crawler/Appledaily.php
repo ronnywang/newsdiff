@@ -72,7 +72,7 @@ class Crawler_Appledaily
             // 廣編特輯
             $body_dom = null;
             foreach ($article_dom->getElementsByTagName('div') as $div_dom) {
-                if ($div_dom->getAttribute('class') == 'articulum') {
+                if (strpos($div_dom->getAttribute('class'), 'articulum') !== false) {
                     $ret->body = trim(Crawler::getTextFromDom($div_dom));
                     break;
                 }
