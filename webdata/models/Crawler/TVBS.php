@@ -12,6 +12,9 @@ class Crawler_TVBS
             'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-video.jsp',
             'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/news/ajax-news-time-list.jsp?dataFolder=%2Fnews%2F&date=' . date('Y-m-d', time() - 3600),
         );
+        foreach (array('photos', 'politics', 'local', 'money', 'life', 'sports', 'entertainment', 'china', 'world', 'tech', 'travel', 'fun') as $type) {
+            $urls[] = 'http://news.tvbs.com.tw/' . $type;
+        }
 
         $content = '';
         foreach ($urls as $url) {
