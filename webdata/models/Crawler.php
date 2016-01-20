@@ -235,9 +235,10 @@ class Crawler
             $info = curl_getinfo($curl);
             list($header, $body) = explode("\r\n\r\n", $content, 2);
 
-            if ($info['http_code'] != 200) {
+            if ($info['http_code'] != 200 or curl_errno($curl) == 28) {
+                $code = ($info['http_code'] != 200) ? $info['http_code'] : 'timeout';
                 if ($skip) {
-                    $status_count[$news->source . '-' . intval($info['http_code'])] ++;
+                    $status_count[$news->source . '-' . $code] ++;
                     continue;
                 }
                 if ($news->error_count > 3) {
@@ -247,8 +248,10 @@ class Crawler
                     self::updateContent($news, $info['http_code'], $header);
                     continue;
                 }
-                $news->update(array('error_count' => $news->error_count + 1));
-                $status_count[$news->source . '-' . intval($info['http_code'])] ++;
+                if (curl_errno($curl) != 28) {
+                    $news->update(array('error_count' => $news->error_count + 1));
+                }
+                $status_count[$news->source . '-' . $code] ++;
                 continue;
             }
             $status_count[$news->source . '-' . intval($info['http_code'])] ++;
