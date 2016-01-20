@@ -2,11 +2,6 @@
 
 class NewsRow extends Pix_Table_Row
 {
-    public function getFirstRaw()
-    {
-        return NewsRaw::search(array('news_id' => $this->id))->order('time ASC')->first();
-    }
-
     public function getRaws()
     {
         $sources = array();
