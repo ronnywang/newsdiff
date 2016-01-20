@@ -79,7 +79,10 @@ class Crawler
         $now = time();
 
         if (preg_match('/content="text\/html; charset=big5/', $content)) {
-            $content = iconv('big5', 'utf-8', $content);
+            if ($iconved_content = iconv('big5', 'utf-8', $content)) {
+                $content = $iconved_content;
+            }
+            $content = str_replace('charset=big5', 'charset=utf-8', $content);
         }
 
         $last_info = $news->infos->order('`time` DESC')->first();
