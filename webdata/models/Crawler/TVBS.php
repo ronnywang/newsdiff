@@ -4,10 +4,21 @@ class Crawler_TVBS
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://news.tvbs.com.tw/todaynews');
-        $content .= Crawler::getBody('http://news.tvbs.com.tw/today_latest_news');
-        preg_match_all('#/entry/[0-9]*#', $content, $matches);
-        $links = array_unique($matches[0]);
+        $urls = array(
+            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-news-daily.jsp',
+            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-news-weekly.jsp',
+            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-news-choice.jsp',
+            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-forum.jsp',
+            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-video.jsp',
+            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/news/ajax-news-time-list.jsp?dataFolder=%2Fnews%2F&date=' . date('Y-m-d', time() - 3600),
+        );
+
+        $content = '';
+        foreach ($urls as $url) {
+            $content .= Crawler::getBody($url);
+        }
+        preg_match_all('#href="(/opencms/news/.*/news-[0-9]*)/"]*#', $content, $matches);
+        $links = array_unique($matches[1]);
         $insert = $update = 0;
         foreach ($links as $link) {
             $update ++;
@@ -27,11 +38,30 @@ class Crawler_TVBS
 
         @$doc->loadHTML($body);
         $ret = new StdClass;
-        if (!$article_dom = $doc->getElementsByTagName('article')->item(0)) {
-            return null;
+        if ($article_dom = $doc->getElementsByTagName('article')->item(0)) {
+            $ret->title = trim($article_dom->getElementsByTagName('h1')->item(0)->nodeValue);
+            $ret->body = Crawler::getTextFromDom($doc->getElementById('news_contents'));
         }
-        $ret->title = trim($article_dom->getElementsByTagName('h1')->item(0)->nodeValue);
-        $ret->body = Crawler::getTextFromDom($doc->getElementById('news_contents'));
+
+        if (!$ret->title) {
+            foreach ($doc->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'reandrBox') {
+                    if ($div_dom->getElementsByTagName('h2')->length == 1) {
+                        $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
+                    }
+                    $ret->body = '';
+                    foreach (array('Update_time', 'textContent') as $class) {
+                        foreach ($div_dom->getElementsByTagName('div') as $sub_div_dom) {
+                            if (in_array($class, explode(' ', $sub_div_dom->getAttribute('class')))) {
+                                $ret->body .= trim(Crawler::getTextFromDom($sub_div_dom)) . "\n";
+                            }
+                        }
+                    }
+                    $ret->body = trim($ret->body);
+                    break;
+                }
+            }
+        }
         return $ret;
     }
 }
