@@ -84,6 +84,19 @@ class Crawler_Nownews
             }
         }
 
+        if (!$ret->title) {
+            foreach ($doc->getElementsByTagName('h1') as $h1_dom) {
+                $ret->title = $h1_dom->nodeValue;
+
+                foreach ($doc->getElementsByTagName('div') as $div_dom) {
+                    if ($div_dom->getAttribute('class') == 'body') {
+                        $ret->body = trim(Crawler::getTextFromDom($div_dom));
+                        break 2;
+                    }
+                }
+            }
+        }
+
         $ret->body = preg_replace_callback('#http://[0-9]-ps.googleusercontent.com/([xh])/([^" \n]*).pagespeed.[a-z]*\.[\-_A-Za-z0-9.]*\n?#', function($m) {
             if ($m[1] == 'x') {
                 $url = str_replace('www.nownews.com/', '', $m[2]);
