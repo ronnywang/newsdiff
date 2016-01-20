@@ -251,7 +251,7 @@ class Crawler
                     self::updateContent($news, $info['http_code'], $header);
                     continue;
                 }
-                if (curl_errno($curl) != 28) {
+                if (curl_errno($curl) != 28 and $info['http_code'] != 503) {
                     $news->update(array('error_count' => $news->error_count + 1));
                 }
                 $status_count[$news->source . '-' . $code] ++;
