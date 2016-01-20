@@ -24,6 +24,9 @@ class Crawler_UDN
         if (false !== strpos($body, '<link rel="canonical" href="http://udn.com/news/e404"/>')) {
             $ret->title = $ret->body = 404;
             return $ret;
+        } elseif (false !== strpos($body, "<meta content='0; url=http://udn.com/news/e404' http-equiv='refresh'>")) {
+            $ret->title = $ret->body = 404;
+            return $ret;
         } elseif (false !== strpos($body, '<link rel="canonical" href="20150422_e404"/>')) {
             $ret->title = $ret->body = 404;
             return $ret;
