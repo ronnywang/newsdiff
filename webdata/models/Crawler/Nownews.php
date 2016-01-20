@@ -5,12 +5,11 @@ class Crawler_Nownews
     public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('http://www.nownews.com');
-        $content .= Crawler::getBody('http://feeds.feedburner.com/nownews/realtime');
 
-        preg_match_all('#http://www\.nownews\.com\/n/\d\d\d\d/\d\d/\d\d/\d+#', $content, $matches);
+        preg_match_all('#href="(\/n/\d\d\d\d/\d\d/\d\d/\d+)"#', $content, $matches);
         $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $link = Crawler::standardURL($link);
+        foreach ($matches[1] as $link) {
+            $link = Crawler::standardURL('http://www.nownews.com' . $link);
             $update ++;
             $insert += News::addNews($link, 7);
             if ($insert_limit <= $insert) {
