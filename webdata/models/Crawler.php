@@ -211,6 +211,7 @@ class Crawler
         } while ($mrc == CURLM_CALL_MULTI_PERFORM);
 
         $skip = false;
+        $multi_errnos = array();
         while ($active and $mrc == CURLM_OK) {
             $delta = microtime(true) - $start;
             if ($delta > 60) { // 最多三分鐘
@@ -221,6 +222,13 @@ class Crawler
             if (curl_multi_select($mh) != -1) {
                 do {
                     $mrc = curl_multi_exec($mh, $active);
+                    $info = curl_multi_info_read($mh);
+                    foreach ($handles as $index => $curl) {
+                        if ($curl == $info['handle']) {
+                            $multi_errnos[$index] = $info['result'];
+                            break;
+                        }
+                    }
                 } while ($mrc == CURLM_CALL_MULTI_PERFORM);
             }
         }
@@ -232,13 +240,15 @@ class Crawler
             $curl = $handles[$index];
             if (array_key_exists($news->source, $alone_sources)) {
                 $content = curl_exec($curl);
+                $errno = curl_errno($curl);
             } else {
                 $content = curl_multi_getcontent($curl);
+                $errno = $multi_errnos[$index];
             }
             $info = curl_getinfo($curl);
             list($header, $body) = explode("\r\n\r\n", $content, 2);
 
-            if ($info['http_code'] != 200 or curl_errno($curl) == 28) {
+            if ($info['http_code'] != 200 or $errno == 28) {
                 $code = ($info['http_code'] != 200) ? $info['http_code'] : 'timeout';
                 if ($skip) {
                     $status_count[$news->source . '-' . $code] ++;
@@ -248,10 +258,10 @@ class Crawler
                     if (!in_array($info['http_code'], array(404))) { // 404 不用 log
                         error_log("{$news->url} {$info['http_code']}");
                     }
-                    self::updateContent($news, $info['http_code'], $header . "\n" . json_encode($info) . "\nerrno=" . curl_errno($curl));
+                    self::updateContent($news, $info['http_code'], $header . "\n" . json_encode($info) . "\nerrno=" . $errno);
                     continue;
                 }
-                if (curl_errno($curl) != 28 and $info['http_code'] != 503) {
+                if ($errno != 28 and $info['http_code'] != 503) {
                     $news->update(array('error_count' => $news->error_count + 1));
                 }
                 $status_count[$news->source . '-' . $code] ++;
@@ -259,7 +269,7 @@ class Crawler
             }
             $status_count[$news->source . '-' . intval($info['http_code'])] ++;
             try {
-                self::updateContent($news, $body, $header . "\n" . json_encode($info) . "\nerrno=" . curl_errno($curl));
+                self::updateContent($news, $body, $header . "\n" . json_encode($info) . "\nerrno=" . $errno);
             } catch (Exception $e) {
                 error_log("處理 {$news->url} 錯誤: " . $e->getMessage());
             }
