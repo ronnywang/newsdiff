@@ -248,7 +248,7 @@ class Crawler
                     if (!in_array($info['http_code'], array(404))) { // 404 不用 log
                         error_log("{$news->url} {$info['http_code']}");
                     }
-                    self::updateContent($news, $info['http_code'], $header);
+                    self::updateContent($news, $info['http_code'], $header . "\n" . json_encode($info) . "\nerrno=" . curl_errno($curl));
                     continue;
                 }
                 if (curl_errno($curl) != 28 and $info['http_code'] != 503) {
@@ -259,7 +259,7 @@ class Crawler
             }
             $status_count[$news->source . '-' . intval($info['http_code'])] ++;
             try {
-                self::updateContent($news, $body, $header);
+                self::updateContent($news, $body, $header . "\n" . json_encode($info) . "\nerrno=" . curl_errno($curl));
             } catch (Exception $e) {
                 error_log("處理 {$news->url} 錯誤: " . $e->getMessage());
             }
