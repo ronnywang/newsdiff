@@ -143,7 +143,7 @@ class Crawler_Libertytimes
                         if ($dom->nodeName == 'div') {
                             if (in_array($id, array('fb-root'))) {
                                 continue;
-                            } elseif (in_array($class, array('share boxTitle', 'fb_like'))) {
+                            } elseif (in_array($class, array('share boxTitle', 'fb_like', 'rbox boxTitle'))) {
                                 continue;
                             } elseif ($dom->getAttribute('class') == 'date') {
                                 $ret->body = $dom->nodeValue;
