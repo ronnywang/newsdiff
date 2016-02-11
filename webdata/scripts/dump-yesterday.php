@@ -71,21 +71,24 @@ class Dumper
 
         for ($i = 1; $i < 7; $i ++) {
             $date = date('Ymd', strtotime('today') - 86400 * $i);
+            $year = date('Y', strtotime('today') - 86400 * $i);
             $fp = $this->fps[$date];
             fflush($fp);
             fclose($fp);
-            DropboxLib::putFile("/tmp/newsdump-{$date}.gz", "/OpenData/newsdiff/{$date}.txt.gz");
+            S3Lib::putFile("/tmp/newsdump-{$date}.gz", "s3://ronnywang-newsdiff/{$year}/{$date}.txt.gz");
 
             $date = date('Ymd', strtotime('today') - 86400 * $i) . '-diff';
             $fp = $this->fps[$date];
             fflush($fp);
             fclose($fp);
-            DropboxLib::putFile("/tmp/newsdump-{$date}.gz", "/OpenData/newsdiff/{$date}.txt.gz");
+            S3Lib::putFile("/tmp/newsdump-{$date}.gz", "s3://ronnywang-newsdiff/{$year}/{$date}.txt.gz");
         }
 
         system("rm /tmp/newsdump*");
+        S3Lib::buildIndex("s3://ronnywang-newsdiff/");
     }
 }
+
 
 $d = new Dumper;
 $d->main();
