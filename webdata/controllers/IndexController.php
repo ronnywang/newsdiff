@@ -88,7 +88,7 @@ class IndexController extends Pix_Controller
         echo implode("\n", $ret);
 
         $now = time();
-        $source_ids = News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->toArray('source');
+        $source_ids = News::search("created_at > $now - 86400 AND (last_fetch_at = 0 OR (last_fetch_at > $now - 86400 AND last_fetch_at < $now - 3600)")->toArray('source');
         $source_ids = array_count_values($source_ids);
         $count = array_sum($source_ids);
         if ($count > 1000 or (array_key_exists('test', $_GET) and $_GET['test'])) {
