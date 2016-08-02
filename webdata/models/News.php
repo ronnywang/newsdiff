@@ -85,18 +85,16 @@ class NewsRow extends Pix_Table_Row
         $info = curl_getinfo($curl);
         list($header, $body) = explode("\r\n\r\n", $content, 2);
         if ($info['http_code'] != 200 or curl_errno($curl) == 28) {
-            if ($skip) {
-                continue;
-            }
+            $code = (curl_errno($curl) != 28) ? $info['http_code'] : 'timeout';
+            error_log("{$this->url} {$code}");
             if ($this->error_count > 3) {
                 if (!in_array($info['http_code'], array(404))) { // 404 不用 log
-                    error_log("{$this->url} {$info['http_code']}");
                 }
                 Crawler::updateContent($newsthis, $info['http_code'], $header);
-                continue;
+                throw new Exception('error conunt > 3');
             }
             $this->update(array('error_count' => $this->error_count + 1));
-            continue;
+            throw new Exception('error');
         }
         try {
             Crawler::updateContent($this, $body, $header);

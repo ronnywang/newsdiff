@@ -149,7 +149,7 @@ class Crawler
         );
         $total = intval($total);
         $part = intval($part);
-        foreach (News::search("created_at > $now - 86400 AND last_fetch_at < $now - 3600")->order('last_fetch_at ASC') as $news) {
+        foreach (News::search("created_at > $now - 86400 AND (last_fetch_at = 0 OR (last_fetch_at > $now - 86400 AND last_fetch_at < $now - 3600))")->order('last_fetch_at ASC') as $news) {
             if ($total !== 1 and intval($news->source) % $total !== $part) {
                 continue;
             }
