@@ -1,0 +1,20 @@
+{
+  "repo" :"ronnywang/newsdiff",
+  "author" : "ronnywang",
+  "status" : "",
+  "name": "NewsDiff",
+  "name_zh": "NewsDiff 官方新聞稿異動情況站",
+  "description": "NewsDiff",
+  "description_zh": "NewsDiff 官方新聞稿異動情況站",
+  "homepage" : "",
+  "thumbnail" : "",
+  "document": "",
+  "repository": "https://github.com/ronnywang/newsdiff/",
+  "licenses": [],
+  "keywords": [],
+  "audience": [],
+  "products" :[],
+  "partOf": "",
+  "contributors" :[],
+  "needs" : []
+}
