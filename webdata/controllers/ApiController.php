@@ -23,6 +23,9 @@ class ApiController extends Pix_Controller
             $info->body = strval($news_info->body);
             $ret['infos'][] = $info;
         }
+        if ($_GET['raw']) {
+            $ret['raws'] = $news->getRaws();
+        }
         return $this->json($ret);
     }
 }
