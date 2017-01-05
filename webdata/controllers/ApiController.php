@@ -6,18 +6,23 @@ class ApiController extends Pix_Controller
     {
         $url = $_GET['url'];
 
-        if (!$news = News::findByURL($url)) {
+        if (preg_match('#^[0-9]+$#', $url)) {
+            if (!$news = News::find($url)) {
+                return $this->json(array('error' => true, 'message' => '找不到這則新聞'));
+            }
+        } else if (!$news = News::findByURL($url)) {
             return $this->json(array('error' => true, 'message' => '找不到這則新聞'));
         }
 
-        $infos = array();
+        $ret = $news->toArray();
+        $ret['infos'] = array();
         foreach ($news->infos->order('time ASC') as $news_info) {
             $info = new StdClass;
             $info->time = intval($news_info->time);
             $info->title = strval($news_info->title);
             $info->body = strval($news_info->body);
-            $infos[] = $info;
+            $ret['infos'][] = $info;
         }
-        return $this->json($infos);
+        return $this->json($ret);
     }
 }
