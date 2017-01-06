@@ -35,12 +35,8 @@ class Crawler_TTV {
         $blocks = array();
         $doms = $doc->getElementsByTagName('div');
         foreach ($doms AS $dom) {
-            if ($dom->getAttribute('class') === 'content') {
-                $c = trim(Crawler::getTextFromDom($dom));
-                if (strpos($c, '相關新聞：')) {
-                    continue;
-                }
-                $blocks[] = $c;
+            if ($dom->getAttribute('class') === 'br') {
+                $blocks[] = trim(Crawler::getTextFromDom($dom));
             }
         }
         $ret->body = implode("\n", $blocks);
