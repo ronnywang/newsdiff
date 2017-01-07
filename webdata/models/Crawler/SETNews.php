@@ -10,7 +10,7 @@ class Crawler_SETNews
         $insert = $update = 0;
         foreach ($links as $link) {
             $update ++;
-            $link = 'http://www.setn.net/News.aspx?' . $link;
+            $link = 'http://www.setn.com/News.aspx?' . $link;
             $insert += News::addNews($link, 15);
             if ($insert_limit <= $insert) {
                 break;
