@@ -24,7 +24,12 @@ class ApiController extends Pix_Controller
             $ret['infos'][] = $info;
         }
         if ($_GET['raw']) {
-            $ret['raws'] = $news->getRaws();
+            $raws = $news->getRaws();
+            $raws = array_map(function($raw) {
+                $raw->raw = iconv('UTF-8', 'UTF-8//IGNORE', $raw->raw);
+                return $raw;
+            }, $raws);
+            $ret['raws'] = $raws;
         }
         return $this->json($ret);
     }
