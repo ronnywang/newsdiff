@@ -54,7 +54,7 @@ class Crawler_Ettoday
         }
 
         if ($type == 1) {
-            foreach ($doc->getElementsByTagName('sectione') as $sectione_dom) {
+            foreach ($doc->getElementsByTagName('section') as $sectione_dom) {
                 if ($sectione_dom->getAttribute('itemprop') == 'articleBody') {
                     $ret->body = '';
                     foreach ($sectione_dom->childNodes as $node) {
