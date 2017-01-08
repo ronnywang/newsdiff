@@ -5,6 +5,10 @@ class Crawler_TheNewsLens
     public static function crawl($insert_limit)
     {
         $content = Crawler::getBody('https://www.thenewslens.com/');
+        preg_match_all('#(/category/[^"/]*)#', $content, $matches);
+        foreach ($matches[0] as $category) {
+            $content .= Crawler::getBody('https://www.thenewslens.com' . $category);
+        }
 
         preg_match_all('#https://www.thenewslens.com(/article/[0-9]+)#', $content, $matches);
         $insert = $update = 0;
