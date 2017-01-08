@@ -19,7 +19,8 @@ $crawlers = array(
     13 => 'Crawler_CTS',
     14 => 'Crawler_FTV',
     15 => 'Crawler_SETNews',
-    16 => 'Crawler_StormMediaGroup'
+    16 => 'Crawler_StormMediaGroup',
+    17 => 'Crawler_TheNewsLens',
 );
 
 $start = microtime(true);

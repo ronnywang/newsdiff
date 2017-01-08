@@ -36,3 +36,4 @@ www.youtube.com,'^/watch',https://www.youtube.com/watch?v={$v},www.youtube.com/w
 www.youtube.com,'^/embed',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
 www.stormmediagroup.com,'^/opencms',http://www.stormmediagroup.com/opencms/news/detail/{$uuid}/?uuid={$uuid},stormmediagroup/{$uuid}
 www.storm.mg,'^/article/([0-9]*)',http://www.storm.mg/article/{$1},storm/{$1}
+www.thenewslens.com,'^/article/([0-9]*)',https://www.thenewslens.com,www.thenewslens.com/article/{$1}

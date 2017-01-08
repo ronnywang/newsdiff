@@ -120,6 +120,10 @@ class NewsRaw extends Pix_Table
             $ret = Crawler_StormMediaGroup::parse($raw, $url);
             break;
 
+        case 'www.thenewslens.com':
+            $ret = Crawler_TheNewsLens::parse($raw, $url);
+            break;
+
         default:
             throw new Exception('unknown host: ' . $url);
         }
