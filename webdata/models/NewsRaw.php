@@ -111,7 +111,7 @@ class NewsRaw extends Pix_Table
             $ret = Crawler_FTV::parse($raw, $url);
             break;
 
-        case 'www.setn.net':
+        case 'www.setn.com':
             $ret = Crawler_SETNews::parse($raw, $url);
             break;
 
