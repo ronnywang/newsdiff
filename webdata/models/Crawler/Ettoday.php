@@ -24,6 +24,7 @@ class Crawler_Ettoday
     public static function parse($body)
     {
         $body = str_replace('<meta charset="utf-8">', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>', $body);
+        $body = str_replace('<!--網頁基本meta data-->', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>', $body);
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
@@ -49,6 +50,10 @@ class Crawler_Ettoday
                     $ret->title = trim($h1_dom->nodeValue);
                     $type = 2;
                     break;
+                } elseif ($h1_dom->getAttribute('class') == 'title_article') {
+                    $ret->title = trim($h1_dom->nodeValue);
+                    $type = 'fashion';
+                    break;
                 }
             }
         }
@@ -67,6 +72,12 @@ class Crawler_Ettoday
                 }
             }
         } elseif ($type == 2) {
+            foreach ($doc->getElementsByTagName('div') as $div_dom) {
+                if ($div_dom->getAttribute('class') == 'story') {
+                    $ret->body = Crawler::getTextFromDom($div_dom);
+                }
+            }
+        } elseif ($type == 'fashion') {
             foreach ($doc->getElementsByTagName('div') as $div_dom) {
                 if ($div_dom->getAttribute('class') == 'story') {
                     $ret->body = Crawler::getTextFromDom($div_dom);
