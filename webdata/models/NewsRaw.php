@@ -116,6 +116,7 @@ class NewsRaw extends Pix_Table
             break;
 
         case 'www.stormmediagroup.com':
+        case 'www.storm.mg':
             $ret = Crawler_StormMediaGroup::parse($raw, $url);
             break;
 
