@@ -1,10 +1,10 @@
 domain,pattern,normalized_url,normalized_id
-udn.com,'^/NEWS/([^/]*)/([^/]*)/([^/]*-)?([0-9]*)\.shtml',http://udn.com/NEWS/{$1}/{$2}/{$4}.shtml,udn.com/news/{$4}
-udn.com,'^/news/story/([0-9]*)/([0-9]*)',http://udn.com/news/story/{$1}/{$2},udn.com/news/{$1}/{$2}
-www.udn.com,'^/NEWS/([^/]*)/([^/]*)/([^/]*-)?([0-9]*)\.shtml',http://udn.com/NEWS/{$1}/{$2}/{$4}.shtml,udn.com/news/{$4}
-udn.com,'^/[0-9]*/[0-9]*/[0-9]*/NEWS/[^/]*/[^/]*/([0-9]*).shtml$',http://www.udn.com{$0},udn.com/news/{$1}
-www.udn.com,'^/[0-9]*/[0-9]*/[0-9]*/NEWS/[^/]*/[^/]*/([0-9]*).shtml$',http://www.udn.com{$0},udn.com/news/{$1}
-forum.udn.com,'^/forum/NewsLetter/NewsPreview',http://forum.udn.com/forum/NewsLetter/NewsPreview?Encode=Big5&NewsID={$NewsID},udn.com/news/{$NewsID}
+udn.com,'^/NEWS/([^/]*)/([^/]*)/([^/]*-)?([0-9]*)\.shtml',https://udn.com/NEWS/{$1}/{$2}/{$4}.shtml,udn.com/news/{$4}
+udn.com,'^/news/story/([0-9]*)/([0-9]*)',https://udn.com/news/story/{$1}/{$2},udn.com/news/{$1}/{$2}
+www.udn.com,'^/NEWS/([^/]*)/([^/]*)/([^/]*-)?([0-9]*)\.shtml',https://udn.com/NEWS/{$1}/{$2}/{$4}.shtml,udn.com/news/{$4}
+udn.com,'^/[0-9]*/[0-9]*/[0-9]*/NEWS/[^/]*/[^/]*/([0-9]*).shtml$',https://www.udn.com{$0},udn.com/news/{$1}
+www.udn.com,'^/[0-9]*/[0-9]*/[0-9]*/NEWS/[^/]*/[^/]*/([0-9]*).shtml$',https://www.udn.com{$0},udn.com/news/{$1}
+forum.udn.com,'^/forum/NewsLetter/NewsPreview',https://forum.udn.com/forum/NewsLetter/NewsPreview?Encode=Big5&NewsID={$NewsID},udn.com/news/{$NewsID}
 www.facebook.com,'^/photo.php',https://www.facebook.com/photo.php?fbid={$fbid},www.facebook.com/photo/{$fbid}
 www.facebook.com,'^/permalink.php',https://www.facebook.com/permalink.php?story_fbid={$story_fbid}&id={$id},www.facebook.com/permalink/{$story_fbid}/{$id}
 www.facebook.com,'^/([^/]*)/posts/([0-9]*)',https://www.facebook.com{$0},www.facebook.com/posts/{$2}
