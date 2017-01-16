@@ -5,9 +5,9 @@ class Crawler_UDN
     public static function crawl($insert_limit)
     {
         for ($i = 1; $i <10; $i ++) {
-            $content .= Crawler::getBody("http://udn.com/rssfeed/news/1/{$i}?ch=news");
+            $content .= Crawler::getBody("https://udn.com/rssfeed/news/1/{$i}?ch=news");
         }
-        preg_match_all('#http://udn.com/news/story/[0-9]*/[0-9]*#', $content, $matches);
+        preg_match_all('#https?://udn.com/news/story/[0-9]*/[0-9]*#', $content, $matches);
         foreach ($matches[0] as $link) {
             $update ++;
             $insert += News::addNews($link, 8);
