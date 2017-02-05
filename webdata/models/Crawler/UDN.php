@@ -4,15 +4,23 @@ class Crawler_UDN
 {
     public static function crawl($insert_limit)
     {
-        for ($i = 1; $i <10; $i ++) {
-            $content .= Crawler::getBody("https://udn.com/rssfeed/news/1/{$i}?ch=news");
-        }
-        preg_match_all('#https?://udn.com/news/story/[0-9]*/[0-9]*#', $content, $matches);
-        foreach ($matches[0] as $link) {
-            $update ++;
-            $insert += News::addNews($link, 8);
-            if ($insert_limit <= $insert) {
-                break;
+        $rss_content = Crawler::getBody("https://udn.com/rssfeed/lists/2");
+        preg_match_all('#"(/rssfeed/news/[^"]*)"#', $rss_content, $matches);
+        $content = '';
+        foreach (array_unique($matches[1]) as $url) {
+            try {
+                $content = Crawler::getBody('https://udn.com' . $url);
+            } catch (Exception $e) {
+                error_log($url . ' failed');
+                continue;
+            }
+            preg_match_all('#https?://udn.com/news/story/[0-9]*/[0-9]*#', $content, $matches);
+            foreach ($matches[0] as $link) {
+                $update ++;
+                $insert += News::addNews($link, 8);
+                if ($insert_limit <= $insert) {
+                    break 2;
+                }
             }
         }
         return array($update, $insert);
