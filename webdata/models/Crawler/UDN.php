@@ -7,7 +7,9 @@ class Crawler_UDN
         $rss_content = Crawler::getBody("https://udn.com/rssfeed/lists/2");
         preg_match_all('#"(/rssfeed/news/[^"]*)"#', $rss_content, $matches);
         $content = '';
-        foreach (array_unique($matches[1]) as $url) {
+        $rss_urls = array_unique($matches[1]);
+        shuffle($rss_urls);
+        foreach ($rss_urls as $url) {
             try {
                 $content = Crawler::getBody('https://udn.com' . $url);
             } catch (Exception $e) {
