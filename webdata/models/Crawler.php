@@ -169,10 +169,10 @@ class Crawler
             }
             $count ++;
         }
+        error_log("fetching $count news...");
         if (!$count) {
             return;
         }
-        error_log("fetching $count news...");
         $start = microtime(true);
 
         $handles = array();
