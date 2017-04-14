@@ -4,13 +4,13 @@ class Crawler_Newtalk
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://newtalk.tw');
-        $content .= Crawler::getBody('http://newtalk.tw/rss/all');
+        $content = Crawler::getBody('https://newtalk.tw');
+        $content .= Crawler::getBody('https://newtalk.tw/rss/all');
         for ($i = 1; $i <= 5; $i ++) {
-            $content .= Crawler::getBody('http://newtalk.tw/rss/category/' . $i);
+            $content .= Crawler::getBody('https://newtalk.tw/rss/category/' . $i);
         }
 
-        preg_match_all('#https?://newtalk.tw\/news/view/\d+-\d+-\d+/\d+#', $content, $matches);
+        preg_match_all('#https://newtalk.tw\/news/view/\d+-\d+-\d+/\d+#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[0] as $link) {
             $update ++;
