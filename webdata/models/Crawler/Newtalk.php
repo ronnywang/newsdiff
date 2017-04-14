@@ -10,7 +10,7 @@ class Crawler_Newtalk
             $content .= Crawler::getBody('http://newtalk.tw/rss/category/' . $i);
         }
 
-        preg_match_all('#http://newtalk.tw\/news/view/\d+-\d+-\d+/\d+#', $content, $matches);
+        preg_match_all('#https?://newtalk.tw\/news/view/\d+-\d+-\d+/\d+#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[0] as $link) {
             $update ++;
