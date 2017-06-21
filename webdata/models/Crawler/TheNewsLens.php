@@ -39,7 +39,7 @@ class Crawler_TheNewsLens
             }
         }
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
-            if ($div_dom->getAttribute('class') == 'article-content') {
+            if (strpos($div_dom->getAttribute('class'), 'article-content') !== false) {
                 $ret->body = Crawler::getTextFromDom($div_dom);
                 break;
             }
