@@ -9,7 +9,7 @@ class Crawler_Nownews
         preg_match_all('#href="(\/news/\d\d\d\d\d\d\d\d/\d+)"#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[1] as $link) {
-            $link = Crawler::standardURL('https?://www.nownews.com' . $link);
+            $link = Crawler::standardURL('https://www.nownews.com' . $link);
             $update ++;
             $insert += News::addNews($link, 7);
             if ($insert_limit <= $insert) {
