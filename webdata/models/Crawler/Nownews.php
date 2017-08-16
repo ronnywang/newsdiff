@@ -4,12 +4,12 @@ class Crawler_Nownews
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://www.nownews.com');
+        $content = Crawler::getBody('https://www.nownews.com');
 
-        preg_match_all('#href="(\/n/\d\d\d\d/\d\d/\d\d/\d+)"#', $content, $matches);
+        preg_match_all('#href="(\/news/\d\d\d\d\d\d\d\d/\d+)"#', $content, $matches);
         $insert = $update = 0;
         foreach ($matches[1] as $link) {
-            $link = Crawler::standardURL('http://www.nownews.com' . $link);
+            $link = Crawler::standardURL('https?://www.nownews.com' . $link);
             $update ++;
             $insert += News::addNews($link, 7);
             if ($insert_limit <= $insert) {
