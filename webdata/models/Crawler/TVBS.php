@@ -4,14 +4,7 @@ class Crawler_TVBS
 {
     public static function crawl($insert_limit)
     {
-        $urls = array(
-            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-news-daily.jsp',
-            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-news-weekly.jsp',
-            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-news-choice.jsp',
-            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-forum.jsp',
-            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/scheduler/ranking-video.jsp',
-            'http://news.tvbs.com.tw/opencms/system/modules/com.thesys.project.tvbs/pages/news/ajax-news-time-list.jsp?dataFolder=%2Fnews%2F&date=' . date('Y-m-d', time() - 3600),
-        );
+        $urls = array();
         foreach (array('photos', 'politics', 'local', 'money', 'life', 'sports', 'entertainment', 'china', 'world', 'tech', 'travel', 'fun') as $type) {
             $urls[] = 'http://news.tvbs.com.tw/' . $type;
         }
@@ -20,12 +13,13 @@ class Crawler_TVBS
         foreach ($urls as $url) {
             $content .= Crawler::getBody($url);
         }
-        preg_match_all('#href="(/opencms/news/.*/news-[0-9]*)/"]*#', $content, $matches);
+        preg_match_all('#href=\'/?([a-z]+/[0-9]+)\'#', $content, $matches);
+        $links = $matches[1];
         $links = array_unique($matches[1]);
         $insert = $update = 0;
         foreach ($links as $link) {
             $update ++;
-            $link = 'http://news.tvbs.com.tw' . $link;
+            $link = 'http://news.tvbs.com.tw/' . $link;
             $insert += News::addNews($link, 9);
             if ($insert_limit <= $insert) {
                 break;
