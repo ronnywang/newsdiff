@@ -35,30 +35,35 @@ class Crawler_TVBS
 
         @$doc->loadHTML($body);
         $ret = new StdClass;
-        if ($article_dom = $doc->getElementsByTagName('article')->item(0)) {
-            $ret->title = trim($article_dom->getElementsByTagName('h1')->item(0)->nodeValue);
-            $ret->body = Crawler::getTextFromDom($doc->getElementById('news_contents'));
-        }
 
-        if (!$ret->title) {
-            foreach ($doc->getElementsByTagName('div') as $div_dom) {
-                if ($div_dom->getAttribute('class') == 'reandrBox') {
-                    if ($div_dom->getElementsByTagName('h2')->length == 1) {
-                        $ret->title = $div_dom->getElementsByTagName('h2')->item(0)->nodeValue;
-                    }
-                    $ret->body = '';
-                    foreach (array('Update_time', 'textContent') as $class) {
-                        foreach ($div_dom->getElementsByTagName('div') as $sub_div_dom) {
-                            if (in_array($class, explode(' ', $sub_div_dom->getAttribute('class')))) {
-                                $ret->body .= trim(Crawler::getTextFromDom($sub_div_dom)) . "\n";
-                            }
-                        }
-                    }
-                    $ret->body = trim($ret->body);
-                    break;
-                }
+        $detail_dom = null;
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'newsdetail') {
+                $detail_dom = $div_dom;
+                break;
             }
         }
+
+        if (is_null($detail_dom)) {
+            $ret->title = $ret->body = '無法判斷的內容';
+            return $ret;
+        }
+
+        foreach ($detail_dom->childNodes as $child_node) {
+            if ($child_node->nodeName != 'div') {
+                continue;
+            }
+
+            if ($child_node->getAttribute('class') == 'newsdetail-titel') {
+                $ret->title = trim($child_node->nodeValue);
+            }
+
+            if (in_array($child_node->getAttribute('class'), array('newsdetail-time', 'newsdetail-peo', 'newsdetail-img', 'newsdetail-content'))) {
+                $ret->body = trim($ret->body) . "\n" . trim(Crawler::getTextFromDom($child_node));
+            }
+        }
+        print_r($ret);
+        exit;
         return $ret;
     }
 }
