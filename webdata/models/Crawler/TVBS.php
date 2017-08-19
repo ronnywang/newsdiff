@@ -62,8 +62,6 @@ class Crawler_TVBS
                 $ret->body = trim($ret->body) . "\n" . trim(Crawler::getTextFromDom($child_node));
             }
         }
-        print_r($ret);
-        exit;
         return $ret;
     }
 }
