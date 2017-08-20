@@ -20,11 +20,14 @@ class Crawler_Nownews
     }
     public static function parse($body)
     {
-        $body = mb_convert_encoding($body, 'HTML-ENTITIES', "UTF-8");
-        $doc = new DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument;
         @$doc->loadHTML($body);
 
-        $ret = new STdClass;
+        if (strpos($body, '找不到網頁或內容，回')) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         if (!$h1_dom = $doc->getElementsByTagName('h1')->item(0)) {
             $ret->title = $ret->body = '無法判斷的內容';
             return $ret;
