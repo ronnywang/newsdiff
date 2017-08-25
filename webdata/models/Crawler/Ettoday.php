@@ -26,6 +26,12 @@ class Crawler_Ettoday
         $body = str_replace('<meta charset="utf-8">', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>', $body);
         $body = str_replace('<!--網頁基本meta data-->', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>', $body);
 
+        if (strpos($body, '<title>404錯誤 | ETNEWS新聞雲</title>')) {
+            $ret = new STdClass;
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
         $doc = new DOMDocument('1.0', 'UTF-8');
         @$doc->loadHTML($body);
         $ret = new StdClass;
