@@ -31,7 +31,8 @@ news.pts.org.tw,'^/detail.php$',http://news.pts.org.tw/detail.php?NEENO={$NEENO}
 news.pts.org.tw,'^/article/([0-9]+)',http://news.pts.org.tw/detail.php?NEENO={$1},news.pts.org.tw/{$1}
 www.ttv.com.tw,'^/news/view/([0-9a-z]*)',http://www.ttv.com.tw{$0},www.ttv.com.tw/news/{$1}
 news.cts.com.tw,'^/([a-z]*)/[a-z]*/[0-9]*/([0-9]*)\.html$',http://news.cts.com.tw{$0},news.cts.com.tw/{$1}/{$2}
-news.ftv.com.tw,'^/NewsContent\.aspx$',http://news.ftv.com.tw/NewsContent.aspx?sno={$sno},news.ftv.com.tw/{$sno}
+news.ftv.com.tw,'^/NewsContent\.aspx$',https://news.ftv.com.tw/news/detail/{$sno},news.ftv.com.tw/{$sno}
+news.ftv.com.tw,'^/news/detail/(.*)$',https://news.ftv.com.tw/news/detail/{$1},news.ftv.com.tw/{$1}
 www.setn.com,'^/News\.aspx$',http://www.setn.com/News.aspx?NewsID={$NewsID},www.setn.com/news/{$NewsID}
 www.youtube.com,'^/watch',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
 www.youtube.com,'^/embed',https://www.youtube.com/watch?v={$v},www.youtube.com/watch?v={$v}
