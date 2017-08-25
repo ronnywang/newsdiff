@@ -4,36 +4,38 @@ class Crawler_FTV
 {
     public static function crawl($insert_limit)
     {
-        $content = Crawler::getBody('http://news.ftv.com.tw/');
-        preg_match_all('#sno=[0-9A-Z]*#', $content, $matches);
-        $links = array_unique($matches[0]);
+        // https://ftvapi.azurewebsites.net/api/FtvGetNewsCate 抓群組
+        $categories = json_decode(file_Get_contents('https://ftvapi.azurewebsites.net/api/FtvGetNewsCate'));
         $insert = $update = 0;
-        foreach ($links as $link) {
-            $update ++;
-            $link = 'http://news.ftv.com.tw/NewsContent.aspx?' . $link;
-            $insert += News::addNews($link, 14);
-            if ($insert_limit <= $insert) {
-                break;
+        foreach ($categories as $category) {
+            // https://ftvapi.azurewebsites.net/api/FtvGetNewsWeb?Cate=LIV&Page=1&Sp=12
+            $url = sprintf("https://ftvapi.azurewebsites.net/api/FtvGetNewsWeb?Cate=%s&Page=1&Sp=100", $category->ID);
+            $obj = json_decode(file_get_contents($url));
+            foreach ($obj->ITEM as $item) {
+                $update ++;
+                $insert += News::addNews($item->WebLink, 14);
+                if ($insert_limit <= $insert) {
+                    break;
+                }
             }
         }
         return array($update, $insert);
     }
 
-    public static function parse($body)
+    public static function parse($body, $url)
     {
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        $body = str_replace('</head>', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>', $body);
+        if (!preg_match('#https://news.ftv.com.tw/news/detail/([^/]*)#', $url, $matches)) {
+            return null;
+        }
 
-        @$doc->loadHTML($body);
-        if (!$h1_dom = $doc->getElementById('h1')) {
-            return null;
-        }
-        if (!$content_dom = $doc->getElementById('newscontent')) {
-            return null;
-        }
+        $id = $matches[1];
+        $url = "https://ftvapi.azurewebsites.net/api/FtvGetNewsContent?id=" . urlencode($id);
+        $obj = json_decode(file_get_contents($url));
+
         $ret = new StdClass;
-        $ret->title = trim(Crawler::getTextFromDom($doc->getElementById('h1')));
-        $ret->body = trim(Crawler::getTextFromDom($doc->getElementById('newscontent')));
+        $ret->title = $obj->ITEM[0]->Title;
+        $ret->body = $obj->ITEM[0]->Content;
+
         return $ret;
     }
 }
