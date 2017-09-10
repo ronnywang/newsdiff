@@ -191,8 +191,14 @@ class Crawler_Libertytimes
                 if ($div_dom->getAttribute('itemprop') == 'articleBody') {
                     $ret->body = trim(Crawler::getTextFromDom($div_dom));
                     if ($h1_dom = $doc->getElementsByTagName('h1')->item(0)) {
-                        $ret->title = trim($h1_dom->childNodes->item(0)->nodeValue);
-                        return $ret;
+                        $text_dom = $h1_dom->childNodes->item(0);
+                        while ($text_dom) {
+                            if ($text_dom->nodeName == '#text') {
+                                $ret->title = trim($text_dom->nodeValue);
+                                return $ret;
+                            }
+                            $text_dom = $text_dom->nextSibling;
+                        }
                     }
                 }
             }
