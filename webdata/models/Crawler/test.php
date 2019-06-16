@@ -32,7 +32,7 @@ readline("try random 100 news (press enter to continue)");
 foreach ($news as $url) {
     error_log("try {$url}");
     $content = Crawler::getBody($url);
-    $ret = call_user_func(array($class, 'parse'), $content);
+    $ret = call_user_func(array($class, 'parse'), $content, $url);
     echo ("Title: " . $ret->title . "\n");
     echo $ret->body . "\n";
     echo "{$url}\n";
