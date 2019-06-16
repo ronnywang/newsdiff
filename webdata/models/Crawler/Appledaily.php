@@ -2,42 +2,87 @@
 
 class Crawler_Appledaily
 {
+    public static function getStdURL($url)
+    {
+        $host = parse_url($url, PHP_URL_HOST);
+        $path = parse_url($url, PHP_URL_PATH);
+
+        if ($host == 'tw.news.appledaily.com') {
+            $host = 'tw.appledaily.com';
+        }
+
+        if (in_array($host, array(
+            'tw.entertainment.appledaily.com',
+            'tw.sports.appledaily.com',
+            'tw.finance.appledaily.com',
+        )) and strpos($path, '/realtime') === 0) {
+            $url = 'https://tw.appledaily.com/new' . $path;
+        } elseif ($host == 'tw.lifestyle.appledaily.com' and preg_match('#^/(gadget|lifestyle)/realtime#', $path)) {
+            $url = 'https://tw.appledaily.com/new' . preg_replace('#^/(gadget|lifestyle)#', '', $path);
+        } elseif (preg_match('#^/(micromovie|local|new|forum|politics|life|international|recommend)(/realtime.*)#', $path, $matches) and 'tw.appledaily.com' == $host) {
+            $url = 'https://tw.appledaily.com/new' . $matches[2];
+        } elseif (preg_match('#^/(international|headline)/daily/#', $path)) {
+            $url = 'https://tw.appledaily.com' . $path;
+        } elseif (in_array($host, array(
+            'tw.entertainment.appledaily.com',
+            'tw.finance.appledaily.com',
+            'tw.sports.appledaily.com',
+        )) and strpos($path, '/daily/') === 0) {
+            $url = 'https://tw.appledaily.com/' . explode('.', $host)[1] . $path;
+        } else {
+            throw new Exception("unknown url:" . $url);
+        }
+        return $url;
+    }
+
     public static function crawl($insert_limit)
     {
-        $urls = array(
-            'http://www.appledaily.com.tw',
-            'http://www.appledaily.com.tw/appledaily/todayapple',
-            'http://www.appledaily.com.tw/appledaily/article/headline',
-            'http://ent.appledaily.com.tw/',
-            'http://www.appledaily.com.tw/appledaily/article/international',
-            'http://www.appledaily.com.tw/appledaily/article/sports',
-            'http://www.appledaily.com.tw/appledaily/article/supplement',
-            'http://www.appledaily.com.tw/appledaily/article/finance',
-            'http://www.appledaily.com.tw/appledaily/article/property',
-            'http://www.appledaily.com.tw/appledaily/article/forum',
+        $link = array(
+            'https://tw.appledaily.com/recommend/realtime/',
+            'https://tw.appledaily.com/new/realtime/',
+            'https://tw.appledaily.com/micromovie/realtime/',
+            'https://tw.entertainment.appledaily.com/realtime/',
+            'https://tw.finance.appledaily.com/realtime/',
+            'https://tw.news.appledaily.com/local/realtime/',
+            'https://tw.news.appledaily.com/international/realtime/',
+            'https://tw.news.appledaily.com/politics/realtime/',
+            'https://tw.news.appledaily.com/life/realtime/',
+            'https://tw.lifestyle.appledaily.com/gadget/realtime/',
+            'https://tw.lifestyle.appledaily.com/lifestyle/realtime/',
+            'https://tw.sports.appledaily.com/realtime/',
+            'https://tw.appledaily.com/complainevent/',
+            'https://tw.news.appledaily.com/forum/realtime/',
         );
-        for ($i = 1; $i < 10; $i ++) {
-            $urls[] = 'http://www.appledaily.com.tw/realtimenews/section/new/' . $i;
-        }
 
-        $content = '';
-        foreach ($urls as $url) {
-            try {
-                $content .= Crawler::getBody($url);
-            } catch (Exception $e) {
-                error_log("Crawler_Appledaily {$url} failed: {$e->getMessage()}");
-            }
-        }
-
-
-        preg_match_all('#/(appledaily|realtimenews)/article/[^/]*/\d+/[^"]+#', $content, $matches);
         $insert = $update = 0;
-        foreach ($matches[0] as $link) {
-            $url = Crawler::standardURL('http://www.appledaily.com.tw' . $link);
-            $update ++;
-            $insert += News::addNews($url, 1);
-            if ($insert_limit <= $insert) {
-                break;
+        $added = array();
+        foreach ($link as $index_url) {
+            $index_host = parse_url($index_url, PHP_URL_HOST);
+            for ($i = 1; $i < 2; $i ++) {
+                try {
+                    error_log("loading news from {$index_url}{$i}");
+                    $content = Crawler::getBody($index_url . $i);
+                    preg_match_all('#"(https:)?/[^"]*(realtime|daily)/\d{8,8}/\d{3,}#', $content, $matches);
+                    foreach ($matches[0] as $url) {
+                        $url = trim($url, '"');
+                        if (strpos($url, 'https://') === false) {
+                            $url = 'https://' . $index_host . $url;
+                        }
+                        $url = self::getStdURL($url);
+
+                        if (array_key_exists($url, $added)) {
+                            continue;
+                        }
+                        $added[$url] = true;
+                        $update ++;
+                        $insert += News::addNews($url, 1);
+                        if ($insert_limit <= $insert) {
+                            break 3;
+                        }
+                    }
+                } catch (Exception $e) {
+                    error_log("Crawler_Appledaily {$url} failed: {$e->getMessage()}");
+                }
             }
         }
 
@@ -46,38 +91,36 @@ class Crawler_Appledaily
 
     public static function parse($body)
     {
-        if ('<script>alert("該則即時新聞不存在 !");location.href="/";</script>' == trim($body)) {
-            $ret = new StdClass;
-            $ret->title = $ret->body = 404;
-            return $ret;
-        }
-        if (strpos($body, '<script>alert("查無此新聞 !");location.href="/index"</script>') !== false) {
-            $ret = new StdClass;
-            $ret->title = $ret->body = 404;
-            return $ret;
-        }
-        if (strpos($body, '很抱歉，您所嘗試連結的頁面出現錯誤或不存在，請稍後再試，謝謝！') !== false) {
-            $ret = new StdClass;
-            $ret->title = $ret->body = 404;
-            return $ret;
-        }
-        $body = str_replace('<meta charset="utf-8" />', '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">', $body);
-        $doc = new DOMDocument('1.0', 'UTF-8');
-        @$doc->loadHTML($body);
         $ret = new StdClass;
-        $ret->title = trim($doc->getElementById('h1')->nodeValue);
+
+        $doc = new DOMDocument;
+        @$doc->loadHTML($body);
+
+        $h1_dom = $doc->getElementsByTagName('h1')->item(0);
+        if (!$h1_dom) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
+
+        $ret->title = $h1_dom->nodeValue;
         $ret->body = '';
 
-        if ($doc->getElementById('maincontent') and $article_dom = $doc->getElementById('maincontent')->getElementsByTagName('article')->item(0)) {
-            // 廣編特輯
-            $body_dom = null;
-            foreach ($article_dom->getElementsByTagName('div') as $div_dom) {
-                if (strpos($div_dom->getAttribute('class'), 'articulum') !== false) {
-                    $ret->body = trim(Crawler::getTextFromDom($div_dom));
-                    break;
-                }
+        // 出版時間
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'ndArticle_creat') {
+                $ret->body .= $div_dom->nodeValue . "\n";
+                break;
             }
         }
+
+        // 內文
+        foreach ($doc->getElementsByTagName('div') as $div_dom) {
+            if ($div_dom->getAttribute('class') == 'ndArticle_margin') {
+                $ret->body .= Crawler::getTextFromDom($div_dom->getElementsByTagName('p')->item(0));
+                break;
+            }
+        }
+
         return $ret;
     }
 
