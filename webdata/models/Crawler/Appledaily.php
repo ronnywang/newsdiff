@@ -34,6 +34,9 @@ class Crawler_Appledaily
         } else {
             throw new Exception("unknown url:" . $url);
         }
+
+        preg_match('#(.*/(realtime|daily)/\d*/\d*)#', $url, $matches);
+        $url = $matches[1];
         return $url;
     }
 
