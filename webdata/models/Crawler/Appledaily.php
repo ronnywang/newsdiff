@@ -122,7 +122,12 @@ class Crawler_Appledaily
         // 內文
         foreach ($doc->getElementsByTagName('div') as $div_dom) {
             if ($div_dom->getAttribute('class') == 'ndArticle_margin') {
-                $ret->body .= Crawler::getTextFromDom($div_dom->getElementsByTagName('p')->item(0));
+                foreach ($div_dom->childNodes as $node) {
+                    if ($node->nodeName == 'script') {
+                        break;
+                    }
+                    $ret->body = trim($ret->body . "\n" . Crawler::getTextFromDom($node));
+                }
                 break;
             }
         }
