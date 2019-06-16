@@ -128,9 +128,33 @@ class News extends Pix_Table
 
     }
 
+    public function getStdURL($url)
+    {
+        $host = parse_url($url, 'PHP_URL_HOST');
+        switch ($host) {
+        case 'tw.news.appledaily.com':
+        case 'tw.appledaily.com':
+        case 'tw.entertainment.appledaily.com':
+        case 'tw.finance.appledaily.com':
+        case 'tw.sports.appledaily.com':
+        case 'tw.lifestyle.appledaily.com':
+            $ret = new StdClass;
+            try {
+                $ret->normalized_id = Crawler_Appledaily::getStdURL($url);
+            } catch (Exception $e) {
+                return null;
+            }
+            break;
+        default:
+            $ret = URLNormalizer::query($url);
+            break;
+        }
+        return $ret;
+    }
+
     public function findByURL($url)
     {
-        $ret = URLNormalizer::query($url);
+        $ret = self::getStdURL($url);
         if (!$ret) {
             return;
         }
@@ -139,7 +163,7 @@ class News extends Pix_Table
 
     public function addNews($url, $source)
     {
-        $ret = URLNormalizer::query($url);
+        $ret = self::getStdURL($url);
         if (!$ret) {
             error_log("URLNormalizer 失敗: {$url}");
             return 0;
