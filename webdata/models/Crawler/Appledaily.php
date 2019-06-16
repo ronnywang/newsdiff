@@ -94,6 +94,10 @@ class Crawler_Appledaily
     public static function parse($body)
     {
         $ret = new StdClass;
+        if (strpos($body, '<script>alert("查無此新聞 !");location.href="/index"</script>') != false) {
+            $ret->title = $ret->body = 404;
+            return $ret;
+        }
 
         $doc = new DOMDocument;
         @$doc->loadHTML($body);
