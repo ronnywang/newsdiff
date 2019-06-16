@@ -43,7 +43,7 @@ class NewsRow extends Pix_Table_Row
                     error_log("處理 {$this->url} 錯誤: " . $e->getMessage());
                     throw $e;
                 }
-                if (count($diff_infos) and $diff_infos[0]['title'] == $diff_infos[0]['body'] and in_array($diff_infos[0]['title'], array('', 0, 404, '無法判斷的內容', '503'))) {
+                if (count($diff_infos) and $diff_infos[0]['title'] == $diff_infos[0]['body'] and in_array($diff_infos[0]['title'], array('', 0, 404, '無法判斷的內容', '503', '403'))) {
                     array_shift($diff_infos);
                 }
 
