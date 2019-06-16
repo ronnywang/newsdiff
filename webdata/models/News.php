@@ -130,7 +130,7 @@ class News extends Pix_Table
 
     public function getStdURL($url)
     {
-        $host = parse_url($url, 'PHP_URL_HOST');
+        $host = parse_url($url, PHP_URL_HOST);
         switch ($host) {
         case 'tw.news.appledaily.com':
         case 'tw.appledaily.com':
