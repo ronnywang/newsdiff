@@ -55,6 +55,7 @@ class NewsRaw extends Pix_Table
             break;
 
         case 'www.appledaily.com.tw':
+        case 'tw.appledaily.com':
             $ret = Crawler_Appledaily::parse($raw, $url);
             break;
 
