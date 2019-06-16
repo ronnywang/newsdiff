@@ -29,6 +29,8 @@ class Crawler_Appledaily
             'tw.sports.appledaily.com',
         )) and strpos($path, '/daily/') === 0) {
             $url = 'https://tw.appledaily.com/' . explode('.', $host)[1] . $path;
+        } elseif ($host == 'tw.appledaily.com' and preg_match('#^/(entertainment|finance|sports|)/daily#', $path)) {
+            $url = 'https://tw.appledaily.com' . $path;
         } else {
             throw new Exception("unknown url:" . $url);
         }
