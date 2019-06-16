@@ -128,7 +128,7 @@ class News extends Pix_Table
 
     }
 
-    public function getStdURL($url)
+    public static function getStdURL($url)
     {
         $host = parse_url($url, PHP_URL_HOST);
         switch ($host) {
@@ -152,7 +152,7 @@ class News extends Pix_Table
         return $ret;
     }
 
-    public function findByURL($url)
+    public static function findByURL($url)
     {
         $ret = self::getStdURL($url);
         if (!$ret) {
@@ -161,7 +161,7 @@ class News extends Pix_Table
         return News::find_by_normalized_crc32(crc32($ret->normalized_id));
     }
 
-    public function addNews($url, $source)
+    public static function addNews($url, $source)
     {
         $ret = self::getStdURL($url);
         if (!$ret) {
